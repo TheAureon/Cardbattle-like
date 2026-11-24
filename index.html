@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Crown Siege</title>
+<style>
+  :root{
+    --bg:#1b1f2e; --panel:#262b3f; --panel2:#30364f; --text:#f2f4ff; --muted:#9aa3c7;
+    --blue:#3b82f6; --red:#ef4444; --mana:#d946ef; --gold:#facc15;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;user-select:none;touch-action:none}
+  #app{display:flex;flex-direction:column;height:100vh;height:100dvh;max-width:560px;margin:0 auto}
+  #top{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:var(--panel)}
+  .crowns{font-weight:800;font-size:18px;padding:3px 10px;border-radius:999px}
+  .crowns.red{background:rgba(239,68,68,.25);color:#fecaca}
+  .crowns.blue{background:rgba(59,130,246,.25);color:#bfdbfe}
+  #timerBox{text-align:center;line-height:1.05}
+  #timer{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+  #phase{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  #phase.hot{color:var(--mana);font-weight:700}
+  #stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative}
+  canvas{display:block;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+  #toast{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:8px 16px;border-radius:10px;
+    background:rgba(0,0,0,.7);font-weight:700;pointer-events:none;opacity:0;transition:opacity .25s;white-space:nowrap}
+  #toast.show{opacity:1}
+  #bottom{background:var(--panel);padding:8px 10px 10px}
+  #hand{display:flex;gap:6px;align-items:flex-end}
+  #nextWrap{width:46px;flex:none;text-align:center;font-size:10px;color:var(--muted)}
+  #next{height:52px;border-radius:8px;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:24px;opacity:.85;margin-top:2px;position:relative}
+  #cards{display:flex;gap:6px;flex:1}
+  .card{flex:1;position:relative;height:88px;border-radius:10px;background:linear-gradient(#3a4163,#2a3050);
+    border:2px solid #4b5585;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;
+    transition:transform .1s,border-color .1s;overflow:hidden;touch-action:none}
+  .card .icon{font-size:34px;line-height:1;pointer-events:none}
+  .card .nm{font-size:10px;margin-top:4px;color:#cdd3f5;text-align:center;pointer-events:none;padding:0 2px}
+  .cost{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--mana);
+    font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px rgba(0,0,0,.25);pointer-events:none;z-index:2}
+  .card .shade{position:absolute;left:0;right:0;top:0;background:rgba(10,12,20,.6);pointer-events:none;transition:height .1s linear}
+  .card.sel{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 0 12px rgba(250,204,21,.5)}
+  #manaRow{display:flex;align-items:center;gap:8px;margin-top:8px}
+  #manaNum{width:30px;height:30px;border-radius:50%;background:var(--mana);font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;font-size:15px}
+  #manaBar{flex:1;height:16px;border-radius:8px;background:#151827;position:relative;overflow:hidden}
+  #manaFill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#a21caf,#e879f9);width:50%}
+  #manaTicks{position:absolute;inset:0;display:flex}
+  #manaTicks i{flex:1;border-right:2px solid rgba(21,24,39,.8)}
+  #manaTicks i:last-child{border-right:none}
+  .overlay{position:fixed;inset:0;background:rgba(12,14,24,.92);display:flex;align-items:center;justify-content:center;z-index:10;padding:16px}
+  .overlay[hidden]{display:none}
+  .panel{background:var(--panel);border-radius:16px;padding:18px;max-width:520px;width:100%;max-height:100%;overflow:auto;touch-action:pan-y}
+  h1{margin:0 0 2px;font-size:28px;letter-spacing:.02em}
+  h1 span{color:var(--gold)}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+  h3{margin:14px 0 8px;font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  #deckGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .pick{position:relative;border-radius:10px;background:var(--panel2);border:2px solid transparent;padding:8px 4px 6px;text-align:center;cursor:pointer}
+  .pick .icon{font-size:28px}
+  .pick .nm{font-size:11px;margin-top:2px}
+  .pick .ds{font-size:9.5px;color:var(--muted);margin-top:2px;line-height:1.2}
+  .pick.on{border-color:var(--gold);background:#3c3a2a}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{border:none;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer;background:var(--panel2);color:var(--text)}
+  .btn.on{background:#4b5585;outline:2px solid var(--gold)}
+  .btn.go{background:linear-gradient(#f59e0b,#d97706);color:#1b1f2e;font-size:18px;padding:12px 20px;width:100%;margin-top:16px}
+  .btn.go:disabled{opacity:.4;cursor:not-allowed}
+  .help{font-size:12px;color:var(--muted);line-height:1.5;margin-top:12px}
+  #endTitle{font-size:40px;margin:0;text-align:center}
+  #endSub{text-align:center;color:var(--muted);margin:6px 0 0}
+  #endCrowns{text-align:center;font-size:30px;margin:12px 0}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <div class="crowns red" id="crR">👑 0</div>
+    <div id="timerBox"><div id="timer">3:00</div><div id="phase">Battle</div></div>
+    <div class="crowns blue" id="crB">👑 0</div>
+  </div>
+  <div id="stage"><canvas id="cv"></canvas><div id="toast"></div></div>
+  <div id="bottom">
+    <div id="hand">
+      <div id="nextWrap">Next<div id="next"></div></div>
+      <div id="cards"></div>
+    </div>
+    <div id="manaRow">
+      <div id="manaNum">5</div>
+      <div id="manaBar"><div id="manaFill"></div><div id="manaTicks"></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="menu" class="overlay">
+  <div class="panel">
+    <h1>Crown <span>Siege</span></h1>
+    <p class="sub">Real-time lane battler. Destroy the enemy towers before the clock runs out.</p>
+    <h3>Your deck — <span id="deckCount">8</span>/8</h3>
+    <div id="deckGrid"></div>
+    <h3>Opponent</h3>
+    <div class="row" id="diffRow">
+      <button class="btn" data-d="0">Easy</button>
+      <button class="btn on" data-d="1">Normal</button>
+      <button class="btn" data-d="2">Hard</button>
+    </div>
+    <button class="btn go" id="startBtn">⚔️ Battle!</button>
+    <div class="help">
+      <b>How to play:</b> drag a card onto your (bottom) half of the arena, or tap a card then tap the arena.
+      Cards cost mana, which refills over time (double speed in the final minute).
+      Knock out a side tower for 1 crown, the king tower for 3. Destroying a side tower also lets you deploy deeper in that lane.
+      Most crowns at the end wins; a tie goes to sudden-death overtime.
+    </div>
+  </div>
+</div>
+
+<div id="end" class="overlay" hidden>
+  <div class="panel">
+    <p id="endTitle">Victory!</p>
+    <div id="endCrowns"></div>
+    <p id="endSub"></p>
+    <button class="btn go" id="againBtn">Play again</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+// ===== Arena constants (in tiles) =====
+const W = 18, H = 32, RT = 15, RB = 17, BRIDGES = [3.5, 14.5], BHW = 1.0;
+const MAX_MANA = 10, REGEN = 1 / 2.8, MATCH_TIME = 180, OVERTIME = 60;
+
+// ===== Cards =====
+const CARDS = {
+  squire:   {name:'Squire',      cost:3, icon:'🛡️', count:1, desc:'Sturdy melee fighter',
+             u:{hp:950, dmg:125, hit:1.1, range:0.7, speed:1.0, radius:0.5, mass:4}},
+  rangers:  {name:'Rangers',     cost:3, icon:'🏹', count:2, desc:'Two archers, hit air',
+             u:{hp:260, dmg:75, hit:1.0, range:5, speed:1.15, radius:0.4, air:true, proj:'arrow', mass:2}},
+  golem:    {name:'Stone Golem', cost:5, icon:'🗿', count:1, desc:'Huge tank, hits buildings',
+             u:{hp:3000, dmg:190, hit:1.5, range:0.8, speed:0.7, radius:0.8, targets:'buildings', mass:12}},
+  goblins:  {name:'Goblin Pack', cost:2, icon:'👺', count:3, desc:'Three fast stabbers',
+             u:{hp:170, dmg:85, hit:1.0, range:0.5, speed:1.8, radius:0.35, mass:1}},
+  pyro:     {name:'Pyromancer',  cost:5, icon:'🧙', count:1, desc:'Splash fireballs, hits air',
+             u:{hp:560, dmg:190, hit:1.4, range:5.5, speed:1.0, radius:0.45, air:true, splash:1.5, proj:'fire', mass:3}},
+  bats:     {name:'Bat Swarm',   cost:2, icon:'🦇', count:4, desc:'Four flying biters',
+             u:{hp:75, dmg:65, hit:1.0, range:0.6, speed:2.0, radius:0.3, air:true, flying:true, mass:1}},
+  drake:    {name:'Ember Drake', cost:4, icon:'🐉', count:1, desc:'Flying splash breather',
+             u:{hp:950, dmg:120, hit:1.5, range:3.5, speed:1.3, radius:0.6, air:true, flying:true, splash:1.2, proj:'fire', mass:5}},
+  bull:     {name:'War Bull',    cost:4, icon:'🐂', count:1, desc:'Fast charger, hits buildings',
+             u:{hp:1350, dmg:230, hit:1.6, range:0.6, speed:1.9, radius:0.6, targets:'buildings', mass:6}},
+  bones:    {name:'Bone Horde',  cost:3, icon:'💀', count:8, desc:'Eight fragile skeletons',
+             u:{hp:75, dmg:65, hit:1.0, range:0.5, speed:1.5, radius:0.3, mass:0.5}},
+  cannon:   {name:'Cannon',      cost:3, icon:'💣', type:'building', count:1, desc:'Defensive turret, 30s',
+             u:{hp:750, dmg:130, hit:0.9, range:5.5, speed:0, radius:0.8, proj:'ball', lifetime:30, mass:99}},
+  fireball: {name:'Fireball',    cost:4, icon:'🔥', type:'spell', desc:'Heavy area damage',
+             spell:{radius:2.5, dmg:520, tower:0.35, travel:true}},
+  shock:    {name:'Shock',       cost:2, icon:'⚡', type:'spell', desc:'Zap + brief stun',
+             spell:{radius:2.5, dmg:190, tower:0.35, stun:0.6}},
+};
+for (const k in CARDS) { CARDS[k].key = k; CARDS[k].type = CARDS[k].type || 'troop'; }
+const ALL_KEYS = Object.keys(CARDS);
+const DEFAULT_DECK = ['squire','rangers','golem','goblins','pyro','bats','fireball','shock'];
+const PROJ_SPEED = {arrow:14, fire:10, ball:12, spell:11};
+
+// ===== State =====
+let G = null;          // current game
+let nid = 1;
+let playerDeck = loadDeck();
+let difficulty = 1;
+const AUTOPLAY = /autoplay/.test(location.search); // AI vs AI (for testing)
+
+function loadDeck(){
+  try { const d = JSON.parse(localStorage.getItem('cs_deck')); if (Array.isArray(d) && d.length===8 && d.every(k=>CARDS[k])) return d; } catch(e){}
+  return DEFAULT_DECK.slice();
+}
+function saveDeck(){ try { localStorage.setItem('cs_deck', JSON.stringify(playerDeck)); } catch(e){} }
+
+function shuffle(a){ for (let i=a.length-1;i>0;i--){ const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function mkHand(deck){
+  const q = shuffle(deck.slice());
+  return { hand:q.slice(0,4), queue:q.slice(4) };
+}
+
+function mkTower(team, kind, x, y){
+  const king = kind==='king';
+  return { id:nid++, team, isTower:true, isBuilding:true, kind, x, y,
+    hp: king?3400:1900, maxHp: king?3400:1900, dmg: king?90:70, hit: king?1.0:0.8,
+    range: king?7:7.5, radius: king?1.6:1.3, air:true, proj:'arrow', speed:0, mass:999,
+    active:!king, cd:0, target:null, retarget:0, stun:0, deploy:0, flash:0, icon: king?'👑':'' };
+}
+
+function newGame(){
+  nid = 1;
+  const aiDeck = shuffle(ALL_KEYS.slice()).slice(0,8);
+  G = {
+    t: 0, over:false, overtime:false, ents:[], projs:[], fx:[],
+    mana:[5,5], crowns:[0,0], hands:[mkHand(AUTOPLAY?shuffle(ALL_KEYS.slice()).slice(0,8):playerDeck), mkHand(aiDeck)],
+    ai:[{timer:2},{timer:2}], sel:-1,
+  };
+  G.ents.push(mkTower(0,'princess',BRIDGES[0],25.5), mkTower(0,'princess',BRIDGES[1],25.5), mkTower(0,'king',9,29));
+  G.ents.push(mkTower(1,'princess',BRIDGES[0],6.5),  mkTower(1,'princess',BRIDGES[1],6.5),  mkTower(1,'king',9,3));
+  buildHandUI();
+}
+
+function mkUnit(team, key, x, y){
+  const c = CARDS[key], u = c.u;
+  return { id:nid++, team, key, icon:c.icon, x, y, hp:u.hp, maxHp:u.hp, dmg:u.dmg, hit:u.hit, range:u.range,
+    speed:u.speed, radius:u.radius, mass:u.mass, air:!!u.air, flying:!!u.flying, targets:u.targets||'any',
+    splash:u.splash||0, proj:u.proj||null, isBuilding:c.type==='building', life:u.lifetime||0,
+    cd:0, deploy:1, target:null, retarget:0, stun:0, flash:0, face:team===0?-1:1 };
+}
+
+// ===== Geometry helpers =====
+const dist = (a,b) => Math.hypot(a.x-b.x, a.y-b.y);
+const edge = (a,b) => dist(a,b) - (a.radius||0) - (b.radius||0);
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+function sideOf(y){ return y < RT ? 'top' : y > RB ? 'bottom' : 'river'; }
+function kingOf(team){ return G.ents.find(e=>e.isTower && e.kind==='king' && e.team===team); }
+
+// Ground navigation: route through the nearest bridge when target is across the river
+function navPoint(e, tx, ty){
+  if (e.flying) return [tx, ty];
+  const us = sideOf(e.y), ts = sideOf(ty);
+  if (us === ts) return [tx, ty];
+  let b = BRIDGES[0], best = Infinity;
+  for (const bx of BRIDGES){ const c = Math.abs(e.x-bx) + Math.abs(tx-bx); if (c < best){ best=c; b=bx; } }
+  if (us === 'river'){
+    if (ts === 'river') return [tx, ty];
+    return [b, ty < 16 ? RT - 0.6 : RB + 0.6];
+  }
+  const towardTop = us === 'bottom';
+  const nearBank = towardTop ? RB + 0.6 : RT - 0.6;
+  const farBank = towardTop ? RT - 0.6 : RB + 0.6;
+  const onApproach = Math.abs(e.x-b) < BHW - 0.25 && Math.abs(e.y - nearBank) < 1.6;
+  if (onApproach) return [b, farBank];
+  return [b, nearBank];
+}
+
+// ===== Deploy rules =====
+function deployZoneOK(team, x, y){
+  if (x < 0.4 || x > W-0.4 || y < 0.4 || y > H-0.4) return false;
+  const enemy = 1-team;
+  const leftDown = !G.ents.some(e=>e.isTower && e.team===enemy && e.kind==='princess' && e.x<9);
+  const rightDown = !G.ents.some(e=>e.isTower && e.team===enemy && e.kind==='princess' && e.x>9);
+  if (team===0){
+    if (y >= RB + 0.5) return true;
+    if (y >= 10 && ((x < 9 && leftDown) || (x >= 9 && rightDown))) return true;
+  } else {
+    if (y <= RT - 0.5) return true;
+    if (y <= H-10 && ((x < 9 && leftDown) || (x >= 9 && rightDown))) return true;
+  }
+  return false;
+}
+function canDeploy(team, key, x, y){
+  const c = CARDS[key];
+  if (c.type === 'spell') return x>=0 && x<=W && y>=0 && y<=H;
+  if (!deployZoneOK(team,x,y)) return false;
+  if (sideOf(y)==='river' && !BRIDGES.some(b=>Math.abs(x-b)<BHW)) return false;
+  return true;
+}
+
+function playCard(team, idx, x, y){
+  const h = G.hands[team], key = h.hand[idx], c = CARDS[key];
+  if (!key || G.mana[team] < c.cost) return 'mana';
+  if (!canDeploy(team, key, x, y)) return 'zone';
+  G.mana[team] -= c.cost;
+  h.hand[idx] = h.queue.shift(); h.queue.push(key);
+  if (c.type === 'spell') castSpell(team, key, x, y);
+  else {
+    const n = c.count;
+    for (let i=0;i<n;i++){
+      let ox=0, oy=0;
+      if (n>1){ const a = i/n*Math.PI*2 + (team?0:Math.PI); const r = n>4?1.0:0.7; ox=Math.cos(a)*r; oy=Math.sin(a)*r; }
+      const u = mkUnit(team, key, clamp(x+ox,0.4,W-0.4), clamp(y+oy,0.4,H-0.4));
+      G.ents.push(u);
+    }
+    G.fx.push({type:'ring', x, y, r:1.2, t:0, max:0.4, color: team?'#fca5a5':'#93c5fd'});
+  }
+  if (team===0) buildHandUI();
+  return 'ok';
+}
+
+function castSpell(team, key, x, y){
+  const s = CARDS[key].spell;
+  if (s.travel){
+    const k = kingOf(team) || {x:9, y: team?3:29};
+    G.projs.push({x:k.x, y:k.y, tx:x, ty:y, sx:k.x, sy:k.y, target:null, speed:PROJ_SPEED.spell, team, kind:'spellball', spellKey:key});
+  } else applySpell(team, key, x, y);
+}
+function applySpell(team, key, x, y){
+  const s = CARDS[key].spell;
+  for (const o of G.ents){
+    if (o.team===team || o.hp<=0) continue;
+    if (dist(o,{x,y}) <= s.radius + (o.radius||0)*0.5){
+      hurt(o, o.isTower ? s.dmg*s.tower : s.dmg);
+      if (s.stun && !o.isTower){ o.stun = Math.max(o.stun, s.stun); o.cd = Math.max(o.cd, o.hit*0.5); }
+    }
+  }
+  G.fx.push({type:'blast', x, y, r:s.radius, t:0, max:0.5, color: key==='shock' ? '#7dd3fc' : '#fb923c'});
+}
+
+function hurt(o, dmg){
+  o.hp -= dmg; o.flash = 0.12;
+  if (o.isTower && o.kind==='king') o.active = true;
+  if (dmg >= 1) G.fx.push({type:'num', x:o.x + (Math.random()-.5)*.6, y:o.y - (o.radius||0.5), t:0, max:0.7, text:String(Math.round(dmg)), color:'#fff'});
+}
+
+function splashAt(team, x, y, r, dmg, hitsAir){
+  for (const o of G.ents){
+    if (o.team===team || o.hp<=0) continue;
+    if (o.flying && !hitsAir) continue;
+    if (dist(o,{x,y}) <= r + (o.radius||0)*0.5) hurt(o, dmg);
+  }
+}
+
+// ===== Simulation =====
+function canHit(e, o){
+  if (o.team===e.team || o.hp<=0) return false;
+  if (o.flying && !e.air) return false;
+  if (e.targets==='buildings' && !o.isBuilding) return false;
+  return true;
+}
+function findTarget(e){
+  const sight = e.speed===0 ? e.range : Math.max(5.5, e.range+1.5);
+  let best=null, bd=Infinity;
+  for (const o of G.ents){
+    if (!canHit(e,o)) continue;
+    const d = edge(e,o);
+    if (d <= sight && d < bd){ bd=d; best=o; }
+  }
+  if (!best && e.speed>0){
+    for (const o of G.ents){
+      if (!o.isTower || !canHit(e,o)) continue;
+      const d = dist(e,o);
+      if (d < bd){ bd=d; best=o; }
+    }
+  }
+  return best;
+}
+
+function attack(e, t){
+  if (e.proj){
+    G.projs.push({x:e.x, y:e.y - (e.flying?0.4:0), target:t, tx:t.x, ty:t.y, speed:PROJ_SPEED[e.proj], dmg:e.dmg,
+      splash:e.splash, team:e.team, air:e.air, kind:e.proj});
+  } else {
+    if (e.splash) splashAt(e.team, t.x, t.y, e.splash, e.dmg, e.air); else hurt(t, e.dmg);
+    G.fx.push({type:'slash', x:(e.x+t.x)/2, y:(e.y+t.y)/2, t:0, max:0.15});
+  }
+  e.lunge = 0.15;
+}
+
+function updateEntity(e, dt){
+  e.flash = Math.max(0, e.flash - dt);
+  if (e.lunge) e.lunge = Math.max(0, e.lunge - dt);
+  if (e.deploy > 0){ e.deploy -= dt; return; }
+  if (e.life){ e.hp -= e.maxHp / e.life * dt; }
+  if (e.stun > 0){ e.stun -= dt; return; }
+  if (e.isTower && !e.active) return;
+  e.cd -= dt; e.retarget -= dt;
+  if (e.target && e.target.hp <= 0) e.target = null;
+  const inRange = e.target && edge(e, e.target) <= e.range;
+  if (e.target && e.isTower && edge(e,e.target) > e.range) e.target = null;
+  if (!e.target || (!inRange && e.retarget <= 0)){
+    const nt = findTarget(e);
+    if (nt !== e.target){ e.target = nt; if (nt) e.cd = Math.max(e.cd, e.hit*0.35); }
+    e.retarget = 0.3;
+  }
+  const t = e.target;
+  if (!t) return;
+  if (edge(e,t) <= e.range){
+    if (e.cd <= 0){ attack(e,t); e.cd = e.hit; }
+    e.face = Math.sign(t.y - e.y) || e.face;
+  } else if (e.speed > 0){
+    const [px,py] = navPoint(e, t.x, t.y);
+    const dx = px-e.x, dy = py-e.y, d = Math.hypot(dx,dy) || 1;
+    const step = Math.min(d, e.speed*dt);
+    e.x += dx/d*step; e.y += dy/d*step;
+    if (Math.abs(dy) > 0.01) e.face = Math.sign(dy);
+  }
+}
+
+function separate(){
+  const es = G.ents;
+  for (let i=0;i<es.length;i++){
+    const a = es[i];
+    for (let j=i+1;j<es.length;j++){
+      const b = es[j];
+      if (a.flying !== b.flying) continue;
+      if (a.speed===0 && b.speed===0) continue;
+      const dx = b.x-a.x, dy = b.y-a.y, d = Math.hypot(dx,dy);
+      const min = a.radius + b.radius;
+      if (d >= min || d === 0 && false) continue;
+      const nx = d ? dx/d : (Math.random()-.5), ny = d ? dy/d : (Math.random()-.5);
+      const ov = (min - d);
+      const ma = a.speed===0 ? 1e9 : a.mass, mb = b.speed===0 ? 1e9 : b.mass;
+      const fa = mb/(ma+mb), fb = ma/(ma+mb);
+      a.x -= nx*ov*fa*0.5; a.y -= ny*ov*fa*0.5;
+      b.x += nx*ov*fb*0.5; b.y += ny*ov*fb*0.5;
+    }
+  }
+  for (const e of es){
+    if (e.speed===0) continue;
+    e.x = clamp(e.x, e.radius, W-e.radius); e.y = clamp(e.y, e.radius, H-e.radius);
+    if (!e.flying && e.y > RT && e.y < RB){
+      let nb = BRIDGES[0];
+      for (const b of BRIDGES) if (Math.abs(e.x-b) < Math.abs(e.x-nb)) nb = b;
+      if (Math.abs(e.x-nb) > BHW - e.radius*0.5){
+        // off the bridge: snap back onto bridge edge or bank, whichever is closer
+        const toBridge = Math.abs(e.x-nb) - (BHW - e.radius*0.5);
+        const toBank = Math.min(e.y-RT, RB-e.y);
+        if (toBridge < toBank) e.x = nb + Math.sign(e.x-nb)*(BHW - e.radius*0.5);
+        else e.y = (e.y-RT < RB-e.y) ? RT : RB;
+      }
+    }
+  }
+}
+
+function updateProjectiles(dt){
+  for (const p of G.projs){
+    if (p.target && p.target.hp > 0){ p.tx = p.target.x; p.ty = p.target.y; }
+    const dx = p.tx-p.x, dy = p.ty-p.y, d = Math.hypot(dx,dy);
+    const step = p.speed*dt;
+    if (d <= step){
+      p.done = true;
+      if (p.kind === 'spellball') applySpell(p.team, p.spellKey, p.tx, p.ty);
+      else if (p.splash){ splashAt(p.team, p.tx, p.ty, p.splash, p.dmg, p.air); G.fx.push({type:'blast', x:p.tx, y:p.ty, r:p.splash, t:0, max:0.3, color:'#fdba74'}); }
+      else if (p.target && p.target.hp > 0) hurt(p.target, p.dmg);
+    } else { p.x += dx/d*step; p.y += dy/d*step; }
+  }
+  G.projs = G.projs.filter(p=>!p.done);
+}
+
+function processDeaths(){
+  for (const e of G.ents){
+    if (e.hp > 0) continue;
+    G.fx.push({type:'poof', x:e.x, y:e.y, r:e.radius*1.6, t:0, max:0.45});
+    if (e.isTower){
+      const other = 1 - e.team;
+      if (e.kind === 'king'){ G.crowns[other] = 3; endGame(); }
+      else {
+        G.crowns[other] = Math.min(3, G.crowns[other]+1);
+        const k = kingOf(e.team); if (k) k.active = true;
+        if (G.overtime) endGame();
+      }
+      toast(e.team===0 ? 'You lost a tower!' : 'Tower destroyed! 👑');
+    }
+  }
+  G.ents = G.ents.filter(e=>e.hp>0);
+}
+
+function step(dt){
+  if (G.over) return;
+  G.t += dt;
+  const remaining = timeLeft();
+  if (remaining <= 0){
+    if (!G.overtime && G.crowns[0] === G.crowns[1]){ G.overtime = true; toast('Overtime! Next crown wins'); }
+    else { endGame(); return; }
+  }
+  const mult = (G.overtime ? 3 : remaining <= 60 ? 2 : 1);
+  for (let t=0;t<2;t++){
+    const bonus = (t===1 && !AUTOPLAY) ? [0.85,1,1.12][difficulty] : 1;
+    G.mana[t] = Math.min(MAX_MANA, G.mana[t] + REGEN*mult*bonus*dt);
+  }
+  for (const e of G.ents) updateEntity(e, dt);
+  separate();
+  updateProjectiles(dt);
+  processDeaths();
+  for (const f of G.fx) f.t += dt;
+  G.fx = G.fx.filter(f=>f.t < f.max);
+  for (let t=AUTOPLAY?0:1; t<2; t++){
+    G.ai[t].timer -= dt;
+    if (G.ai[t].timer <= 0){ G.ai[t].timer = aiThink(t); }
+  }
+}
+function timeLeft(){ return (G.overtime ? MATCH_TIME+OVERTIME : MATCH_TIME) - G.t; }
+
+// ===== AI =====
+// The AI reasons in "own-side-is-top" coordinates; fy() flips for the bottom team.
+function aiThink(team){
+  const fy = y => team===1 ? y : H - y;
+  const reaction = AUTOPLAY ? 0.7 : [1.6, 0.9, 0.5][difficulty];
+  const h = G.hands[team], mana = G.mana[team];
+  const afford = h.hand.map((k,i)=>({k,i,c:CARDS[k]})).filter(o=>o.c.cost <= mana);
+  const enemies = G.ents.filter(e=>e.team!==team && !e.isTower);
+  const mine = G.ents.filter(e=>e.team===team && !e.isTower);
+  const myTowers = G.ents.filter(e=>e.team===team && e.isTower);
+  // threats: enemy units on (or approaching) our side
+  const threats = enemies.filter(e=>fy(e.y) < RB + 3).sort((a,b)=>fy(a.y)-fy(b.y));
+  const tryPlay = (o, x, y) => playCard(team, o.i, clamp(x,0.6,W-0.6), clamp(fy(y),0.6,H-0.6)) === 'ok';
+
+  if (threats.length){
+    const th = threats[0];
+    const near = threats.filter(e=>dist(e,th) < 2.8);
+    const clusterHp = near.reduce((s,e)=>s+e.hp,0);
+    const defenders = mine.filter(m=>dist(m,th) < 6 && canHit(m, th)).reduce((s,m)=>s+m.hp,0);
+    const threatHp = threats.reduce((s,e)=>s+e.hp,0);
+    if (defenders > threatHp*0.9) return reaction;
+    // spells on clusters
+    for (const o of afford){
+      if (o.c.type!=='spell') continue;
+      const s = o.c.spell;
+      const worth = o.k==='fireball' ? (clusterHp >= 700 || (near.length>=2 && clusterHp>=450)) : (near.length >= 3);
+      if (worth){
+        const lead = th.speed * (s.travel ? 0.9 : 0.1) * (th.deploy>0?0:1);
+        const k = kingOf(team);
+        const dirY = (fy(th.y) > fy(k?k.y:0)) ? -1 : 1;
+        if (tryPlay(o, th.x, fy(th.y) + dirY*lead)) return reaction;
+      }
+    }
+    // troop / building counter
+    let best=null, bs=-1;
+    for (const o of afford){
+      if (o.c.type==='spell') continue;
+      const u = o.c.u;
+      if (th.flying && !u.air) continue;
+      let s = 1;
+      if (th.targets==='buildings') s += (o.c.count>=3 ? 3 : 0) + (o.c.type==='building' ? 3 : 0);
+      if (o.c.count===1 && th.hp > 1000) s += 1;
+      if (near.length>=3) s += (u.splash ? 3 : 0) - (o.c.count>=3 ? 2 : 0);
+      if (u.targets==='buildings') s -= 3;
+      if (o.c.type==='building' && th.targets!=='buildings') s -= 1;
+      s -= o.c.cost * 0.15;
+      if (s > bs){ bs=s; best=o; }
+    }
+    if (best && bs > -1){
+      const thy = fy(th.y);
+      let x = th.x, y;
+      if (best.c.type==='building'){ x = 9 + (th.x<9?-1.5:1.5); y = 8.5; }
+      else if (best.c.u.proj){ y = Math.max(1.5, Math.min(thy - 4, RT-1)); x = th.x < 9 ? 6 : 12; }
+      else y = Math.min(RT-0.7, Math.max(1.5, thy - 1.5));
+      y = Math.min(y, RT-0.7);
+      if (tryPlay(best, x, y)) return reaction;
+    }
+    return reaction;
+  }
+
+  // Offense / support
+  const enemyTowers = G.ents.filter(e=>e.team!==team && e.isTower && e.kind==='princess');
+  let laneX = BRIDGES[Math.random()<0.5?0:1];
+  if (enemyTowers.length){
+    const weakest = enemyTowers.reduce((a,b)=>a.hp<b.hp?a:b);
+    if (Math.random()<0.7) laneX = weakest.x;
+  }
+  const pushing = mine.filter(m=>m.speed>0 && fy(m.y) > RT-3);
+  const pushThreshold = AUTOPLAY ? 7 : [9.5, 8, 7][difficulty];
+  if (pushing.length && mana >= 4){
+    const lead = pushing.reduce((a,b)=>fy(a.y)>fy(b.y)?a:b);
+    const supp = afford.filter(o=>o.c.type==='troop' && o.c.u.targets!=='buildings');
+    if (supp.length){
+      const o = supp[Math.random()*supp.length|0];
+      const by = Math.min(RT-0.7, fy(lead.y) - 2);
+      if (tryPlay(o, lead.x, by)) return reaction;
+    }
+  }
+  // finish off a tower with fireball
+  for (const o of afford){
+    if (o.k==='fireball'){
+      const low = enemyTowers.find(t=>t.hp <= 520*0.35+5);
+      if (low && tryPlay(o, low.x, fy(low.y))) return reaction;
+    }
+  }
+  if (mana >= pushThreshold){
+    const troops = afford.filter(o=>o.c.type==='troop');
+    if (troops.length){
+      const tanks = troops.filter(o=>o.c.u.targets==='buildings' || o.c.u.hp>=900);
+      const o = tanks.length && Math.random()<0.75 ? tanks[Math.random()*tanks.length|0] : troops[Math.random()*troops.length|0];
+      const heavy = o.c.u.hp >= 2000;
+      const y = heavy ? 2.5 : RT - 1.2;
+      const x = heavy ? (laneX<9 ? 7 : 11) : laneX;
+      if (tryPlay(o, x, y)) return reaction;
+    }
+    // at full mana, play something rather than waste it
+    if (mana >= MAX_MANA - 0.1){
+      const any = afford.filter(o=>o.c.type!=='spell');
+      if (any.length){ const o = any[Math.random()*any.length|0]; tryPlay(o, laneX, RT-1.5); }
+    }
+  }
+  return reaction;
+}
+
+// ===== Rendering =====
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+let S = 20, DPR = 1;
+function resize(){
+  const st = document.getElementById('stage');
+  const cw = st.clientWidth - 8, ch = st.clientHeight - 8;
+  S = Math.max(4, Math.min(cw / W, ch / H));
+  DPR = window.devicePixelRatio || 1;
+  cv.style.width = (W*S)+'px'; cv.style.height = (H*S)+'px';
+  cv.width = Math.round(W*S*DPR); cv.height = Math.round(H*S*DPR);
+}
+window.addEventListener('resize', resize);
+
+function px(v){ return v*S*DPR; }
+function circle(x,y,r){ ctx.beginPath(); ctx.arc(px(x),px(y),px(r),0,Math.PI*2); }
+function text(str, x, y, size, color='#fff', weight='700', align='center'){
+  ctx.font = `${weight} ${px(size)}px system-ui,-apple-system,"Segoe UI Emoji","Apple Color Emoji",sans-serif`;
+  ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.fillStyle = color;
+  ctx.fillText(str, px(x), px(y));
+}
+function bar(x, y, w, frac, color){
+  ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fillRect(px(x-w/2)-1, px(y)-1, px(w)+2, px(0.22)+2);
+  ctx.fillStyle = color; ctx.fillRect(px(x-w/2), px(y), px(w*clamp(frac,0,1)), px(0.22));
+}
+
+const TEAMC = ['#3b82f6','#ef4444'], TEAML = ['#93c5fd','#fca5a5'];
+
+function drawArena(){
+  for (let y=0;y<H;y++) for (let x=0;x<W;x++){
+    ctx.fillStyle = (x+y)%2 ? '#5aa04a' : '#62a952';
+    ctx.fillRect(px(x), px(y), px(1)+1, px(1)+1);
+  }
+  // lanes
+  ctx.fillStyle = 'rgba(214,190,130,.28)';
+  for (const b of BRIDGES){ ctx.fillRect(px(b-0.9), px(5), px(1.8), px(22)); }
+  ctx.fillRect(px(3.5), px(4.6), px(11), px(1.2));
+  ctx.fillRect(px(3.5), px(26.2), px(11), px(1.2));
+  // river
+  const g = ctx.createLinearGradient(0,px(RT),0,px(RB));
+  g.addColorStop(0,'#2563eb'); g.addColorStop(.5,'#38bdf8'); g.addColorStop(1,'#2563eb');
+  ctx.fillStyle = g; ctx.fillRect(0, px(RT), px(W), px(RB-RT));
+  ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = px(0.06);
+  const ph = (performance.now()/900) % 2;
+  for (let i=-1;i<W;i+=2){
+    ctx.beginPath(); ctx.moveTo(px(i+ph), px(16)); ctx.quadraticCurveTo(px(i+ph+0.5), px(15.7), px(i+ph+1), px(16)); ctx.stroke();
+  }
+  // bridges
+  for (const b of BRIDGES){
+    ctx.fillStyle = '#8b5a2b'; ctx.fillRect(px(b-BHW), px(RT-0.3), px(BHW*2), px(RB-RT+0.6));
+    ctx.fillStyle = '#a0522d';
+    for (let y=RT-0.2;y<RB+0.3;y+=0.45) ctx.fillRect(px(b-BHW), px(y), px(BHW*2), px(0.3));
+    ctx.fillStyle = '#5b3a1a'; ctx.fillRect(px(b-BHW-0.1), px(RT-0.3), px(0.18), px(RB-RT+0.6)); ctx.fillRect(px(b+BHW-0.08), px(RT-0.3), px(0.18), px(RB-RT+0.6));
+  }
+  // center line
+  ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.lineWidth = px(0.05);
+}
+
+function drawDeployZone(key){
+  if (!key) return;
+  const c = CARDS[key];
+  if (c.type==='spell') return;
+  ctx.fillStyle = 'rgba(220,38,38,.28)';
+  const step = 0.5;
+  for (let y=0;y<H;y+=step) for (let x=0;x<W;x+=step){
+    if (!canDeploy(0, key, x+step/2, y+step/2)) ctx.fillRect(px(x), px(y), px(step)+1, px(step)+1);
+  }
+}
+
+function drawTower(e){
+  const k = e.kind==='king', r = e.radius, col = TEAMC[e.team];
+  // base
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; circle(e.x+0.15, e.y+0.25, r*1.05); ctx.fill();
+  ctx.fillStyle = e.flash>0 ? '#fff' : '#9ca3af';
+  ctx.fillRect(px(e.x-r), px(e.y-r), px(r*2), px(r*2));
+  ctx.fillStyle = '#6b7280';
+  for (let i=0;i<4;i++) ctx.fillRect(px(e.x-r + i*(r*2/4) + 0.05), px(e.y-r-0.25), px(r*2/4-0.15), px(0.35));
+  ctx.fillStyle = col; ctx.fillRect(px(e.x-r*0.7), px(e.y-r*0.7), px(r*1.4), px(r*1.4));
+  ctx.strokeStyle = 'rgba(0,0,0,.35)'; ctx.lineWidth = px(0.06); ctx.strokeRect(px(e.x-r), px(e.y-r), px(r*2), px(r*2));
+  text(k ? '👑' : '🏹', e.x, e.y, k?1.3:0.9);
+  if (k && !e.active) text('💤', e.x+r*0.8, e.y-r*0.9, 0.6);
+  bar(e.x, e.y + r + 0.15, r*2, e.hp/e.maxHp, e.team===0 ? '#60a5fa' : '#f87171');
+  text(String(Math.ceil(e.hp)), e.x, e.y + r + 0.62, 0.45, '#fff', '700');
+}
+
+function drawUnit(e){
+  const col = TEAMC[e.team];
+  const lift = e.flying ? 0.6 + Math.sin(performance.now()/250 + e.id)*0.08 : 0;
+  const lx = e.lunge ? 0 : 0, ly = e.lunge ? e.face*0.12 : 0;
+  ctx.globalAlpha = e.deploy > 0 ? 0.55 : 1;
+  ctx.fillStyle = 'rgba(0,0,0,.28)'; circle(e.x, e.y+0.1, e.radius*0.95); ctx.fill();
+  const x = e.x + lx, y = e.y - lift + ly;
+  if (e.isBuilding){
+    ctx.fillStyle = e.flash>0?'#fff':'#78716c'; ctx.fillRect(px(x-e.radius), px(y-e.radius), px(e.radius*2), px(e.radius*2));
+    ctx.strokeStyle = col; ctx.lineWidth = px(0.12); ctx.strokeRect(px(x-e.radius), px(y-e.radius), px(e.radius*2), px(e.radius*2));
+  } else {
+    ctx.fillStyle = e.flash>0 ? '#fff' : col; circle(x, y, e.radius); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = px(0.06); ctx.stroke();
+  }
+  text(e.icon, x, y+0.02, e.radius*1.35);
+  ctx.globalAlpha = 1;
+  if (e.deploy > 0){
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = px(0.08);
+    ctx.beginPath(); ctx.arc(px(x),px(y),px(e.radius+0.15),-Math.PI/2,-Math.PI/2+Math.PI*2*(1-e.deploy)); ctx.stroke();
+  }
+  if (e.stun > 0) text('⚡', x+e.radius*0.7, y-e.radius*0.8, 0.45);
+  if (e.hp < e.maxHp || e.isBuilding) bar(x, y - e.radius - 0.4, Math.max(0.8, e.radius*2), e.hp/e.maxHp, e.team===0 ? '#60a5fa' : '#f87171');
+}
+
+function drawProj(p){
+  if (p.kind==='spellball'){
+    const tot = Math.hypot(p.tx-p.sx, p.ty-p.sy) || 1, rem = Math.hypot(p.tx-p.x, p.ty-p.y);
+    const arc = Math.sin((1-rem/tot)*Math.PI) * 2.5;
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; circle(p.x, p.y, 0.45); ctx.fill();
+    ctx.fillStyle = '#f97316'; circle(p.x, p.y-arc, 0.55); ctx.fill();
+    ctx.fillStyle = '#fde047'; circle(p.x, p.y-arc, 0.3); ctx.fill();
+    // target marker
+    ctx.strokeStyle = 'rgba(251,146,60,.7)'; ctx.lineWidth = px(0.06); circle(p.tx, p.ty, CARDS[p.spellKey].spell.radius); ctx.stroke();
+    return;
+  }
+  if (p.kind==='arrow'){
+    const a = Math.atan2(p.ty-p.y, p.tx-p.x);
+    ctx.strokeStyle = '#3f2a14'; ctx.lineWidth = px(0.08);
+    ctx.beginPath(); ctx.moveTo(px(p.x - Math.cos(a)*0.45), px(p.y - Math.sin(a)*0.45)); ctx.lineTo(px(p.x), px(p.y)); ctx.stroke();
+  } else if (p.kind==='fire'){
+    ctx.fillStyle = '#fb923c'; circle(p.x, p.y, 0.25); ctx.fill();
+    ctx.fillStyle = '#fef08a'; circle(p.x, p.y, 0.12); ctx.fill();
+  } else {
+    ctx.fillStyle = '#111827'; circle(p.x, p.y, 0.2); ctx.fill();
+  }
+}
+
+function drawFx(f){
+  const k = f.t / f.max;
+  if (f.type==='ring'){ ctx.strokeStyle = f.color; ctx.globalAlpha = 1-k; ctx.lineWidth = px(0.1); circle(f.x,f.y,f.r*(0.4+k)); ctx.stroke(); }
+  else if (f.type==='blast'){ ctx.fillStyle = f.color; ctx.globalAlpha = 0.55*(1-k); circle(f.x,f.y,f.r*(0.5+0.5*k)); ctx.fill(); }
+  else if (f.type==='poof'){ ctx.fillStyle = '#e5e7eb'; ctx.globalAlpha = 0.7*(1-k); circle(f.x,f.y,f.r*(0.5+k)); ctx.fill(); }
+  else if (f.type==='slash'){ ctx.strokeStyle = '#fff'; ctx.globalAlpha = 1-k; ctx.lineWidth = px(0.08); circle(f.x,f.y,0.25+k*0.2); ctx.stroke(); }
+  else if (f.type==='num'){ ctx.globalAlpha = 1-k; text(f.text, f.x, f.y - k*0.8, 0.42, '#fff', '800'); }
+  ctx.globalAlpha = 1;
+}
+
+let pointer = {x:0, y:0, over:false, dragging:false};
+function render(){
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,cv.width,cv.height);
+  drawArena();
+  const selKey = G && G.sel>=0 ? G.hands[0].hand[G.sel] : null;
+  if (G){
+    drawDeployZone(selKey);
+    const ground = G.ents.filter(e=>!e.flying).sort((a,b)=>a.y-b.y);
+    const air = G.ents.filter(e=>e.flying).sort((a,b)=>a.y-b.y);
+    for (const e of ground) e.isTower ? drawTower(e) : drawUnit(e);
+    for (const p of G.projs) if (p.kind!=='spellball') drawProj(p);
+    for (const e of air) drawUnit(e);
+    for (const p of G.projs) if (p.kind==='spellball') drawProj(p);
+    for (const f of G.fx) drawFx(f);
+    // ghost preview
+    if (selKey && pointer.over){
+      const c = CARDS[selKey], ok = canDeploy(0, selKey, pointer.x, pointer.y) && G.mana[0] >= c.cost;
+      ctx.globalAlpha = 0.6;
+      if (c.type==='spell'){
+        ctx.fillStyle = ok ? 'rgba(255,255,255,.25)' : 'rgba(239,68,68,.3)'; circle(pointer.x, pointer.y, c.spell.radius); ctx.fill();
+        ctx.strokeStyle = '#fff'; ctx.lineWidth = px(0.06); ctx.stroke();
+      } else {
+        ctx.fillStyle = ok ? TEAMC[0] : '#7f1d1d'; circle(pointer.x, pointer.y, c.u.radius+0.1); ctx.fill();
+      }
+      text(c.icon, pointer.x, pointer.y, 0.9);
+      ctx.globalAlpha = 1;
+    }
+  }
+}
+
+// ===== UI =====
+const cardsEl = document.getElementById('cards'), nextEl = document.getElementById('next');
+const manaFill = document.getElementById('manaFill'), manaNum = document.getElementById('manaNum');
+document.getElementById('manaTicks').innerHTML = '<i></i>'.repeat(10);
+
+function buildHandUI(){
+  const h = G.hands[0];
+  cardsEl.innerHTML = '';
+  h.hand.forEach((k,i)=>{
+    const c = CARDS[k];
+    const d = document.createElement('div');
+    d.className = 'card' + (G.sel===i ? ' sel' : '');
+    d.dataset.i = i;
+    d.innerHTML = `<div class="cost">${c.cost}</div><div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="shade"></div>`;
+    d.addEventListener('pointerdown', ev=>{ ev.preventDefault(); onCardDown(i, ev); });
+    cardsEl.appendChild(d);
+  });
+  nextEl.textContent = CARDS[h.queue[0]].icon;
+  updateHUD();
+}
+
+function updateHUD(){
+  if (!G) return;
+  const m = G.mana[0];
+  manaFill.style.width = (m/MAX_MANA*100)+'%';
+  manaNum.textContent = Math.floor(m);
+  [...cardsEl.children].forEach((d,i)=>{
+    const c = CARDS[G.hands[0].hand[i]];
+    d.querySelector('.shade').style.height = (m >= c.cost ? 0 : (1 - m/c.cost)*100) + '%';
+    d.classList.toggle('sel', G.sel===i);
+  });
+  const tl = Math.max(0, timeLeft());
+  document.getElementById('timer').textContent = `${Math.floor(tl/60)}:${String(Math.floor(tl%60)).padStart(2,'0')}`;
+  const ph = document.getElementById('phase');
+  if (G.overtime){ ph.textContent = 'Overtime · 3× mana'; ph.className='hot'; }
+  else if (tl <= 60){ ph.textContent = '2× mana'; ph.className='hot'; }
+  else { ph.textContent = 'Battle'; ph.className=''; }
+  document.getElementById('crR').textContent = '👑 ' + G.crowns[1];
+  document.getElementById('crB').textContent = '👑 ' + G.crowns[0];
+}
+
+let toastT = 0;
+function toast(msg){
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 1300);
+}
+
+function toArena(ev){
+  const r = cv.getBoundingClientRect();
+  return { x:(ev.clientX - r.left)/r.width*W, y:(ev.clientY - r.top)/r.height*H,
+    over: ev.clientX>=r.left && ev.clientX<=r.right && ev.clientY>=r.top && ev.clientY<=r.bottom };
+}
+function tryDeployAt(x,y){
+  if (!G || G.over || G.sel < 0) return;
+  const res = playCard(0, G.sel, x, y);
+  if (res==='ok'){ G.sel = -1; buildHandUI(); }
+  else if (res==='mana') toast('Not enough mana');
+  else if (res==='zone') toast("Can't deploy there");
+}
+let downCard = -1, wasSelected = false;
+function onCardDown(i, ev){
+  if (!G || G.over) return;
+  wasSelected = G.sel === i;
+  G.sel = i; downCard = i; pointer.dragging = true;
+  updateHUD();
+}
+window.addEventListener('pointermove', ev=>{ const a = toArena(ev); pointer.x=a.x; pointer.y=a.y; pointer.over=a.over; });
+window.addEventListener('pointerup', ev=>{
+  const a = toArena(ev);
+  if (pointer.dragging){
+    pointer.dragging = false;
+    if (a.over) tryDeployAt(a.x, a.y);
+    else if (wasSelected && ev.target.closest && ev.target.closest('.card')) { G.sel = -1; updateHUD(); }
+    downCard = -1;
+    if (ev.pointerType !== 'mouse') pointer.over = false;
+    return;
+  }
+  if (a.over && ev.target === cv) tryDeployAt(a.x, a.y);
+  if (ev.pointerType !== 'mouse') pointer.over = false;
+});
+cv.addEventListener('pointerdown', ev=>{ const a = toArena(ev); pointer.x=a.x; pointer.y=a.y; pointer.over=true; });
+window.addEventListener('keydown', ev=>{
+  if (!G) return;
+  const n = parseInt(ev.key,10);
+  if (n>=1 && n<=4){ G.sel = G.sel===n-1 ? -1 : n-1; updateHUD(); }
+  if (ev.key==='Escape'){ G.sel = -1; updateHUD(); }
+});
+
+function endGame(){
+  if (G.over) return;
+  G.over = true; G.sel = -1;
+  const [b, r] = G.crowns;
+  const title = b>r ? 'Victory! 🏆' : b<r ? 'Defeat' : 'Draw';
+  document.getElementById('endTitle').textContent = title;
+  document.getElementById('endCrowns').innerHTML = `<span style="color:#93c5fd">You ${'👑'.repeat(b)||'—'}</span> &nbsp;vs&nbsp; <span style="color:#fca5a5">${'👑'.repeat(r)||'—'} Foe</span>`;
+  document.getElementById('endSub').textContent = `Match time ${Math.floor(G.t/60)}:${String(Math.floor(G.t%60)).padStart(2,'0')}`;
+  window.__result = {blue:b, red:r, t:G.t};
+  setTimeout(()=>{ document.getElementById('end').hidden = false; }, 900);
+}
+
+// ===== Menu =====
+function buildMenu(){
+  const grid = document.getElementById('deckGrid'); grid.innerHTML='';
+  for (const k of ALL_KEYS){
+    const c = CARDS[k];
+    const d = document.createElement('div');
+    d.className = 'pick' + (playerDeck.includes(k)?' on':'');
+    d.innerHTML = `<div class="cost">${c.cost}</div><div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="ds">${c.desc}</div>`;
+    d.onclick = ()=>{
+      if (playerDeck.includes(k)) playerDeck = playerDeck.filter(x=>x!==k);
+      else if (playerDeck.length < 8) playerDeck.push(k);
+      buildMenu();
+    };
+    grid.appendChild(d);
+  }
+  document.getElementById('deckCount').textContent = playerDeck.length;
+  document.getElementById('startBtn').disabled = playerDeck.length !== 8;
+}
+document.querySelectorAll('#diffRow .btn').forEach(b=>b.onclick=()=>{
+  difficulty = +b.dataset.d;
+  document.querySelectorAll('#diffRow .btn').forEach(x=>x.classList.toggle('on', x===b));
+});
+function start(){
+  saveDeck();
+  document.getElementById('menu').hidden = true;
+  document.getElementById('end').hidden = true;
+  newGame(); resize();
+  toast('Battle!');
+}
+document.getElementById('startBtn').onclick = start;
+document.getElementById('againBtn').onclick = ()=>{ document.getElementById('end').hidden = true; document.getElementById('menu').hidden = false; buildMenu(); };
+
+// ===== Main loop =====
+let last = performance.now(), acc = 0, hudT = 0;
+const DT = 1/60;
+function frame(now){
+  const speed = AUTOPLAY ? (+new URLSearchParams(location.search).get('speed') || 1) : 1;
+  acc += Math.min(0.1, (now-last)/1000) * speed; last = now;
+  if (G){
+    let n = 0;
+    while (acc >= DT && n++ < 60*speed){ step(DT); acc -= DT; }
+    hudT -= 1; if (hudT <= 0){ updateHUD(); hudT = 3; }
+  } else acc = 0;
+  render();
+  requestAnimationFrame(frame);
+}
+buildMenu(); resize();
+if (AUTOPLAY){ start(); }
+// expose for headless testing
+window.__sim = (seconds)=>{ if(!G) newGame(); const n = Math.round(seconds/DT); for (let i=0;i<n && !G.over;i++) step(DT); return {t:G.t, crowns:G.crowns, over:G.over, ents:G.ents.length}; };
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
