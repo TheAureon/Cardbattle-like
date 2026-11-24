@@ -1,10 +1,10 @@
 # Crown Siege
 
-A real-time lane-battle card game in a single HTML file: no build step and no dependencies.
+A real-time lane-battle card game in 3D, rendered with [Three.js](https://threejs.org/). It has no build step. Three.js (MIT license) is bundled in `vendor/`, so the game also works offline.
 
 ## Play
 
-Open `index.html` in any modern browser, on desktop or mobile.
+Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 
 - Pick 8 of the 12 cards for your deck, choose a difficulty and press **Battle**.
 - Drag a card onto your (bottom) half of the arena, or tap a card and then tap where to deploy it. On desktop, keys `1`–`4` select cards.
