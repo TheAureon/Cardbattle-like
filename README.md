@@ -28,6 +28,19 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 | Cannon | 3 | Defensive building that lasts 30s and hits ground only |
 | Fireball | 4 | Heavy area damage spell |
 | Shock | 2 | Light area damage plus a short stun |
+| Frost | 4 | Freezes enemies (and towers) for 3.5s |
+| Grove Mender | 4 | Heals nearby allied troops every second |
+| Bomber | 3 | Lobs splash bombs, ground only |
+| Arcane Spire | 5 | Building with a beam whose damage ramps up the longer it stays on one target |
+
+## Features
+
+- Synthesized sound effects (no audio files), screen shake, particles and death animations
+- 3-2-1 intro countdown, last-10-seconds countdown, and "2× Mana" / overtime banners
+- Trophies, win/loss record and win streaks, saved in the browser
+- Pause menu (button, `Esc` or `P`; the game also pauses automatically when the tab is hidden) with a surrender option
+- Settings for sound on/off and High/Fast graphics (Fast turns off shadows for slower phones)
+- Range ring shown while placing ranged troops and buildings
 
 ## Dev
 
