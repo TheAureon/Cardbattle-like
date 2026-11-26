@@ -35,6 +35,7 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 | Elder Treant | 5 | Epic tank that splits into 3 saplings when it dies |
 | Storm Caller | 4 | Legendary; lightning that chains to 3 enemies |
 | Shadow Reaper | 4 | Legendary; fast melee that heals itself on every hit |
+| Sun Paladin | 4 | Champion; tap the ability button for Radiant Aegis (2 mana: 3s invulnerable and heals). One champion per deck |
 
 ## Progression
 
@@ -45,6 +46,12 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 - **Daily.** 3 daily quests (with a bonus chest for finishing all three), a daily gift with a 7-day streak, and daily shop deals.
 - **Trophy Road.** Rewards at trophy milestones.
 - **Matchmaking.** The opponent's card and tower levels rise with your trophies.
+- **Season Pass.** A monthly track of 30 tiers that fills with points from crowns and wins. It has free rewards, plus a premium track you unlock for 150 gems.
+- **Events.** Triple Mana and Sudden Death, which don't change your trophies.
+- **Challenges.** A Classic Challenge (free once a day) and a Draft Challenge (pick 1 of 2 cards, 8 times, everything at level 6). Each runs until 12 wins or 3 losses, with rewards at 3, 6, 9 and 12 wins.
+- **Card mastery.** 4 reward tasks per card.
+- **Tower troops.** Archer, Cannoneer (King Level 4) or Flame Keeper (King Level 6).
+- **Decks and history.** 3 deck slots and a battle log of your last 20 matches.
 - **Tiebreaker.** If overtime ends tied, every tower crumbles at the same rate and the first to fall loses.
 
 ## Features

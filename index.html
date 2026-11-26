@@ -160,6 +160,47 @@
   #endRewards .rr{display:flex;align-items:center;gap:8px;background:var(--panel2);border-radius:10px;padding:6px 10px}
   #endRewards .rr b{margin-left:auto}
   #endRewards .rr.gold{box-shadow:0 0 0 2px var(--gold)}
+  .seg{display:flex;background:#12151f;border-radius:10px;padding:3px;gap:3px;margin-bottom:8px}
+  .seg button{flex:1;border:none;background:none;color:var(--muted);padding:7px 4px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer}
+  .seg button.on{background:#3a4163;color:var(--text)}
+  .troops .arena{font-size:11px}.troops .arena small{color:var(--muted);font-size:9.5px}
+  .arenas.troops{grid-template-columns:repeat(3,1fr)}
+  .mast{display:flex;align-items:center;gap:10px;background:#1f2436;border-radius:10px;padding:8px 10px;margin-top:8px;font-size:12.5px}
+  .mast > div{flex:1;display:flex;flex-direction:column;gap:3px}.mast small{color:var(--muted)}.mast .stars{color:var(--gold);letter-spacing:1px}
+  .mast.done{flex-direction:column;align-items:flex-start}
+  .evcard{display:flex;align-items:center;gap:10px;background:var(--panel2);border-radius:12px;padding:10px 12px;margin-bottom:7px;font-size:13px}
+  .evcard > div:nth-child(2){flex:1}.evcard small{color:var(--muted)}.evi{font-size:30px}
+  .chal{background:linear-gradient(160deg,#2d3350,#262b3f);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:6px;border:1px solid #3a4163}
+  .chal .ct{font-size:16px}.chal small{color:var(--muted)}
+  .tiers{display:flex;flex-wrap:wrap;gap:4px}.tiers span{background:#12151f;border-radius:6px;padding:2px 6px;font-size:10.5px}
+  .wins{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+  .wins i{font-style:normal;font-size:9px;text-align:center;background:#12151f;border-radius:5px;padding:4px 0;color:#6b7394}
+  .wins i.on{background:var(--gold);color:#1b1f2e;font-weight:800}
+  .lives{font-size:16px}.ddeck{font-size:20px;letter-spacing:2px}
+  .draft{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+  .ctile.big{padding:18px 6px 10px}.ctile.big .icon{font-size:46px}.ctile.big .nm{font-size:13px;font-weight:700}.ctile.big small{color:var(--muted);font-size:10.5px}
+  .passhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}.passhead > div:first-child{flex:1}.passhead small{color:var(--muted)}
+  .ptier{font-size:13px}.ptier b{font-size:22px;color:var(--gold)}
+  .qbar.big{height:20px;border-radius:10px}.qbar.big span{line-height:20px;font-size:11px}
+  .premok{text-align:center;color:var(--gold);font-weight:800;margin:10px 0}
+  .prow{display:grid;grid-template-columns:34px 1fr 1fr;gap:6px;margin-bottom:5px;opacity:.6}
+  .prow.ok{opacity:1}.prow.phead{opacity:1;font-weight:800;font-size:12px;color:var(--muted)}
+  .prow .pt{display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--gold);background:#12151f;border-radius:8px}
+  .pc{display:flex;align-items:center;gap:6px;background:var(--panel2);border-radius:8px;padding:6px 8px;font-size:11.5px;min-height:42px}
+  .pc span:nth-child(2){flex:1}.pc.prem{background:linear-gradient(90deg,#3c3a2a,#2d3350)}.pc.got{opacity:.55}
+  .phead .pc{min-height:0;background:none}
+  .lk{opacity:.7}
+  .logrow{background:var(--panel2);border-radius:10px;padding:8px 10px;margin-bottom:6px;border-left:4px solid #6b7394;font-size:12.5px}
+  .logrow.w{border-color:#4ade80}.logrow.l{border-color:#f87171}
+  .logrow .lh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.logrow small{color:var(--muted);width:100%}
+  .logrow .ld{font-size:18px;letter-spacing:1px}.logrow .ld span{font-size:10px;color:var(--muted);display:inline-block;width:28px;letter-spacing:0}
+  #abilityBtn{position:absolute;right:10px;bottom:10px;z-index:5;width:62px;height:62px;border-radius:50%;border:3px solid #6b7394;background:radial-gradient(#4a4220,#1f2436);cursor:pointer;overflow:hidden;padding:0}
+  #abilityBtn[hidden]{display:none}
+  #abilityBtn .aic{font-size:30px;position:relative;z-index:1}
+  #abilityBtn b{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);z-index:2;background:var(--mana);color:#fff;border-radius:8px;font-size:11px;padding:0 6px}
+  #abilityBtn .cdov{position:absolute;left:0;right:0;bottom:0;background:rgba(10,12,20,.65);z-index:1}
+  #abilityBtn.ready{border-color:var(--gold);animation:glowp 1s ease-in-out infinite}
+  @keyframes glowp{0%,100%{box-shadow:0 0 6px #facc15}50%{box-shadow:0 0 22px #facc15}}
   details.help summary{cursor:pointer;font-weight:700;color:var(--text);margin:14px 0 6px}
   @keyframes enter{from{transform:translateY(40px) scale(.7);opacity:0}}
   #manaBar.full{box-shadow:0 0 0 2px #f0abfc,0 0 14px #e879f9}
@@ -224,7 +265,7 @@
     <div class="crowns blue" id="crB">👑 0</div>
   </div>
   <div id="stage"><canvas id="ov"></canvas><div id="banner"></div><div id="toast"></div><button id="pauseBtn" title="Pause">⏸</button>
-    <button id="emoteBtn" title="Emote">💬</button><div id="emoteBar" hidden></div></div>
+    <button id="emoteBtn" title="Emote">💬</button><button id="abilityBtn" hidden><span class="aic">🌟</span><b>2</b><i class="cdov"></i></button><div id="emoteBar" hidden></div></div>
   <div id="bottom">
     <div id="hand">
       <div id="nextWrap">Next<div id="next"></div></div>
@@ -258,8 +299,10 @@
         <h3>Chests</h3>
         <div id="chestSlots"></div>
         <div id="freeRow"></div>
+        <h3>Tower troop</h3>
+        <div class="arenas troops" id="troopRow"></div>
         <h3>Settings</h3>
-        <div class="row"><button class="btn" id="sndBtn"></button><button class="btn" id="gfxBtn"></button></div>
+        <div class="row"><button class="btn" id="sndBtn"></button><button class="btn" id="gfxBtn"></button><button class="btn" id="logBtn">📜 Battle log</button></div>
         <details class="help"><summary>How to play</summary>
           Drag a card onto your (bottom) half of the arena, or tap a card then tap the arena. Cards cost mana, which refills over time.
           A side tower is worth 1 crown and the king tower 3. Most crowns wins; a tie goes to overtime, and if it's still tied,
@@ -270,6 +313,7 @@
         </details>
       </section>
       <section id="tab-cards" hidden>
+        <div class="seg" id="deckTabs"></div>
         <h3>Battle deck <small id="deckInfo"></small></h3>
         <div id="swapHint" class="swap" hidden></div>
         <div class="cgrid" id="deckRow"></div>
@@ -292,8 +336,11 @@
         <h3>Gold</h3>
         <div class="shopgrid" id="shopGold"></div>
       </section>
+      <section id="tab-events" hidden>
+        <div id="eventsBody"></div>
+      </section>
       <section id="tab-road" hidden>
-        <h3>Trophy Road</h3>
+        <div class="seg" id="roadSeg"><button data-rv="road">🏆 Trophy Road</button><button data-rv="pass">🎟️ Season Pass</button></div>
         <div id="roadList"></div>
       </section>
     </div>
@@ -381,6 +428,9 @@ const CARDS = {
              u:{hp:240, dmg:60, hit:1.0, range:0.5, speed:1.4, radius:0.32, mass:1}},
   storm:    {name:'Storm Caller',cost:4, icon:'🌩️', count:1, desc:'Lightning chains to 3 foes',
              u:{hp:620, dmg:170, hit:1.6, range:5, speed:1.0, radius:0.45, air:true, proj:'bolt', chain:2, mass:3}},
+  paladin:  {name:'Sun Paladin', cost:4, icon:'🌟', count:1, champion:true, desc:'Champion · ability: Radiant Aegis',
+             u:{hp:1500, dmg:180, hit:1.1, range:0.9, speed:1.1, radius:0.55, mass:6},
+             ability:{name:'Radiant Aegis', cost:2, cd:12, dur:3, heal:0.3, allyHeal:200, radius:3}},
   reaper:   {name:'Shadow Reaper',cost:4, icon:'👻', count:1, desc:'Fast; heals from every hit',
              u:{hp:1050, dmg:250, hit:1.3, range:0.9, speed:1.6, radius:0.5, mass:5, lifesteal:0.4}},
 };
@@ -399,7 +449,8 @@ function saveJSON(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } cat
 const profile = loadJSON('cs_profile', {trophies:0, wins:0, losses:0, draws:0, streak:0, best:0, games:0, peak:0});
 profile.peak = Math.max(profile.peak || 0, profile.trophies);
 const settings = loadJSON('cs_settings', {sound:true, hq:true, arena:'meadow', mode:'classic'});
-const MODES = {classic:{name:'Classic', icon:'⚔️', desc:'Standard 3-minute battle'}, rush:{name:'Mana Rush', icon:'⚡', desc:'Double mana all match'}, random:{name:'Random Decks', icon:'🎲', desc:'Both sides get 8 random cards'}};
+const MODES = {classic:{name:'Classic', icon:'⚔️', desc:'Standard 3-minute battle'}, rush:{name:'Mana Rush', icon:'⚡', desc:'Double mana all match'}, random:{name:'Random Decks', icon:'🎲', desc:'Both sides get 8 random cards'},
+  triple:{name:'Triple Mana', icon:'🔥', desc:'Triple mana all match', event:true}, sudden:{name:'Sudden Death', icon:'💀', desc:'First crown wins', event:true}};
 const AUTOPLAY = /autoplay/.test(location.search); // AI vs AI (for testing)
 
 function loadDeck(){
@@ -417,21 +468,28 @@ function mkHand(deck){
 
 function mkTower(team, kind, x, y){
   const king = kind==='king';
-  const tm = 1 + 0.07*(((G && G.kingLv) ? G.kingLv[team] : 1) - 1), thp = Math.round((king?3000:1600)*tm);
-  return { id:nid++, team, isTower:true, isBuilding:true, kind, x, y,
-    hp: thp, maxHp: thp, dmg: (king?78:56)*tm, hit: king?1.0:0.8,
-    range: king?7:7.5, radius: king?1.6:1.3, air:true, proj:'arrow', speed:0, mass:999,
+  const tm = 1 + 0.07*(((G && G.kingLv) ? G.kingLv[team] : 1) - 1);
+  const tk = (!king && G && G.towerTroop) ? G.towerTroop[team] : 'archer';
+  const TT = (typeof TOWER_TROOPS !== 'undefined' && TOWER_TROOPS[tk]) || {hp:1, dmg:56, hit:0.8, proj:'arrow', splash:0};
+  const thp = Math.round((king ? 3000 : 1600*TT.hp)*tm);
+  return { id:nid++, team, isTower:true, isBuilding:true, kind, x, y, troop:tk,
+    hp: thp, maxHp: thp, dmg: (king?78:TT.dmg)*tm, hit: king?1.0:TT.hit, splash: king?0:(TT.splash||0),
+    range: king?7:7.5, radius: king?1.6:1.3, air:true, proj: king?'arrow':TT.proj, speed:0, mass:999,
     active:!king, cd:0, target:null, retarget:0, stun:0, deploy:0, flash:0, icon: king?'👑':'' };
 }
 
+let matchCfg = null;   // null = ladder battle; otherwise {type:'event'|'challenge', mode, deck, aiDeck, levels}
 function newGame(){
   nid = 1;
-  const aiDeck = AUTOPLAY ? shuffle(ALL_KEYS.slice()).slice(0,8) : aiDeckPick();
-  const mode = AUTOPLAY ? 'classic' : (MODES[settings.mode] ? settings.mode : 'classic');
-  const myDeck = (AUTOPLAY || mode === 'random') ? shuffle(ALL_KEYS.slice()).slice(0,8) : playerDeck;
+  const cfg = AUTOPLAY ? {type:'auto'} : (matchCfg || {type:'ladder'});
+  const aiDeck = cfg.aiDeck || (AUTOPLAY ? shuffle(ALL_KEYS.slice()).slice(0,8) : aiDeckPick());
+  const ladderMode = MODES[settings.mode] && !MODES[settings.mode].event ? settings.mode : 'classic';
+  const mode = AUTOPLAY ? 'classic' : (cfg.mode || ladderMode);
+  const myDeck = cfg.deck || ((AUTOPLAY || mode === 'random') ? shuffle(ALL_KEYS.slice()).slice(0,8) : playerDeck.slice());
   G = {
+    ctx:cfg, myDeck, cardUse:{}, towerTroop: AUTOPLAY ? ['archer','archer'] : [SV.troop || 'archer', aiTroopPick()],
     mode, stats:[{played:0, mana:0, towerDmg:0, kills:0, spells:0}, {played:0, mana:0, towerDmg:0, kills:0, spells:0}], emotes:[],
-    ...(AUTOPLAY ? {} : battleLevels()),
+    ...(AUTOPLAY ? {} : (cfg.levels || battleLevels())),
     t: 0, over:false, overtime:false, ents:[], projs:[], fx:[],
     mana: mode==='rush' ? [7,7] : [5,5], crowns:[0,0], hands:[mkHand(myDeck), mkHand(aiDeck)],
     ai:[{timer:2},{timer:2}], sel:-1, intro: AUTOPLAY ? 0 : 3.2, lastTick:0, paused:false,
@@ -446,6 +504,7 @@ function mkUnit(team, key, x, y, lvl){
   const L = lvl || (G && G.lv ? (G.lv[team][key] || 1) : 1), m = lvMult(L);
   const hp = Math.round(u.hp*m);
   return { id:nid++, team, key, icon:c.icon, x, y, hp, maxHp:hp, dmg:u.dmg*m, hit:u.hit, range:u.range, level:L,
+    ability:c.ability||null, abilityCd:0, invuln:0,
     chain:u.chain||0, lifesteal:u.lifesteal||0, deathSpawn:u.deathSpawn||null,
     speed:u.speed, radius:u.radius, mass:u.mass, air:!!u.air, flying:!!u.flying, targets:u.targets||'any',
     splash:u.splash||0, proj:u.proj||null, isBuilding:c.type==='building', life:u.lifetime||0,
@@ -506,7 +565,9 @@ function playCard(team, idx, x, y){
   const h = G.hands[team], key = h.hand[idx], c = CARDS[key];
   if (!key || G.mana[team] < c.cost) return 'mana';
   if (!canDeploy(team, key, x, y)) return 'zone';
+  if (c.champion && G.ents.some(e=>e.team===team && e.key===key)) return 'champ';
   G.mana[team] -= c.cost;
+  if (team === 0) G.cardUse[key] = (G.cardUse[key] || 0) + 1;
   G.stats[team].played++; G.stats[team].mana += c.cost; if (c.type === 'spell') G.stats[team].spells++;
   h.hand[idx] = h.queue.shift(); h.queue.push(key);
   if (c.type === 'spell') castSpell(team, key, x, y);
@@ -546,7 +607,19 @@ function applySpell(team, key, x, y){
   emit(key, x, y, {r:s.radius, team});
 }
 
+function useAbility(team){
+  const e = G.ents.find(u=>u.team===team && u.ability && u.deploy<=0 && u.hp>0);
+  if (!e || e.abilityCd > 0 || G.mana[team] < e.ability.cost || G.over || G.tiebreaker) return false;
+  const A = e.ability;
+  G.mana[team] -= A.cost; e.abilityCd = A.cd; e.invuln = A.dur;
+  e.hp = Math.min(e.maxHp, e.hp + e.maxHp*A.heal);
+  for (const o of G.ents) if (o.team===team && o !== e && !o.isTower && !o.isBuilding && dist(o,e) <= A.radius) o.hp = Math.min(o.maxHp, o.hp + A.allyHeal*lvMult(e.level||1));
+  G.fx.push({type:'ring', x:e.x, y:e.y, r:A.radius, t:0, max:0.7, color:'#fde047'});
+  emit('aegis', e.x, e.y, {team});
+  return true;
+}
 function hurt(o, dmg){
+  if (o.invuln > 0) return;
   if (o.isTower && G.stats) G.stats[1-o.team].towerDmg += Math.min(dmg, Math.max(0, o.hp));
   o.hp -= dmg; o.flash = 0.12;
   if (o.isTower && o.kind==='king') wakeKing(o);
@@ -614,6 +687,8 @@ function attack(e, t){
 
 function updateEntity(e, dt){
   e.flash = Math.max(0, e.flash - dt);
+  if (e.invuln > 0) e.invuln -= dt;
+  if (e.abilityCd > 0) e.abilityCd -= dt;
   if (e.lunge) e.lunge = Math.max(0, e.lunge - dt);
   e.beaming = false;
   if (e.deploy > 0){ e.deploy -= dt; if (e.deploy <= 0) emit('land', e.x, e.y, {r:e.radius, flying:e.flying, team:e.team}); return; }
@@ -735,7 +810,7 @@ function processDeaths(){
         wakeKing(kingOf(e.team));
       }
       emit('towerfall', e.x, e.y, {team:e.team, king:e.kind==='king', r:e.radius});
-      if (e.kind === 'king' || G.overtime) ending = true;
+      if (e.kind === 'king' || G.overtime || G.mode === 'sudden') ending = true;
     } else {
       G.stats[1-e.team].kills++;
       if (e.deathSpawn) for (let i=0;i<e.deathSpawn.n;i++){
@@ -764,7 +839,7 @@ function step(dt){
   if (sec <= 10 && sec >= 1 && sec !== G.lastTick){ G.lastTick = sec; emit('tick', 0, 0, {n:sec}); }
   if (remaining <= 0){
     if (G.crowns[0] !== G.crowns[1]){ endGame(); return; }
-    if (!G.overtime){ G.overtime = true; G.lastTick = 0; emit('overtime', 0, 0, {}); }
+    if (!G.overtime && G.mode !== 'sudden'){ G.overtime = true; G.lastTick = 0; emit('overtime', 0, 0, {}); }
     else if (!G.tiebreaker){ G.tiebreaker = true; G.sel = -1; emit('tiebreaker', 0, 0, {}); }
   }
   if (G.tiebreaker){
@@ -791,7 +866,7 @@ function step(dt){
     if (G.ai[t].timer <= 0){ G.ai[t].timer = aiThink(t); }
   }
 }
-function manaMult(){ const base = G.overtime ? 3 : timeLeft() <= 60 ? 2 : 1; return G.mode === 'rush' ? base*2 : base; }
+function manaMult(){ const base = G.overtime ? 3 : timeLeft() <= 60 ? 2 : 1; return G.mode === 'rush' ? base*2 : G.mode === 'triple' ? Math.max(3, base*2) : base; }
 function timeLeft(){ return (G.overtime ? MATCH_TIME+OVERTIME : MATCH_TIME) - G.t; }
 
 // ===== AI =====
@@ -807,6 +882,8 @@ function aiThink(team){
   // threats: enemy units on (or approaching) our side
   const threats = enemies.filter(e=>fy(e.y) < RB + 3).sort((a,b)=>fy(a.y)-fy(b.y));
   const tryPlay = (o, x, y) => playCard(team, o.i, clamp(x,0.6,W-0.6), clamp(fy(y),0.6,H-0.6)) === 'ok';
+  const champ = G.ents.find(e=>e.team===team && e.ability && e.deploy<=0);
+  if (champ && champ.abilityCd <= 0 && mana >= champ.ability.cost && (champ.hp < champ.maxHp*0.55 || (champ.target && champ.target.isTower))){ useAbility(team); return reaction; }
 
   if (threats.length){
     const th = threats[0];
@@ -973,7 +1050,7 @@ const cone = (r,h,s=12)     => geo(`cone${r}_${h}_${s}`, ()=>new THREE.ConeGeome
 const tor  = (r,t,arc=Math.PI*2, s=16) => geo(`tor${r}_${t}_${arc}_${s}`, ()=>new THREE.TorusGeometry(r, t, 6, s, arc));
 const rockG = d => geo('rock'+d, ()=>new THREE.DodecahedronGeometry(0.5, d));
 
-const UNIT_SCALE = {golem:1.3, bull:1.45, drake:1.45, cannon:1, spire:1, treant:1.3, sapling:1.5};
+const UNIT_SCALE = {paladin:1.8, golem:1.3, bull:1.45, drake:1.45, cannon:1, spire:1, treant:1.3, sapling:1.5};
 const unitScale = e => UNIT_SCALE[e.key] ?? 1.7;
 const TEAM_HEX = [0x2f7de1, 0xe0413c], TEAM_LIGHT = [0x8cc4ff, 0xffa3a0], TEAM_DARK = [0x1b4d9c, 0x8f1d1d], GOLD = 0xf2c230;
 
@@ -1661,6 +1738,22 @@ function unitModel(key, team){
       anim.orbit = new THREE.Group(); anim.orbit.position.y = 0.9; body.add(anim.orbit);
       for (let i=0;i<3;i++) part(anim.orbit, sph(0.035, 6, 4), glow, Math.cos(i*2.1)*0.42, Math.sin(i*3)*0.1, Math.sin(i*2.1)*0.42);
       break; }
+    case 'paladin': {
+      const goldA = Mt(0xf2c94c, {metalness:0.9, roughness:0.28}), white = Mt(0xf8f5ec);
+      R = rig(body, {skin, shirt:goldA, pants:Mt(0xd4a72c, {metalness:0.8, roughness:0.35}), boots:goldA, sleeve:goldA, gloves:goldA, belt:T, torsoR:0.18, torsoH:0.38});
+      const cape = part(body, box(0.36, 0.5, 0.03), white, 0, 0.42, -0.19); cape.rotation.x = 0.15;
+      part(body, box(0.37, 0.12, 0.035), T, 0, 0.2, -0.205).rotation.x = 0.15;
+      part(R.head, hemi(R.headR*1.08, Math.PI*0.5), goldA, 0, 0.03, 0);
+      for (const sd of [-1,1]){ const w = part(R.head, cone(0.05, 0.22, 4), white, sd*R.headR*0.95, R.headR*0.45, -0.02); w.rotation.z = -sd*1.1; }
+      anim.halo = part(R.head, tor(0.17, 0.02, Math.PI*2, 20), Mt(0xfff3b0, {emissive:0xffd400, emissiveIntensity:2.5}), 0, R.headR*1.6, 0);
+      anim.halo.rotation.x = Math.PI/2;
+      sword(R.hands[1], Mt, 0.55);
+      const sh = new THREE.Group(); R.hands[0].add(sh); sh.position.set(-0.05, 0.05, 0.08); sh.rotation.set(0, -Math.PI/2+0.3, 0);
+      part(sh, cyl(0.22, 0.22, 0.05, 18), white, 0, 0, 0).rotation.x = Math.PI/2;
+      part(sh, tor(0.22, 0.03, Math.PI*2, 20), goldA, 0, 0, 0);
+      part(sh, sph(0.08, 10, 8), Mt(0xffd400, {emissive:0xffa000, emissiveIntensity:1.5}), 0, 0, 0.03);
+      for (let i=0;i<8;i++){ const ray = part(sh, box(0.025, 0.1, 0.01), goldA, Math.cos(i*Math.PI/4)*0.13, Math.sin(i*Math.PI/4)*0.13, 0.03); ray.rotation.z = i*Math.PI/4 - Math.PI/2; }
+      break; }
     case 'reaper': {
       const cloak = Mt(0x1c1a24, {roughness:0.9}), cloak2 = Mt(0x2a2633, {roughness:0.9});
       R = rig(body, {skin:Mt(0x111018), shirt:cloak, robe:0.36, robeMat:cloak, sleeve:cloak2, gloves:Mt(0xd6d3d1), torsoR:0.17, legLen:0.32, noEyes:true});
@@ -1721,9 +1814,23 @@ function towerModel(e){
     const gp = new THREE.Group(); gp.position.y = h+0.2; root.add(gp);
     const skin = Mt(0xf2c29a, {roughness:0.6});
     const G2 = rig(gp, {skin, shirt:T, pants:Mt(0x4a3a2a), boots:Mt(0x5b3a22), sleeve:TD, belt:Mt(0x5b3a22), torsoR:0.15});
-    part(G2.head, hemi(G2.headR*1.1, Math.PI*0.5), TD, 0, 0.03, -0.01);
-    part(G2.head, cone(0.06, 0.18, 6), gold, 0, G2.headR*1.0, 0);
-    bow(G2.hands[0], Mt);
+    if (e.troop === 'cannoneer'){
+      part(G2.head, hemi(G2.headR*1.12, Math.PI*0.5), Mt(0x6b7280, {metalness:0.7, roughness:0.4}), 0, 0.03, -0.01);
+      part(G2.head, box(0.3, 0.05, 0.08), Mt(0x3f3f46), 0, 0.08, 0.17);
+      const cn = new THREE.Group(); gp.add(cn); cn.position.set(0.24, 0.62, 0.05);
+      part(cn, cyl(0.1, 0.13, 0.62, 12), Mt(0x26292f, {metalness:0.7, roughness:0.4}), 0, 0, 0.12).rotation.x = Math.PI/2;
+      part(cn, tor(0.115, 0.025, Math.PI*2, 12), gold, 0, 0, 0.42);
+      G2.cannon = cn;
+    } else if (e.troop === 'flame'){
+      part(G2.head, hemi(G2.headR*1.14, Math.PI*0.62), Mt(0x7f1d1d), 0, 0, -0.02).rotation.x = -0.5;
+      const tc = new THREE.Group(); G2.hands[1].add(tc); holdForward(tc, -0.4);
+      part(tc, cyl(0.025, 0.03, 0.45, 6), Mt(0x3b2616), 0, 0.15, 0);
+      G2.flame = part(tc, cone(0.09, 0.22, 8), Mt(0xffb347, {emissive:0xff5a00, emissiveIntensity:3}), 0, 0.45, 0);
+    } else {
+      part(G2.head, hemi(G2.headR*1.1, Math.PI*0.5), TD, 0, 0.03, -0.01);
+      part(G2.head, cone(0.06, 0.18, 6), gold, 0, G2.headR*1.0, 0);
+      bow(G2.hands[0], Mt);
+    }
     gp.scale.setScalar(1.35);
     guard = {g:gp, rig:G2};
   } else {
@@ -1825,6 +1932,10 @@ function makeView(e){
     const holder = new THREE.Group(); holder.add(body); root.add(holder);
     holder.scale.setScalar(unitScale(e));
     v.holder = holder; v.body = body; v.anim = anim; v.ring = ring;
+    if (e.ability){
+      const bub = new THREE.Mesh(geo('bubble', ()=>new THREE.SphereGeometry(1, 24, 16)), new THREE.MeshBasicMaterial({color:0xffe066, transparent:true, opacity:0.28, blending:THREE.AdditiveBlending, depthWrite:false}));
+      bub.visible = false; root.add(bub); v.bubble = bub;
+    }
     if (e.beam){
       const beam = new THREE.Mesh(geo('beam', ()=>new THREE.CylinderGeometry(1,1,1,8,1,true)),
         new THREE.MeshBasicMaterial({color:0xd8b4fe, transparent:true, opacity:0.85, blending:THREE.AdditiveBlending, depthWrite:false}));
@@ -1862,7 +1973,9 @@ function sync3D(dt){
         guard.rotation.y = a;
       }
       const tr = v.tower.userData.rig, tl = e.lunge ? Math.sin(e.lunge/0.15*Math.PI) : 0;
-      tr.arms[1].rotation.x = -0.4 - tl*1.4; tr.arms[0].rotation.x = -1.2;
+      tr.arms[1].rotation.x = -0.4 - tl*1.4; tr.arms[0].rotation.x = tr.cannon ? -0.3 : -1.2;
+      if (tr.cannon) tr.cannon.position.z = 0.05 - tl*0.12;
+      if (tr.flame) tr.flame.scale.set(1, 1 + Math.sin(now*14 + e.id)*0.2, 1);
       tr.head.rotation.y = Math.sin(now*0.7 + e.id)*0.15;
       if (!e.active && e.kind==='king'){ tr.arms[0].rotation.x = 0; tr.arms[1].rotation.x = -0.3; tr.head.rotation.x = 0.25 + Math.sin(now*1.5)*0.05; }
       else tr.head.rotation.x = 0;
@@ -1915,6 +2028,8 @@ function sync3D(dt){
     }
     if (v.anim.wingL && !frozen){ const f = Math.sin(now*(e.key==='bats'?22:7) + e.id)*0.65; v.anim.wingL.rotation.z = -f; v.anim.wingR.rotation.z = -f; }
     v.body.rotation.z = e.stun > 0 && !frozen ? Math.sin(now*30)*0.1 : 0;
+    if (v.bubble){ v.bubble.visible = e.invuln > 0; if (e.invuln > 0){ v.bubble.scale.setScalar(1.25 + Math.sin(now*8)*0.05); v.bubble.position.y = 1.1; } }
+    if (v.anim.halo) v.anim.halo.rotation.z = now*1.5;
     if (v.anim.crystal){ v.anim.crystal.rotation.y = now*2; v.anim.crystal.position.y = 2.15 + Math.sin(now*3)*0.08; }
     if (v.beam){
       const t = e.target;
@@ -2315,6 +2430,11 @@ function emit(type, x, y, o){
     case 'overtime': banner('Overtime!', '#facc15'); toast('Sudden death: next crown wins'); sfx('horn'); break;
     case 'tiebreaker': banner('Tiebreaker!', '#facc15'); toast('All towers take damage!'); sfx('horn'); shake = Math.max(shake, 0.3); break;
     case 'chain': sfx('zap', 0.6, 0.1); break;
+    case 'aegis':
+      burst(x, 1, y, 26, {color:[0xfde047, 0xffffff, 0xfbbf24], glow:true, speed:3.5, up:3, gravity:2, life:0.7, size:0.12, spread:1});
+      sfx('freeze', 0.8); sfx('win', 0.5);
+      if (o.team === 1) toast('Enemy champion used Radiant Aegis!');
+      break;
   }
 }
 
@@ -2396,6 +2516,7 @@ function updateHUD(){
   else { ph.textContent = MODES[G.mode].name; ph.className=''; }
   document.getElementById('crR').textContent = '👑 ' + G.crowns[1];
   document.getElementById('crB').textContent = '👑 ' + G.crowns[0];
+  updateAbilityBtn();
 }
 
 let toastT = 0;
@@ -2419,6 +2540,7 @@ function tryDeployAt(x,y){
   if (res==='ok'){ G.sel = -1; }
   else if (res==='mana'){ toast('Not enough mana'); sfx('error'); }
   else if (res==='zone'){ toast("Can't deploy there"); sfx('error'); }
+  else if (res==='champ'){ toast('Your champion is already in play'); sfx('error'); }
 }
 let downCard = -1, wasSelected = false;
 function onCardDown(i, ev){
@@ -2464,7 +2586,9 @@ function endGame(){
   let delta = 0;
   if (!AUTOPLAY){
     profile.games++;
-    if (win === 0){ delta = [14,30,38][difficulty] + Math.min(profile.streak, 5)*2; profile.wins++; profile.streak++; profile.best = Math.max(profile.best, profile.streak); }
+    const ladder = G.ctx.type === 'ladder';
+    if (!ladder){ if (win === 0) profile.wins++; else if (win === 1) profile.losses++; else profile.draws++; }
+    else if (win === 0){ delta = [14,30,38][difficulty] + Math.min(profile.streak, 5)*2; profile.wins++; profile.streak++; profile.best = Math.max(profile.best, profile.streak); }
     else if (win === 1){ delta = -Math.min(profile.trophies, [8,18,22][difficulty]); profile.losses++; profile.streak = 0; }
     else profile.draws++;
     const before = ARENAS.filter(arenaUnlocked).length;
@@ -2473,15 +2597,19 @@ function endGame(){
     const newly = ARENAS.filter(arenaUnlocked).slice(before);
     for (const a of newly) popups.push({kind:'arena', a});
     if (newly.length){ settings.arena = newly[newly.length-1].key; saveJSON('cs_settings', settings); }
+    G.trophyDelta = delta;
     const lvBefore = SV.level;
     const rw = awardBattle(win, b, r);
     const R = [];
-    R.push(`<div class="rr">🏆 Trophies<b>${delta>0?'+':''}${delta} → ${profile.trophies}</b></div>`);
+    if (rw.chal) R.push(`<div class="rr gold">${G.ctx.kind === 'draft' ? '🎴' : '🏅'} Challenge<b>${rw.chal.wins} wins · ${rw.chal.losses}/3 losses${rw.chal.done ? ' · DONE' : ''}</b></div>`);
+    else if (G.ctx.type === 'event') R.push(`<div class="rr">${MODES[G.mode].icon} ${MODES[G.mode].name}<b>no trophies</b></div>`);
+    else R.push(`<div class="rr">🏆 Trophies<b>${delta>0?'+':''}${delta} → ${profile.trophies}</b></div>`);
     R.push(`<div class="rr">🪙 Gold<b>+${rw.gold}</b></div>`);
     R.push(`<div class="rr">⭐ King XP<b>+${rw.xp}${SV.level > lvBefore ? ` · LEVEL ${SV.level}!` : ''}</b></div>`);
     if (rw.chest) R.push(`<div class="rr gold">${chestHTML(rw.chest,'small')} ${CHESTS[rw.chest].name}<b>earned!</b></div>`);
     else if (rw.full) R.push(`<div class="rr">🎁 Chest slots full<b>open some!</b></div>`);
     R.push(`<div class="rr">👑 Crown Chest<b>${SV.crowns}/10</b></div>`);
+    R.push(`<div class="rr ${rw.passTierUp ? 'gold' : ''}">🎟️ Season points<b>+${rw.pass}${rw.passTierUp ? ` · tier ${passTier()}!` : ''}</b></div>`);
     for (const q of rw.quests) R.push(`<div class="rr gold">📜 Quest done: ${q}<b>✔</b></div>`);
     if (profile.streak > 1 && win === 0) R.push(`<div class="rr">🔥 Win streak<b>${profile.streak}</b></div>`);
     for (const a of newly) R.push(`<div class="rr gold">${a.icon} New arena<b>${a.name}</b></div>`);
@@ -2572,9 +2700,11 @@ function save(){ saveJSON('cs_save2', SV); }
 const owned = k => !!SV.cards[k];
 const cardLv = k => SV.cards[k] ? SV.cards[k].lvl : 1;
 function fixDeck(){
-  playerDeck = playerDeck.filter(k => owned(k));
-  for (const k of Object.keys(SV.cards)) if (playerDeck.length < 8 && !playerDeck.includes(k)) playerDeck.push(k);
+  playerDeck = playerDeck.filter((k, i) => owned(k) && playerDeck.indexOf(k) === i);
+  let champ = false; playerDeck = playerDeck.filter(k => { if (!CARDS[k].champion) return true; if (champ) return false; return champ = true; });
+  for (const k of Object.keys(SV.cards)) if (playerDeck.length < 8 && !playerDeck.includes(k) && !CARDS[k].champion) playerDeck.push(k);
   saveDeck();
+  if (SV.decks) SV.decks[SV.deckIdx] = playerDeck.slice();
 }
 fixDeck(); save();
 
@@ -2676,7 +2806,7 @@ function tickTimers(){
   if (SV.day !== dayKey()) newDay();
 }
 const gemCost = sec => Math.max(1, Math.ceil(sec/60));
-const fmtTime = sec => { sec = Math.max(0, Math.ceil(sec)); const h = Math.floor(sec/3600), m = Math.floor(sec%3600/60), s = sec%60; return h ? `${h}h ${m}m` : m ? `${m}m ${String(s).padStart(2,'0')}s` : `${s}s`; };
+const fmtTime = sec => { sec = Math.max(0, Math.ceil(sec)); if (sec >= 172800) return `${Math.floor(sec/86400)}d ${Math.floor(sec%86400/3600)}h`; const h = Math.floor(sec/3600), m = Math.floor(sec%3600/60), s = sec%60; return h ? `${h}h ${m}m` : m ? `${m}m ${String(s).padStart(2,'0')}s` : `${s}s`; };
 
 // ---- daily quests, gift and shop ----
 function newDay(){
@@ -2717,7 +2847,7 @@ function awardBattle(win, b, r){
   else if (win === -1){ res.gold = 5; res.xp = 6; }
   else { res.gold = 2; res.xp = 4; }
   SV.gold += res.gold; addXP(res.xp);
-  if (win === 0){
+  if (win === 0 && (!G.ctx || G.ctx.type !== 'challenge')){
     const slot = SV.chests.findIndex(c => !c);
     if (slot >= 0){ res.chest = randomChestType(); SV.chests[slot] = {type:res.chest, state:'locked'}; }
     else res.full = true;
@@ -2728,6 +2858,7 @@ function awardBattle(win, b, r){
   add('battles', 1); add('played', st.played); add('mana', st.mana); add('towerDmg', st.towerDmg);
   add('kills', st.kills); add('spells', st.spells); add('crowns', b);
   if (win === 0){ add('wins', 1); if (G.mode === 'rush') add('rushWins', 1); if (difficulty === 2) add('hardWins', 1); if (b === 3) add('threeCrowns', 1); }
+  afterBattle(win, b, res);
   save();
   return res;
 }
@@ -2757,19 +2888,22 @@ function renderHub(){
       <div class="xp"><div class="xpbar"><i style="width:${next ? (SV.xp-prev)/(next-prev)*100 : 100}%"></i></div><span>${next ? `${SV.xp-prev}/${next-prev} XP` : 'MAX'}</span></div></div>
     <div class="cur">🪙 <b>${SV.gold.toLocaleString()}</b></div><div class="cur">💎 <b>${SV.gems}</b></div><div class="cur tr">🏆 <b>${profile.trophies}</b></div>`;
   const questDot = SV.quests.some(q => !q.claimed && q.prog >= questDef(q).goal) || giftReady() || (SV.quests.every(q=>q.claimed) && !SV.questBonus);
-  const cardDot = Object.keys(SV.cards).some(affordUpgrade);
-  const roadDot = ROAD.some((m,i) => profile.peak >= m.t && !SV.road.includes(i));
+  const cardDot = Object.keys(SV.cards).some(k => affordUpgrade(k) || masteryReady(k));
+  ensureSeason();
+  const passDot = Array.from({length:passTier()}, (_, i) => i).some(i => !SV.pass.free.includes(i) || (SV.pass.premium && !SV.pass.prem.includes(i)));
+  const roadDot = passDot || ROAD.some((m,i) => profile.peak >= m.t && !SV.road.includes(i));
   const shopDot = SV.shop.offers.some(o => o.price === 0 && !o.bought);
-  $('hubTabs').innerHTML = [['shop','🛒','Shop',shopDot],['cards','🃏','Cards',cardDot],['battle','⚔️','Battle',false],['quests','📜','Quests',questDot],['road','🏆','Road',roadDot]]
+  const evDot = (SV.chal && SV.chal.done) || SV.chalFree !== dayKey();
+  $('hubTabs').innerHTML = [['shop','🛒','Shop',shopDot],['cards','🃏','Cards',cardDot],['battle','⚔️','Battle',false],['events','🎪','Events',evDot],['quests','📜','Quests',questDot],['road','🏆','Road',roadDot]]
     .map(([k,i,n,d]) => `<button data-tab="${k}" class="${hubTab===k?'on':''}">${dot(d)}<span>${i}</span>${n}</button>`).join('');
-  for (const id of ['battle','cards','quests','shop','road']) $('tab-'+id).hidden = hubTab !== id;
-  ({battle:renderBattleTab, cards:renderCardsTab, quests:renderQuestsTab, shop:renderShopTab, road:renderRoadTab})[hubTab]();
+  for (const id of ['battle','cards','events','quests','shop','road']) $('tab-'+id).hidden = hubTab !== id;
+  ({battle:renderBattleTab, cards:renderCardsTab, events:renderEventsTab, quests:renderQuestsTab, shop:renderShopTab, road:renderRoadTab})[hubTab]();
 }
 function renderBattleTab(){
   const a = arenaByKey(settings.arena);
   $('arenaShow').innerHTML = `<div class="aicon">${a.icon}</div><div><b>${a.name}</b><br><small>Opponent cards ~Lv ${battleLevels().lv[1].squire} · King Lv ${battleLevels().kingLv[1]}</small></div>`;
   buildArenaMenu();
-  renderChestArea();
+  renderChestArea(); renderTroops();
   $('startBtn').disabled = playerDeck.length !== 8;
 }
 function renderChestArea(){
@@ -2790,6 +2924,7 @@ function renderChestArea(){
 // only touch the DOM when content changes, so taps aren't lost to a re-render
 function setHTML(id, html){ const el = $(id); if (el._html !== html){ el._html = html; el.innerHTML = html; } }
 function renderCardsTab(){
+  renderDeckTabs();
   $('deckInfo').textContent = `${playerDeck.length}/8 · avg cost ${(playerDeck.reduce((a,k)=>a+CARDS[k].cost,0)/Math.max(1,playerDeck.length)).toFixed(1)}`;
   $('deckRow').innerHTML = playerDeck.map(k => cardTile(k, {sel: swapFor && true})).join('') + '<div class="ctile ghost"></div>'.repeat(8 - playerDeck.length);
   $('swapHint').hidden = !swapFor;
@@ -2829,6 +2964,8 @@ function renderShopTab(){
   $('shopGold').innerHTML = [[30,300],[100,1200],[250,3500]].map(([g, au]) => `<div class="deal"><div class="icon">🪙</div><div class="nm">${au.toLocaleString()} gold</div><button class="btn sm" data-gold="${au}" data-price="${g}">💎 ${g}</button></div>`).join('');
 }
 function renderRoadTab(){
+  $('roadSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.rv === roadView));
+  if (roadView === 'pass') return renderPass();
   const items = [];
   const marks = ROAD.map((m, i) => ({t:m.t, html:() => {
     const got = SV.road.includes(i), ok = profile.peak >= m.t, r = m.r;
@@ -2865,7 +3002,8 @@ function cardModal(k){
   const need = needCopies(k), cost = up ? upgradeCost(k) : 0;
   modal(`<div class="cmod" style="--r:${rar.col}">
     <div class="chead"><div class="bigicon">${o ? c.icon : '🔒'}</div><div><div class="rar">${rar.name}</div><h2>${c.name}</h2>${o ? `<div class="lvl">Level ${lv}${lv>=MAX_LVL?' (max)':''}</div>` : ''}<div class="ds">${c.desc} · ${c.cost} mana</div></div></div>
-    <table class="stt">${stats}</table>${lockMsg}
+    <table class="stt">${stats}</table>${lockMsg}${c.ability ? `<p class="lockmsg">⭐ <b>${c.ability.name}</b> (${c.ability.cost} mana, ${c.ability.cd}s cooldown): ${c.ability.dur}s of invulnerability, heals ${c.ability.heal*100}% HP and nearby allies. Only one champion per deck.</p>` : ''}
+    ${o ? masteryHTML(k) : ''}
     ${up ? `<div class="bar big ${canUpgrade(k) ? 'ready' : ''}"><i style="width:${Math.min(100, SV.cards[k].copies/need*100)}%"></i><span>${SV.cards[k].copies}/${need} cards</span></div>` : ''}
     <div class="row mrow">
       ${up ? `<button class="btn ${affordUpgrade(k) ? 'go' : ''}" id="upBtn" ${canUpgrade(k) ? '' : 'disabled'}>⬆ Upgrade · 🪙 ${cost}</button>` : ''}
@@ -2877,6 +3015,8 @@ function cardModal(k){
       if (SV.gold < cost){ sfx('error'); toast('Not enough gold'); return; }
       if (doUpgrade(k)){ close(); if (popups.length) flushPopups(); else cardModal(k); }
     };
+    const mb = $('msBtn');
+    if (mb) mb.onclick = () => { if (!masteryReady(k)) return; const r = MASTERY[ms(k).tier].r; ms(k).tier++; save(); close(); grantReward(r, () => {}); };
     const us = $('useBtn');
     if (us) us.onclick = () => { swapFor = k; hubTab = 'cards'; close(); sfx('select'); };
   });
@@ -2956,7 +3096,10 @@ $('tab-cards').onclick = ev => {
   if (ev.target.id === 'swapCancel'){ swapFor = null; renderHub(); return; }
   const t = ev.target.closest('.ctile[data-k]'); if (!t) return; audioInit(); sfx('select');
   const k = t.dataset.k;
-  if (swapFor && playerDeck.includes(k)){ playerDeck[playerDeck.indexOf(k)] = swapFor; swapFor = null; saveDeck(); renderHub(); return; }
+  if (swapFor && playerDeck.includes(k)){
+    if (CARDS[swapFor].champion && playerDeck.some(x => CARDS[x].champion && x !== k)){ sfx('error'); toast('Only one champion per deck'); return; }
+    playerDeck[playerDeck.indexOf(k)] = swapFor; swapFor = null; syncDeck(); renderHub(); return;
+  }
   cardModal(k);
 };
 $('tab-quests').onclick = ev => {
@@ -3015,6 +3158,274 @@ setInterval(() => {
   if (hubTab === 'shop') $('shopReset').textContent = `Refreshes in ${fmtTime((midnight - Date.now())/1000)}`;
 }, 1000);
 
+// ===== More progression: champions, tower troops, deck slots, mastery, season pass, events, challenges, battle log =====
+RARITY.champion = {name:'Champion', col:'#ffcf4a', mul:8, xp:5, copies:[1,1,2,2,3,3,4,5,6]};
+RARITY_ORDER.push('champion');
+CARDS.paladin.rarity = 'champion'; CARDS.paladin.arena = 3;
+LEVEL_UNLOCKS[9] = ['paladin'];
+const _baseLoot = chestLoot;
+chestLoot = function(type){
+  const L = _baseLoot(type);
+  if (type === 'legendary' && pool('champion').length && Math.random() < 0.3) L.cards = [{k:pick(pool('champion')), n:1}];
+  return L;
+};
+
+// ---- tower troops ----
+const TOWER_TROOPS = {
+  archer:    {name:'Archer',       icon:'🏹', lv:1, hp:1,    dmg:56,  hit:0.8, proj:'arrow', splash:0, desc:'Balanced; steady arrows'},
+  cannoneer: {name:'Cannoneer',    icon:'💣', lv:4, hp:0.9,  dmg:150, hit:2.0, proj:'ball',  splash:0, desc:'Huge hits, slow reload'},
+  flame:     {name:'Flame Keeper', icon:'🔥', lv:6, hp:0.94, dmg:40,  hit:0.9, proj:'fire',  splash:1.0, desc:'Splash fire, great vs swarms'},
+};
+if (!TOWER_TROOPS[SV.troop]) SV.troop = 'archer';
+function aiTroopPick(){
+  const kl = 1 + Math.floor(profile.trophies/110);
+  const ok = Object.keys(TOWER_TROOPS).filter(k => TOWER_TROOPS[k].lv <= kl);
+  return profile.trophies < 200 ? 'archer' : pick(ok);
+}
+
+// ---- deck slots ----
+if (!SV.decks){ SV.decks = [playerDeck.slice(), [], []]; SV.deckIdx = 0; }
+playerDeck = (SV.decks[SV.deckIdx] || []).slice(); fixDeck();
+function syncDeck(){ SV.decks[SV.deckIdx] = playerDeck.slice(); save(); }
+function switchDeck(i){ syncDeck(); SV.deckIdx = i; playerDeck = (SV.decks[i] || []).slice(); fixDeck(); syncDeck(); }
+syncDeck();
+
+// ---- card mastery ----
+const MASTERY = [
+  {text:'Play it 10 times',         stat:'played', goal:10, r:{gold:100, xp:20}},
+  {text:'Win 5 battles with it',    stat:'wins',   goal:5,  r:{gold:250, gems:10}},
+  {text:'Upgrade it to level 5',    stat:'level',  goal:5,  r:{gold:400, gems:20, xp:60}},
+  {text:'Play it 75 times',         stat:'played', goal:75, r:{gems:40, chest:'magical'}},
+];
+SV.ms = SV.ms || {};
+const ms = k => SV.ms[k] || (SV.ms[k] = {played:0, wins:0, tier:0});
+const masteryProg = (k, m) => m.stat === 'level' ? cardLv(k) : ms(k)[m.stat];
+const masteryReady = k => owned(k) && ms(k).tier < MASTERY.length && masteryProg(k, MASTERY[ms(k).tier]) >= MASTERY[ms(k).tier].goal;
+const rwText = r => [r.gold && `🪙${r.gold}`, r.gems && `💎${r.gems}`, r.xp && `⭐${r.xp}`, r.chest && `🎁 ${CHESTS[r.chest].name}`].filter(Boolean).join(' ');
+function masteryHTML(k){
+  const t = ms(k).tier;
+  const stars = MASTERY.map((_, i) => i < t ? '★' : '☆').join('');
+  if (t >= MASTERY.length) return `<div class="mast done"><b>Mastery ${stars}</b><small>All mastery tasks complete!</small></div>`;
+  const m = MASTERY[t], p = Math.min(m.goal, masteryProg(k, m));
+  return `<div class="mast"><div><b>Mastery <span class="stars">${stars}</span></b><small>${m.text} · ${rwText(m.r)}</small>
+    <div class="qbar"><i style="width:${p/m.goal*100}%"></i><span>${p}/${m.goal}</span></div></div>
+    <button class="btn sm ${p >= m.goal ? 'go' : ''}" id="msBtn" ${p >= m.goal ? '' : 'disabled'}>Claim</button></div>`;
+}
+function grantReward(r, then){
+  SV.gold += r.gold || 0; SV.gems += r.gems || 0; if (r.xp) addXP(r.xp); save();
+  if (r.chest) openChestUI(r.chest, then); else { sfx('crown'); toast(`+ ${rwText(r)}`); if (then) then(); }
+}
+
+// ---- season pass ----
+const PASS_TIERS = 30, PASS_PTS = 50, PASS_PRICE = 150;
+const seasonKey = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth()+1}`; };
+function ensureSeason(){ if (!SV.pass || SV.pass.season !== seasonKey()){ SV.pass = {season:seasonKey(), pts:0, premium:false, free:[], prem:[]}; save(); } }
+ensureSeason();
+const passTier = () => Math.min(PASS_TIERS, Math.floor(SV.pass.pts / PASS_PTS));
+function passReward(i, prem){
+  const t = i + 1;
+  if (!prem){
+    if (t % 10 === 0) return {chest: t === 30 ? 'giant' : 'golden'};
+    if (t % 5 === 0) return {chest:'silver'};
+    if (t % 2 === 0) return {gold: 50 + t*10};
+    return {cards:'rare', n: 2 + Math.floor(t/10)};
+  }
+  if (t === 30) return {chest:'legendary'};
+  if (t % 10 === 0) return {chest:'magical'};
+  if (t % 5 === 0) return {gems:30};
+  if (t % 2 === 0) return {gold: 150 + t*20};
+  return {cards:'epic', n:1};
+}
+const passRewardText = r => r.chest ? CHESTS[r.chest].name : r.cards ? `${r.n} ${RARITY[r.cards].name}` : r.gold ? `${r.gold} gold` : `${r.gems} gems`;
+const passRewardIcon = r => r.chest ? chestHTML(r.chest, 'small') : r.cards ? `<span class="ri" style="color:${RARITY[r.cards].col}">🃏</span>` : r.gold ? '<span class="ri">🪙</span>' : '<span class="ri">💎</span>';
+function claimPass(i, prem){
+  const list = prem ? SV.pass.prem : SV.pass.free;
+  if (list.includes(i) || i >= passTier() || (prem && !SV.pass.premium)) return;
+  list.push(i);
+  const r = passReward(i, prem);
+  if (r.cards){
+    const p = pool(r.cards).length ? pool(r.cards) : pool('rare');
+    const own = p.filter(owned), k = pick(own.length ? own : p);
+    const isNew = !owned(k); if (isNew) SV.cards[k] = {lvl:1, copies:r.n}; else SV.cards[k].copies += r.n;
+    save(); sfx('crown'); toast(`${isNew ? 'NEW! ' : ''}${CARDS[k].icon} ${CARDS[k].name} ×${r.n}`); renderHub(); return;
+  }
+  grantReward(r, () => renderHub()); renderHub();
+}
+const seasonName = () => new Date().toLocaleString('en', {month:'long'}) + ' Season';
+
+// ---- events & challenges ----
+const CHAL_ENTRY = 10;
+function chalRewards(w){
+  return {gold:[0,20,40,70,100,150,200,300,400,550,700,900,1200][w] || 0,
+    gems: w >= 12 ? 100 : w >= 9 ? 30 : w >= 6 ? 10 : 0,
+    chest: w >= 12 ? 'legendary' : w >= 9 ? 'magical' : w >= 6 ? 'golden' : w >= 3 ? 'silver' : null};
+}
+function chalLevels(){
+  if (SV.chal.kind === 'draft'){ const L = {}; for (const k of ALL_KEYS) L[k] = 6; return {lv:[L, Object.assign({}, L)], kingLv:[6, 6]}; }
+  const base = battleLevels();
+  const avg = Math.round(playerDeck.reduce((a,k) => a + cardLv(k), 0) / 8);
+  const ai = clamp(avg + Math.floor(SV.chal.wins/4), 1, MAX_LVL);
+  for (const k of ALL_KEYS) base.lv[1][k] = ai;
+  base.kingLv[1] = clamp(SV.level + Math.floor(SV.chal.wins/4) - 1, 1, MAX_KING);
+  return base;
+}
+function startChallengeBattle(){
+  if (!SV.chal || SV.chal.done) return;
+  const draft = SV.chal.kind === 'draft';
+  matchCfg = {type:'challenge', kind:SV.chal.kind, mode:'classic', deck: draft ? SV.chal.deck.slice() : null,
+    aiDeck: draft ? shuffle(ALL_KEYS.slice()).slice(0,8) : null, levels: chalLevels()};
+  start();
+}
+function enterChallenge(kind){
+  const free = kind === 'classic' && SV.chalFree !== dayKey();
+  if (!free && SV.gems < CHAL_ENTRY){ sfx('error'); toast('Not enough gems'); return; }
+  if (free) SV.chalFree = dayKey(); else SV.gems -= CHAL_ENTRY;
+  if (kind === 'classic'){ SV.chal = {kind, wins:0, losses:0, done:false}; save(); sfx('crown'); renderHub(); return; }
+  // draft: 8 rounds of "pick one of two"
+  const picks = [];
+  const round = () => {
+    if (picks.length === 8){ SV.chal = {kind:'draft', wins:0, losses:0, done:false, deck:picks}; save(); $('modal').hidden = true; renderHub(); sfx('crown'); return; }
+    const opts = shuffle(ALL_KEYS.filter(k => !picks.includes(k) && !(CARDS[k].champion && picks.some(p => CARDS[p].champion)))).slice(0, 2);
+    modal(`<div class="lvup"><h2>Draft · pick ${picks.length+1}/8</h2><p>Choose one card for your deck. All cards are level 6 in draft.</p>
+      <div class="draft">${opts.map(k => `<div class="ctile big" data-pick="${k}" style="--r:${RARITY[CARDS[k].rarity].col}"><div class="cost">${CARDS[k].cost}</div><div class="icon">${CARDS[k].icon}</div><div class="nm">${CARDS[k].name}</div><small>${CARDS[k].desc}</small></div>`).join('')}</div>
+      <div class="lgrid">${picks.map(k => `<div class="lc" style="--r:${RARITY[CARDS[k].rarity].col}"><div class="icon">${CARDS[k].icon}</div></div>`).join('')}</div></div>`, () => {
+      $('modalBody').querySelectorAll('[data-pick]').forEach(el => el.onclick = () => { picks.push(el.dataset.pick); sfx('select'); round(); });
+    });
+  };
+  round();
+}
+function collectChallenge(){
+  const r = chalRewards(SV.chal.wins); SV.chal = null;
+  SV.gold += r.gold; SV.gems += r.gems; save();
+  if (r.chest) openChestUI(r.chest); else { sfx('crown'); toast(`+${r.gold} 🪙${r.gems ? ` +${r.gems} 💎` : ''}`); renderHub(); }
+}
+function startEvent(mode){ matchCfg = {type:'event', mode}; start(); }
+
+// ---- battle-end hook (called from awardBattle) ----
+function afterBattle(win, b, res){
+  const ctx = G.ctx || {type:'ladder'};
+  for (const k in G.cardUse) if (owned(k)) ms(k).played += G.cardUse[k];
+  if (win === 0) for (const k of G.myDeck) if (owned(k)) ms(k).wins++;
+  ensureSeason();
+  const before = passTier();
+  res.pass = 5 + 10*b + (win === 0 ? 15 : 0); SV.pass.pts += res.pass;
+  res.passTierUp = passTier() > before;
+  if (ctx.type === 'challenge' && SV.chal){
+    if (win === 0) SV.chal.wins++; else SV.chal.losses++;
+    SV.chal.done = SV.chal.wins >= 12 || SV.chal.losses >= 3;
+    res.chal = {wins:SV.chal.wins, losses:SV.chal.losses, done:SV.chal.done};
+  }
+  SV.log = SV.log || [];
+  SV.log.unshift({t:Date.now(), win, b, r:G.crowns[1], type:ctx.type, mode:G.mode, deck:G.myDeck.slice(),
+    opp:G.hands[1].hand.concat(G.hands[1].queue), tr:G.trophyDelta || 0, arena:settings.arena});
+  SV.log.length = Math.min(SV.log.length, 20);
+}
+function battleLogModal(){
+  const ago = t => { const m = Math.floor((Date.now()-t)/60000); return m < 1 ? 'just now' : m < 60 ? `${m}m ago` : m < 1440 ? `${Math.floor(m/60)}h ago` : `${Math.floor(m/1440)}d ago`; };
+  const rows = (SV.log || []).map(L => `<div class="logrow ${L.win === 0 ? 'w' : L.win === 1 ? 'l' : 'd'}">
+    <div class="lh"><b>${L.win === 0 ? 'Victory' : L.win === 1 ? 'Defeat' : 'Draw'}</b> <span>👑 ${L.b}–${L.r}</span>
+      <small>${L.type === 'challenge' ? 'Challenge' : L.type === 'event' ? 'Event' : 'Ladder'} · ${MODES[L.mode] ? MODES[L.mode].name : L.mode}${L.tr ? ` · 🏆 ${L.tr > 0 ? '+' : ''}${L.tr}` : ''} · ${ago(L.t)}</small></div>
+    <div class="ld"><span>You</span>${L.deck.map(k => CARDS[k] ? CARDS[k].icon : '').join('')}</div>
+    <div class="ld"><span>Foe</span>${L.opp.map(k => CARDS[k] ? CARDS[k].icon : '').join('')}</div></div>`).join('');
+  modal(`<h2 style="margin-top:0">Battle log</h2>${rows || '<p class="lockmsg">No battles yet.</p>'}<button class="btn" data-close style="width:100%;margin-top:10px">Close</button>`);
+}
+
+// ---- extra hub rendering ----
+let roadView = 'road';
+function renderTroops(){
+  setHTML('troopRow', Object.entries(TOWER_TROOPS).map(([k, t]) => {
+    const ok = SV.level >= t.lv;
+    return `<div class="arena troop ${SV.troop === k ? 'on' : ''} ${ok ? '' : 'locked'}" data-troop="${k}"><div class="ai">${ok ? t.icon : '🔒'}</div><b>${t.name}</b><br><small>${ok ? t.desc : `King Lv ${t.lv}`}</small></div>`;
+  }).join(''));
+}
+function renderDeckTabs(){
+  setHTML('deckTabs', [0,1,2].map(i => `<button class="${SV.deckIdx === i ? 'on' : ''}" data-deck="${i}">Deck ${i+1}</button>`).join(''));
+}
+function renderEventsTab(){
+  const ev = ['triple','sudden'].map(k => `<div class="evcard"><div class="evi">${MODES[k].icon}</div><div><b>${MODES[k].name}</b><br><small>${MODES[k].desc} · no trophies at stake</small></div><button class="btn sm go" data-event="${k}">Play</button></div>`).join('');
+  const chalCard = kind => {
+    const C = SV.chal && SV.chal.kind === kind ? SV.chal : null, other = SV.chal && SV.chal.kind !== kind;
+    const title = kind === 'classic' ? '🏅 Classic Challenge' : '🎴 Draft Challenge';
+    const desc = kind === 'classic' ? 'Your deck and levels. Opponents get tougher as you win.' : 'Pick 1 of 2 cards, 8 times. Everything is level 6.';
+    const free = kind === 'classic' && SV.chalFree !== dayKey();
+    let body;
+    if (C){
+      const stars = Array.from({length:12}, (_, i) => `<i class="${i < C.wins ? 'on' : ''}">${i+1}</i>`).join('');
+      const hearts = Array.from({length:3}, (_, i) => i < 3 - C.losses ? '❤️' : '🖤').join('');
+      body = `<div class="wins">${stars}</div><div class="lives">${hearts} <small>${C.wins} wins · ${C.losses}/3 losses</small></div>
+        ${C.deck ? `<div class="ddeck">${C.deck.map(k => CARDS[k].icon).join(' ')}</div>` : ''}
+        <div class="row mrow">${C.done ? `<button class="btn go" data-chal="collect">🎁 Collect rewards</button>` : `<button class="btn go" data-chal="battle">⚔️ Battle</button><button class="btn" data-chal="quit">Quit & collect</button>`}</div>`;
+    } else {
+      body = `<div class="row mrow"><button class="btn ${other ? '' : 'go'}" data-enter="${kind}" ${other ? 'disabled' : ''}>${free ? 'Enter · FREE today' : `Enter · 💎 ${CHAL_ENTRY}`}</button></div>${other ? '<small class="lockmsg">Finish your other challenge first.</small>' : ''}`;
+    }
+    const tiers = [3,6,9,12].map(w => { const r = chalRewards(w); return `<span>${w}🏆 ${r.chest ? CHESTS[r.chest].name.replace(' Chest','') : ''} 🪙${r.gold}${r.gems ? ` 💎${r.gems}` : ''}</span>`; }).join('');
+    return `<div class="chal"><b class="ct">${title}</b><small>${desc}</small><div class="tiers">${tiers}</div>${body}</div>`;
+  };
+  $('eventsBody').innerHTML = `<h3>Special events</h3>${ev}<h3>Challenges <small>up to 12 wins · 3 losses</small></h3>${chalCard('classic')}${chalCard('draft')}`;
+}
+function renderPass(){
+  ensureSeason();
+  const t = passTier(), inTier = SV.pass.pts % PASS_PTS;
+  const end = new Date(); end.setMonth(end.getMonth()+1, 1); end.setHours(0,0,0,0);
+  let rows = '';
+  for (let i=0;i<PASS_TIERS;i++){
+    const ok = i < t;
+    const cell = prem => {
+      const r = passReward(i, prem), got = (prem ? SV.pass.prem : SV.pass.free).includes(i), lockP = prem && !SV.pass.premium;
+      return `<div class="pc ${got ? 'got' : ''} ${prem ? 'prem' : ''}">${passRewardIcon(r)}<span>${passRewardText(r)}</span>
+        ${got ? '<span class="ok">✔</span>' : lockP ? '<span class="lk">🔒</span>' : ok ? `<button class="btn sm go" data-pass="${i}" data-prem="${prem?1:0}">Claim</button>` : ''}</div>`;
+    };
+    rows += `<div class="prow ${ok ? 'ok' : ''}"><div class="pt">${i+1}</div>${cell(false)}${cell(true)}</div>`;
+  }
+  $('roadList').innerHTML = `<div class="passhead"><div><b>${seasonName()}</b><br><small>Ends in ${fmtTime((end - Date.now())/1000)} · earn points from crowns and wins</small></div>
+      <div class="ptier">Tier <b>${t}</b>/${PASS_TIERS}</div></div>
+    <div class="qbar big"><i style="width:${t >= PASS_TIERS ? 100 : inTier/PASS_PTS*100}%"></i><span>${t >= PASS_TIERS ? 'Season complete!' : `${inTier}/${PASS_PTS} to tier ${t+1}`}</span></div>
+    ${SV.pass.premium ? '<div class="premok">⭐ Season Pass unlocked</div>' : `<button class="btn go" id="buyPass" style="width:100%;margin:10px 0">⭐ Unlock Season Pass · 💎 ${PASS_PRICE}</button>`}
+    <div class="prow phead"><div class="pt">#</div><div class="pc">Free</div><div class="pc prem">⭐ Pass</div></div>${rows}`;
+}
+
+// ---- ability button during battle ----
+function updateAbilityBtn(){
+  const btn = $('abilityBtn');
+  const e = G && !G.over ? G.ents.find(u => u.team === 0 && u.ability && u.deploy <= 0) : null;
+  btn.hidden = !e;
+  if (!e) return;
+  const A = e.ability, ready = e.abilityCd <= 0 && G.mana[0] >= A.cost;
+  btn.classList.toggle('ready', ready);
+  btn.querySelector('.cdov').style.height = (e.abilityCd > 0 ? e.abilityCd/A.cd*100 : 0) + '%';
+  btn.querySelector('b').textContent = A.cost;
+}
+
+// ---- wiring for the new UI ----
+$('abilityBtn').onclick = () => { if (!useAbility(0)){ sfx('error'); const e = G.ents.find(u => u.team === 0 && u.ability); toast(e && e.abilityCd > 0 ? `Ability recharging (${Math.ceil(e.abilityCd)}s)` : 'Not enough mana'); } };
+$('troopRow').onclick = ev => {
+  const el = ev.target.closest('[data-troop]'); if (!el) return; audioInit();
+  const t = TOWER_TROOPS[el.dataset.troop];
+  if (SV.level < t.lv){ sfx('error'); toast(`Unlocks at King Level ${t.lv}`); return; }
+  SV.troop = el.dataset.troop; save(); sfx('select'); renderTroops();
+};
+$('logBtn').onclick = () => { audioInit(); sfx('select'); battleLogModal(); };
+$('deckTabs').onclick = ev => { const b = ev.target.closest('[data-deck]'); if (!b) return; audioInit(); sfx('select'); swapFor = null; switchDeck(+b.dataset.deck); renderHub(); };
+$('tab-events').onclick = ev => {
+  const b = ev.target.closest('button'); if (!b) return; audioInit();
+  if (b.dataset.event) startEvent(b.dataset.event);
+  else if (b.dataset.enter) enterChallenge(b.dataset.enter);
+  else if (b.dataset.chal === 'battle') startChallengeBattle();
+  else if (b.dataset.chal === 'collect') collectChallenge();
+  else if (b.dataset.chal === 'quit') modal(`<div class="lvup"><h2>Quit challenge?</h2><p>You'll collect the rewards for ${SV.chal.wins} wins.</p><div class="row mrow"><button class="btn go" id="qYes">Quit & collect</button><button class="btn" data-close>Keep going</button></div></div>`,
+    close => { $('qYes').onclick = () => { $('modal').hidden = true; collectChallenge(); }; });
+};
+$('roadSeg').onclick = ev => { const b = ev.target.closest('[data-rv]'); if (!b) return; audioInit(); sfx('select'); roadView = b.dataset.rv; renderHub(); };
+$('tab-road').addEventListener('click', ev => {
+  const b = ev.target.closest('[data-pass]');
+  if (b){ audioInit(); claimPass(+b.dataset.pass, b.dataset.prem === '1'); return; }
+  if (ev.target.id === 'buyPass'){
+    audioInit();
+    if (SV.gems < PASS_PRICE){ sfx('error'); toast('Not enough gems'); return; }
+    SV.gems -= PASS_PRICE; SV.pass.premium = true; save(); sfx('win'); toast('⭐ Season Pass unlocked!'); renderHub();
+  }
+});
+
 // ===== Menu =====
 function buildMenu(){
   fixDeck();
@@ -3063,6 +3474,7 @@ function buildArenaMenu(){
   }
   const mr = document.getElementById('modeRow'); mr.innerHTML = '';
   for (const k in MODES){
+    if (MODES[k].event) continue;
     const b = document.createElement('button'); b.className = 'btn' + (settings.mode === k ? ' on' : '');
     b.innerHTML = `${MODES[k].icon} ${MODES[k].name}<small>${MODES[k].desc}</small>`;
     b.onclick = ()=>{ settings.mode = k; saveJSON('cs_settings', settings); sfx('select'); buildArenaMenu(); };
@@ -3074,7 +3486,7 @@ document.getElementById('quitBtn').onclick = ()=>{ document.getElementById('paus
 document.addEventListener('visibilitychange', ()=>{ if (document.hidden && G && !G.over && !AUTOPLAY) setPaused(true); });
 function start(){
   audioInit();
-  fixDeck(); if (playerDeck.length !== 8){ toast('Your deck needs 8 cards'); return; }
+  fixDeck(); syncDeck(); if (playerDeck.length !== 8){ toast('Your deck needs 8 cards'); return; }
   saveDeck();
   document.getElementById('menu').hidden = true;
   document.getElementById('end').hidden = true;
@@ -3083,8 +3495,8 @@ function start(){
   newGame(); resize();
   if (profile.games === 0) setTimeout(()=>toast('Drag a card onto your side of the arena!'), 3400);
 }
-document.getElementById('startBtn').onclick = start;
-document.getElementById('againBtn').onclick = ()=>{ document.getElementById('end').hidden = true; document.getElementById('menu').hidden = false; hubTab = 'battle'; buildMenu(); flushPopups(); };
+document.getElementById('startBtn').onclick = ()=>{ matchCfg = null; start(); };
+document.getElementById('againBtn').onclick = ()=>{ document.getElementById('end').hidden = true; document.getElementById('menu').hidden = false; hubTab = (G && G.ctx && (G.ctx.type === 'challenge' || G.ctx.type === 'event')) ? 'events' : 'battle'; buildMenu(); flushPopups(); };
 
 // ===== Main loop =====
 let last = performance.now(), acc = 0, hudT = 0;
