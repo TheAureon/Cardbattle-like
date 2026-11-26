@@ -1,6 +1,6 @@
 # Crown Siege
 
-A real-time lane-battle card game in 3D, rendered with [Three.js](https://threejs.org/). It has no build step. Three.js (MIT license) is bundled in `vendor/`, so the game also works offline.
+A real-time lane-battle card game in 3D, rendered with [Three.js](https://threejs.org/). The whole game is one self-contained file, `index.html`: Three.js (MIT license) is embedded in it, so there's no build step and it works offline.
 
 ## Play
 
