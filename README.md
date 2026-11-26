@@ -32,6 +32,20 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 | Grove Mender | 4 | Heals nearby allied troops every second |
 | Bomber | 3 | Lobs splash bombs, ground only |
 | Arcane Spire | 5 | Building with a beam whose damage ramps up the longer it stays on one target |
+| Elder Treant | 5 | Epic tank that splits into 3 saplings when it dies |
+| Storm Caller | 4 | Legendary; lightning that chains to 3 enemies |
+| Shadow Reaper | 4 | Legendary; fast melee that heals itself on every hit |
+
+## Progression
+
+- **Cards and rarities.** Cards are Common, Rare, Epic or Legendary. You start with 8 cards.
+- **Upgrading.** Collect copies from chests and the shop, then spend gold to upgrade a card (up to level 10, +8% stats per level). Upgrading also earns King XP.
+- **King Level.** Earn XP from battles, quests and upgrades. Each King Level makes your towers stronger, gives gold and gems, and unlocks new cards (levels 2–8).
+- **Chests.** Winning earns a chest if one of your 4 slots is free. Chests take real time to unlock (one at a time), or you can open them right away with gems. There's also a free chest every hour, a Crown Chest after every 10 crowns, and Golden, Giant, Magical and Legendary chests in the shop. Higher arenas add new cards to the drops.
+- **Daily.** 3 daily quests (with a bonus chest for finishing all three), a daily gift with a 7-day streak, and daily shop deals.
+- **Trophy Road.** Rewards at trophy milestones.
+- **Matchmaking.** The opponent's card and tower levels rise with your trophies.
+- **Tiebreaker.** If overtime ends tied, every tower crumbles at the same rate and the first to fall loses.
 
 ## Features
 
@@ -39,7 +53,6 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 - Game modes: Classic, Mana Rush (double mana all match) and Random Decks
 - Emotes (💬 button); the opponent sometimes replies or gloats
 - End-of-match stats: cards played, mana spent, tower damage and troops defeated
-- An overtime that ends level is decided by whose weakest tower has more health left
 
 - Synthesized sound effects (no audio files), screen shake, particles and death animations
 - 3-2-1 intro countdown, last-10-seconds countdown, and "2× Mana" / overtime banners

@@ -52,6 +52,115 @@
   #endUnlock{text-align:center;margin:12px 0 0;padding:10px;border-radius:12px;background:linear-gradient(90deg,#3c3a2a,#4a3f1c);font-weight:800;color:var(--gold)}
   #endUnlock[hidden]{display:none}
   .card.enter{animation:enter .28s ease-out}
+  .card .lvh{position:absolute;top:4px;right:5px;font-size:10px;font-weight:800;color:#e2e8f0;background:rgba(0,0,0,.35);border-radius:6px;padding:1px 4px;pointer-events:none}
+  .overlay.menuov{padding:0}
+  .panel.hub{display:flex;flex-direction:column;padding:0;height:100%;max-height:900px;overflow:hidden}
+  #hubTop{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1f2436;border-bottom:1px solid #353b57;flex-wrap:wrap}
+  .king{display:flex;align-items:center;gap:6px;margin-right:auto;min-width:120px}
+  .kbadge{position:relative;width:38px;height:38px;border-radius:10px;background:linear-gradient(#3b82f6,#1e40af);display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:inset 0 -3px rgba(0,0,0,.25)}
+  .kbadge b{position:absolute;bottom:-5px;right:-5px;background:var(--gold);color:#1b1f2e;border-radius:8px;font-size:12px;padding:0 5px;min-width:18px;text-align:center}
+  .kbadge.huge{width:90px;height:90px;font-size:40px;margin:0 auto;border-radius:20px}.kbadge.huge b{font-size:22px;padding:2px 8px;border-radius:12px}
+  .xp{flex:1;min-width:70px;font-size:10px;color:var(--muted)}
+  .xpbar,.cbar,.qbar,.bar{position:relative;height:9px;border-radius:5px;background:#12151f;overflow:hidden}
+  .xpbar i,.cbar i,.qbar i,.bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#38bdf8,#60a5fa);border-radius:5px}
+  .cbar i{background:linear-gradient(90deg,#eab308,#facc15)}
+  .cur{background:#12151f;border-radius:999px;padding:4px 10px;font-size:13px;white-space:nowrap}
+  .cur.tr b{color:var(--gold)}
+  #hubBody{flex:1;overflow-y:auto;padding:14px 16px 18px;touch-action:pan-y}
+  #hubTabs{display:flex;background:#1f2436;border-top:1px solid #353b57}
+  #hubTabs button{flex:1;border:none;background:none;color:var(--muted);padding:7px 2px 8px;font-size:11px;font-weight:700;cursor:pointer;position:relative;display:flex;flex-direction:column;align-items:center;gap:1px}
+  #hubTabs button span{font-size:21px}
+  #hubTabs button.on{color:var(--text);background:#2d3350;box-shadow:inset 0 3px var(--gold)}
+  .dot{position:absolute;top:5px;right:calc(50% - 18px);width:10px;height:10px;border-radius:50%;background:#ef4444;box-shadow:0 0 0 2px #1f2436}
+  h3 small{text-transform:none;letter-spacing:0;font-weight:600;color:var(--muted);margin-left:4px}
+  .arenaShow{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#2d3350,#262b3f);border-radius:12px;padding:10px 12px;margin:10px 0 8px}
+  .arenaShow .aicon{font-size:38px}
+  .arenaShow small{color:var(--muted)}
+  #chestSlots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .slot{background:var(--panel2);border-radius:10px;padding:8px 2px 6px;text-align:center;font-size:10px;cursor:pointer;min-height:104px;display:flex;flex-direction:column;align-items:center;gap:2px;justify-content:flex-start}
+  .slot.empty{color:#6b7394;justify-content:center;cursor:default;border:2px dashed #3a4060}
+  .slot.ready{background:linear-gradient(#3c3a2a,#2d3350);box-shadow:0 0 0 2px var(--gold)}
+  .slot .sl{font-weight:700;color:#cbd5f5}.slot b{font-size:11px}.slot small{color:var(--muted)}
+  .slot b.open,.mini b.open{color:#1b1f2e;background:var(--gold);border-radius:6px;padding:1px 6px}
+  .slot b.tap{color:#86efac}
+  #freeRow{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+  .mini{display:flex;align-items:center;gap:8px;background:var(--panel2);border-radius:10px;padding:8px;font-size:12px;cursor:pointer}
+  .mini small{color:var(--muted)} .mini > div:nth-child(2){flex:1}
+  .chest{--c:#c5ccd6;position:relative;width:54px;height:44px;flex:none}
+  .chest .bod{position:absolute;left:0;right:0;bottom:0;height:60%;border-radius:3px 3px 8px 8px;background:var(--c);filter:brightness(.78);box-shadow:inset 0 -4px rgba(0,0,0,.25)}
+  .chest .lid{position:absolute;left:-2px;right:-2px;top:2%;height:44%;border-radius:12px 12px 3px 3px;background:var(--c);box-shadow:inset 0 -5px rgba(0,0,0,.18),inset 0 4px rgba(255,255,255,.35)}
+  .chest .band{position:absolute;top:2%;bottom:0;left:43%;width:14%;background:rgba(60,40,10,.35)}
+  .chest .lock{position:absolute;left:50%;top:34%;width:12px;height:13px;margin-left:-6px;border-radius:3px;background:#fde68a;border:2px solid rgba(0,0,0,.35)}
+  .chest.small{width:38px;height:31px}
+  .chest.big{width:150px;height:122px;margin:0 auto}
+  .chest.bounce{animation:cbounce 1.2s ease-in-out infinite}
+  .chest.shake{animation:cshake .6s ease-in-out infinite}
+  @keyframes cbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes cshake{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg) scale(1.03)}75%{transform:rotate(5deg) scale(1.03)}}
+  .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .ctile{--r:#a9b4c6;position:relative;border-radius:10px;background:linear-gradient(#3a4163,#2a3050);border:2px solid var(--r);padding:16px 3px 5px;text-align:center;cursor:pointer;min-height:96px}
+  .ctile .icon{font-size:30px;line-height:1.1}.ctile .nm{font-size:10px;margin:2px 0 4px;line-height:1.15;min-height:23px}
+  .ctile .lvb{position:absolute;top:3px;right:4px;font-size:10px;font-weight:800;color:var(--r)}
+  .ctile .cost{width:18px;height:18px;font-size:11px}
+  .ctile.locked{filter:grayscale(.85) brightness(.65)}
+  .ctile.ghost{border-style:dashed;border-color:#3a4060;background:none;cursor:default}
+  .ctile.sel{animation:wig .5s ease-in-out infinite}
+  @keyframes wig{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+  .bar{height:14px;border-radius:7px}.bar i{background:linear-gradient(90deg,#2563eb,#60a5fa)}
+  .bar.ready i{background:linear-gradient(90deg,#16a34a,#4ade80)} .bar.max i{background:linear-gradient(90deg,#a16207,#facc15)}
+  .bar span,.qbar span{position:absolute;inset:0;font-size:9.5px;font-weight:800;line-height:14px;text-shadow:0 1px 1px rgba(0,0,0,.6)}
+  .bar.big{height:22px;border-radius:11px;margin:10px 0}.bar.big span{line-height:22px;font-size:12px}
+  .swap{background:#3c3a2a;border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:13px}
+  .btn.btn.sm{padding:7px 12px;font-size:12px;margin:0;width:auto;flex:none}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .gift{display:flex;align-items:center;gap:10px;background:var(--panel2);border-radius:12px;padding:10px 12px;font-size:13px}
+  .gift.on{background:linear-gradient(90deg,#3c3a2a,#2d3350);box-shadow:0 0 0 2px var(--gold)}
+  .gift > div{flex:1}.gift small{color:var(--muted)}.gi{font-size:30px}
+  .quest{display:flex;align-items:center;gap:10px;background:var(--panel2);border-radius:12px;padding:10px 12px;margin-bottom:7px;font-size:13px}
+  .quest .qt{flex:1;display:flex;flex-direction:column;gap:3px}.quest small{color:var(--muted)}
+  .qbar{height:14px;border-radius:7px}.qbar i{background:linear-gradient(90deg,#16a34a,#4ade80)}
+  .quest.claimed{opacity:.55}.quest.bonus{margin-top:10px;border:2px dashed #4b5585}
+  .quest.bonus > div:nth-child(2){flex:1}
+  .ok{color:#4ade80;font-weight:800;font-size:15px}
+  .shopgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .deal{--r:#4b5585;background:var(--panel2);border-radius:10px;border:2px solid var(--r);padding:8px 3px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .deal .icon{font-size:28px}.deal .nm{font-size:10px;line-height:1.15}.deal .cnt{font-weight:800}
+  .deal.bought{opacity:.5}
+  #roadList{display:flex;flex-direction:column;gap:6px}
+  .rnow{text-align:center;color:var(--gold);font-weight:800;margin-bottom:4px}
+  .rm{display:flex;align-items:center;gap:10px;background:var(--panel2);border-radius:10px;padding:8px 12px;font-size:13px;opacity:.6}
+  .rm.ok{opacity:1;box-shadow:0 0 0 2px var(--gold)}.rm.got{opacity:.8}
+  .rm .rt{width:62px;font-weight:800;color:var(--gold)}.rm .rw{flex:1;display:flex;align-items:center;gap:8px}.ri{font-size:24px}
+  .ra{padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#1e3a5f,#262b3f);font-size:13px;opacity:.6}.ra.ok{opacity:1}.ra span{font-size:20px}
+  .ra small{color:var(--muted)}
+  #modal{z-index:20}#modal .panel{max-width:400px}
+  .cmod .chead{display:flex;gap:14px;align-items:center}
+  .cmod .bigicon{font-size:58px;width:88px;height:88px;border-radius:16px;border:3px solid var(--r);display:flex;align-items:center;justify-content:center;background:linear-gradient(#3a4163,#2a3050);flex:none}
+  .rar{color:var(--r);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+  .cmod h2,.ldrop h2,.lvup h2{margin:2px 0}
+  .lvl{font-weight:700}.cmod .ds{color:var(--muted);font-size:12px;margin-top:2px}
+  .stt{width:100%;margin:12px 0 4px;border-collapse:collapse;font-size:13px}
+  .stt td{padding:5px 4px;border-bottom:1px solid #353b57}.stt td:nth-child(2){text-align:right;font-weight:700}.stt td.nx{color:#4ade80;font-weight:800;width:52px;text-align:right}
+  .lockmsg{color:var(--muted);font-size:12.5px}
+  .mrow{gap:8px;margin-top:10px}.mrow .btn{flex:1}
+  #chestOpen{z-index:30;background:radial-gradient(circle at 50% 40%,#3a3260,#0c0e18 70%);cursor:pointer;flex-direction:column}
+  .cwrap{text-align:center;max-width:380px;width:100%}
+  .cwrap p{color:var(--muted)} .cwrap .hint{margin-top:18px;font-size:13px}
+  .cwrap.pop > div{animation:popin .35s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes popin{from{transform:scale(.4);opacity:0}}
+  .ldrop .big{font-size:34px;font-weight:900;margin:10px 0}
+  .ldrop.lcard .bigicon{font-size:90px;width:150px;height:150px;margin:0 auto 6px;border-radius:24px;border:4px solid var(--r);display:flex;align-items:center;justify-content:center;background:linear-gradient(#3a4163,#2a3050);box-shadow:0 0 40px var(--r)}
+  .newbig{color:var(--gold);font-weight:900;font-size:22px;margin-bottom:8px;animation:cbounce .8s infinite}
+  .lgrid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+  .lc{--r:#a9b4c6;position:relative;width:70px;border-radius:10px;border:2px solid var(--r);background:#2a3050;padding:6px 2px;font-size:11px;text-align:center}
+  .lc .icon{font-size:28px}.lc .new{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1b1f2e;font-size:9px;font-style:normal;font-weight:900;border-radius:5px;padding:0 4px}
+  .sum{font-size:20px;font-weight:800}
+  .lvup{text-align:center}.lvup .huge{font-size:64px}
+  #endRewards{display:flex;flex-direction:column;gap:5px;margin:12px auto 0;max-width:300px;font-size:14px}
+  #endRewards .rr{display:flex;align-items:center;gap:8px;background:var(--panel2);border-radius:10px;padding:6px 10px}
+  #endRewards .rr b{margin-left:auto}
+  #endRewards .rr.gold{box-shadow:0 0 0 2px var(--gold)}
+  details.help summary{cursor:pointer;font-weight:700;color:var(--text);margin:14px 0 6px}
   @keyframes enter{from{transform:translateY(40px) scale(.7);opacity:0}}
   #manaBar.full{box-shadow:0 0 0 2px #f0abfc,0 0 14px #e879f9}
   #profile{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--panel2);border-radius:12px;padding:10px 12px;margin-bottom:4px;font-size:13px;color:var(--muted)}
@@ -129,33 +238,71 @@
 </div>
 
 <div id="menu" class="overlay">
-  <div class="panel">
-    <h1>Crown <span>Siege</span></h1>
-    <p class="sub">Real-time lane battler. Destroy the enemy towers before the clock runs out.</p>
-    <div id="profile"></div>
-    <h3>Your deck — <span id="deckCount">8</span>/8 · avg cost <span id="avgCost">0</span></h3>
-    <div id="deckGrid"></div>
-    <h3>Arena</h3>
-    <div class="arenas" id="arenaRow"></div>
-    <h3>Mode</h3>
-    <div class="row modes" id="modeRow"></div>
-    <h3>Opponent</h3>
-    <div class="row" id="diffRow">
-      <button class="btn" data-d="0">Easy</button>
-      <button class="btn on" data-d="1">Normal</button>
-      <button class="btn" data-d="2">Hard</button>
+  <div class="panel hub">
+    <div id="hubTop"></div>
+    <div id="hubBody">
+      <section id="tab-battle">
+        <h1>Crown <span>Siege</span></h1>
+        <div id="profile"></div>
+        <div class="arenaShow" id="arenaShow"></div>
+        <div class="arenas" id="arenaRow"></div>
+        <h3>Mode</h3>
+        <div class="row modes" id="modeRow"></div>
+        <h3>Opponent</h3>
+        <div class="row" id="diffRow">
+          <button class="btn" data-d="0">Easy</button>
+          <button class="btn on" data-d="1">Normal</button>
+          <button class="btn" data-d="2">Hard</button>
+        </div>
+        <button class="btn go" id="startBtn">⚔️ Battle!</button>
+        <h3>Chests</h3>
+        <div id="chestSlots"></div>
+        <div id="freeRow"></div>
+        <h3>Settings</h3>
+        <div class="row"><button class="btn" id="sndBtn"></button><button class="btn" id="gfxBtn"></button></div>
+        <details class="help"><summary>How to play</summary>
+          Drag a card onto your (bottom) half of the arena, or tap a card then tap the arena. Cards cost mana, which refills over time.
+          A side tower is worth 1 crown and the king tower 3. Most crowns wins; a tie goes to overtime, and if it's still tied,
+          the tiebreaker makes every tower crumble until one falls.<br><br>
+          <b>Progression:</b> win battles for gold, XP and chests. Chests hold card copies; collect enough copies and spend gold to
+          upgrade a card (stronger stats, plus King XP). King Levels unlock new cards and make your towers tougher. Higher arenas add
+          new cards to chests, and opponents get stronger as your trophies rise.
+        </details>
+      </section>
+      <section id="tab-cards" hidden>
+        <h3>Battle deck <small id="deckInfo"></small></h3>
+        <div id="swapHint" class="swap" hidden></div>
+        <div class="cgrid" id="deckRow"></div>
+        <h3>Collection <small id="collCount"></small></h3>
+        <div class="cgrid" id="collection"></div>
+        <p class="help">Tap any card for its stats, to upgrade it, or to put it in your deck.</p>
+      </section>
+      <section id="tab-quests" hidden>
+        <h3>Daily gift</h3>
+        <div id="giftBox"></div>
+        <h3>Daily quests <small id="questReset"></small></h3>
+        <div id="questList"></div>
+        <div id="questBonus" class="quest bonus"></div>
+      </section>
+      <section id="tab-shop" hidden>
+        <h3>Daily deals <small id="shopReset"></small></h3>
+        <div class="shopgrid" id="shopDeals"></div>
+        <h3>Chests</h3>
+        <div class="shopgrid" id="shopChests"></div>
+        <h3>Gold</h3>
+        <div class="shopgrid" id="shopGold"></div>
+      </section>
+      <section id="tab-road" hidden>
+        <h3>Trophy Road</h3>
+        <div id="roadList"></div>
+      </section>
     </div>
-    <h3>Settings</h3>
-    <div class="row"><button class="btn" id="sndBtn"></button><button class="btn" id="gfxBtn"></button></div>
-    <button class="btn go" id="startBtn">⚔️ Battle!</button>
-    <div class="help">
-      <b>How to play:</b> drag a card onto your (bottom) half of the arena, or tap a card then tap the arena.
-      Cards cost mana, which refills over time (double speed in the final minute).
-      Knock out a side tower for 1 crown, the king tower for 3. Destroying a side tower also lets you deploy deeper in that lane.
-      Most crowns at the end wins; a tie goes to sudden-death overtime.
-    </div>
+    <nav id="hubTabs"></nav>
   </div>
 </div>
+
+<div id="modal" class="overlay" hidden><div class="panel" id="modalBody"></div></div>
+<div id="chestOpen" class="overlay" hidden></div>
 
 <div id="pause" class="overlay" hidden>
   <div class="panel" style="max-width:340px">
@@ -173,11 +320,10 @@
   <div class="panel">
     <p id="endTitle">Victory!</p>
     <div id="endCrowns"></div>
-    <p id="endTrophy"></p>
+    <div id="endRewards"></div>
     <div id="endStats"></div>
-    <div id="endUnlock" hidden></div>
     <p id="endSub"></p>
-    <button class="btn go" id="againBtn">Play again</button>
+    <button class="btn go" id="againBtn">Continue</button>
   </div>
 </div>
 
@@ -229,11 +375,19 @@ const CARDS = {
              u:{hp:320, dmg:150, hit:1.8, range:4.5, speed:1.1, radius:0.4, splash:1.5, proj:'bomb', mass:2}},
   spire:    {name:'Arcane Spire',cost:5, icon:'🔮', type:'building', count:1, desc:'Ramping beam, melts tanks',
              u:{hp:950, dmg:30, hit:0.4, range:6, speed:0, radius:0.8, air:true, beam:true, lifetime:35, mass:99}},
+  treant:   {name:'Elder Treant',cost:5, icon:'🌳', count:1, desc:'Tank; splits into 3 saplings',
+             u:{hp:2000, dmg:140, hit:1.4, range:0.8, speed:0.75, radius:0.75, mass:10, deathSpawn:{key:'sapling', n:3}}},
+  sapling:  {name:'Sapling',     cost:0, icon:'🌱', count:1, hidden:true, desc:'',
+             u:{hp:240, dmg:60, hit:1.0, range:0.5, speed:1.4, radius:0.32, mass:1}},
+  storm:    {name:'Storm Caller',cost:4, icon:'🌩️', count:1, desc:'Lightning chains to 3 foes',
+             u:{hp:620, dmg:170, hit:1.6, range:5, speed:1.0, radius:0.45, air:true, proj:'bolt', chain:2, mass:3}},
+  reaper:   {name:'Shadow Reaper',cost:4, icon:'👻', count:1, desc:'Fast; heals from every hit',
+             u:{hp:1050, dmg:250, hit:1.3, range:0.9, speed:1.6, radius:0.5, mass:5, lifesteal:0.4}},
 };
 for (const k in CARDS) { CARDS[k].key = k; CARDS[k].type = CARDS[k].type || 'troop'; }
-const ALL_KEYS = Object.keys(CARDS);
+const ALL_KEYS = Object.keys(CARDS).filter(k=>!CARDS[k].hidden);
 const DEFAULT_DECK = ['squire','rangers','golem','goblins','pyro','bats','fireball','shock'];
-const PROJ_SPEED = {arrow:14, fire:10, ball:12, bomb:7, spell:11};
+const PROJ_SPEED = {arrow:14, fire:10, ball:12, bomb:7, bolt:18, spell:11};
 
 // ===== State =====
 let G = null;          // current game
@@ -263,19 +417,21 @@ function mkHand(deck){
 
 function mkTower(team, kind, x, y){
   const king = kind==='king';
+  const tm = 1 + 0.07*(((G && G.kingLv) ? G.kingLv[team] : 1) - 1), thp = Math.round((king?3000:1600)*tm);
   return { id:nid++, team, isTower:true, isBuilding:true, kind, x, y,
-    hp: king?3000:1600, maxHp: king?3000:1600, dmg: king?78:56, hit: king?1.0:0.8,
+    hp: thp, maxHp: thp, dmg: (king?78:56)*tm, hit: king?1.0:0.8,
     range: king?7:7.5, radius: king?1.6:1.3, air:true, proj:'arrow', speed:0, mass:999,
     active:!king, cd:0, target:null, retarget:0, stun:0, deploy:0, flash:0, icon: king?'👑':'' };
 }
 
 function newGame(){
   nid = 1;
-  const aiDeck = shuffle(ALL_KEYS.slice()).slice(0,8);
+  const aiDeck = AUTOPLAY ? shuffle(ALL_KEYS.slice()).slice(0,8) : aiDeckPick();
   const mode = AUTOPLAY ? 'classic' : (MODES[settings.mode] ? settings.mode : 'classic');
   const myDeck = (AUTOPLAY || mode === 'random') ? shuffle(ALL_KEYS.slice()).slice(0,8) : playerDeck;
   G = {
-    mode, stats:[{played:0, mana:0, towerDmg:0, kills:0}, {played:0, mana:0, towerDmg:0, kills:0}], emotes:[],
+    mode, stats:[{played:0, mana:0, towerDmg:0, kills:0, spells:0}, {played:0, mana:0, towerDmg:0, kills:0, spells:0}], emotes:[],
+    ...(AUTOPLAY ? {} : battleLevels()),
     t: 0, over:false, overtime:false, ents:[], projs:[], fx:[],
     mana: mode==='rush' ? [7,7] : [5,5], crowns:[0,0], hands:[mkHand(myDeck), mkHand(aiDeck)],
     ai:[{timer:2},{timer:2}], sel:-1, intro: AUTOPLAY ? 0 : 3.2, lastTick:0, paused:false,
@@ -285,12 +441,15 @@ function newGame(){
   buildHandUI();
 }
 
-function mkUnit(team, key, x, y){
+function mkUnit(team, key, x, y, lvl){
   const c = CARDS[key], u = c.u;
-  return { id:nid++, team, key, icon:c.icon, x, y, hp:u.hp, maxHp:u.hp, dmg:u.dmg, hit:u.hit, range:u.range,
+  const L = lvl || (G && G.lv ? (G.lv[team][key] || 1) : 1), m = lvMult(L);
+  const hp = Math.round(u.hp*m);
+  return { id:nid++, team, key, icon:c.icon, x, y, hp, maxHp:hp, dmg:u.dmg*m, hit:u.hit, range:u.range, level:L,
+    chain:u.chain||0, lifesteal:u.lifesteal||0, deathSpawn:u.deathSpawn||null,
     speed:u.speed, radius:u.radius, mass:u.mass, air:!!u.air, flying:!!u.flying, targets:u.targets||'any',
     splash:u.splash||0, proj:u.proj||null, isBuilding:c.type==='building', life:u.lifetime||0,
-    heal:u.heal||null, healCd:1, beam:!!u.beam, ramp:0, rampTarget:null, ice:false,
+    heal:u.heal ? Object.assign({}, u.heal, {amt:u.heal.amt*m}) : null, healCd:1, beam:!!u.beam, ramp:0, rampTarget:null, ice:false,
     cd:0, deploy:1, target:null, retarget:0, stun:0, flash:0, face:team===0?-1:1 };
 }
 
@@ -348,7 +507,7 @@ function playCard(team, idx, x, y){
   if (!key || G.mana[team] < c.cost) return 'mana';
   if (!canDeploy(team, key, x, y)) return 'zone';
   G.mana[team] -= c.cost;
-  G.stats[team].played++; G.stats[team].mana += c.cost;
+  G.stats[team].played++; G.stats[team].mana += c.cost; if (c.type === 'spell') G.stats[team].spells++;
   h.hand[idx] = h.queue.shift(); h.queue.push(key);
   if (c.type === 'spell') castSpell(team, key, x, y);
   else {
@@ -374,7 +533,8 @@ function castSpell(team, key, x, y){
   } else applySpell(team, key, x, y);
 }
 function applySpell(team, key, x, y){
-  const s = CARDS[key].spell;
+  const s0 = CARDS[key].spell, dm = lvMult((G.lv && G.lv[team][key]) || 1);
+  const s = Object.assign({}, s0, {dmg: s0.dmg*dm});
   for (const o of G.ents){
     if (o.team===team || o.hp<=0) continue;
     if (dist(o,{x,y}) <= s.radius + (o.radius||0)*0.5){
@@ -440,11 +600,12 @@ function attack(e, t){
   }
   if (e.proj){
     emit('shoot', e.x, e.y, {kind:e.proj, tower:!!e.isTower, team:e.team});
-    G.projs.push({x:e.x, y:e.y - (e.flying?0.4:0), target:t, tx:t.x, ty:t.y, speed:PROJ_SPEED[e.proj], dmg:e.dmg,
+    G.projs.push({x:e.x, y:e.y - (e.flying?0.4:0), target:t, tx:t.x, ty:t.y, speed:PROJ_SPEED[e.proj], dmg:e.dmg, chain:e.chain,
       splash:e.splash, team:e.team, air:e.air, kind:e.proj,
       h0: e.isTower ? (e.kind==='king'?3.6:3.0) : e.flying ? 1.8 : e.isBuilding ? 0.75 : 0.8});
   } else {
     if (e.splash) splashAt(e.team, t.x, t.y, e.splash, e.dmg, e.air); else hurt(t, e.dmg);
+    if (e.lifesteal){ e.hp = Math.min(e.maxHp, e.hp + e.dmg*e.lifesteal); G.fx.push({type:'num', x:e.x, y:e.y - e.radius, t:0, max:0.6, text:'+'+Math.round(e.dmg*e.lifesteal), color:'#c084fc'}); }
     G.fx.push({type:'slash', x:(e.x+t.x)/2, y:(e.y+t.y)/2, t:0, max:0.15});
     emit('hit', t.x, t.y, {big: e.dmg >= 180, flying:t.flying});
   }
@@ -541,13 +702,28 @@ function updateProjectiles(dt){
       p.done = true;
       if (p.kind === 'spellball') applySpell(p.team, p.spellKey, p.tx, p.ty);
       else if (p.splash){ splashAt(p.team, p.tx, p.ty, p.splash, p.dmg, p.air); G.fx.push({type:'blast', x:p.tx, y:p.ty, r:p.splash, t:0, max:0.3, color:'#fdba74'}); emit('impact', p.tx, p.ty, {r:p.splash, kind:p.kind, h: p.target && p.target.flying ? 1.8 : 0.3}); }
-      else if (p.target && p.target.hp > 0){ hurt(p.target, p.dmg); emit('phit', p.tx, p.ty, {kind:p.kind, h: p.target.isTower ? 1.8 : p.target.flying ? 1.8 : 0.6}); }
+      else if (p.target && p.target.hp > 0){ hurt(p.target, p.dmg); if (p.chain) chainZap(p.team, p.target, p.dmg*0.75, p.chain, p.air); emit('phit', p.tx, p.ty, {kind:p.kind, h: p.target.isTower ? 1.8 : p.target.flying ? 1.8 : 0.6}); }
     } else { p.x += dx/d*step; p.y += dy/d*step; }
   }
   G.projs = G.projs.filter(p=>!p.done);
 }
 
+function chainZap(team, from, dmg, n, air){
+  const hit = new Set([from]); let cur = from;
+  for (let i=0;i<n;i++){
+    let best = null, bd = 3.5;
+    for (const o of G.ents){
+      if (o.team===team || o.hp<=0 || hit.has(o) || (o.flying && !air)) continue;
+      const d = dist(o, cur); if (d < bd){ bd = d; best = o; }
+    }
+    if (!best) break;
+    G.fx.push({type:'chain', x:cur.x, y:cur.y, x2:best.x, y2:best.y, h1:cur.isTower?1.8:cur.flying?1.8:0.7, h2:best.isTower?1.8:best.flying?1.8:0.7, t:0, max:0.3});
+    hurt(best, dmg); hit.add(best); cur = best;
+  }
+  emit('chain', from.x, from.y, {});
+}
 function processDeaths(){
+  let ending = false;
   for (const e of G.ents){
     if (e.hp > 0) continue;
     G.fx.push({type:'poof', x:e.x, y:e.y, r:e.radius*1.6, t:0, max:0.45});
@@ -559,10 +735,18 @@ function processDeaths(){
         wakeKing(kingOf(e.team));
       }
       emit('towerfall', e.x, e.y, {team:e.team, king:e.kind==='king', r:e.radius});
-      if (e.kind === 'king' || G.overtime) endGame();
-    } else { G.stats[1-e.team].kills++; } if (!e.isTower) emit('die', e.x, e.y, {team:e.team, flying:e.flying, r:e.radius, building:e.isBuilding});
+      if (e.kind === 'king' || G.overtime) ending = true;
+    } else {
+      G.stats[1-e.team].kills++;
+      if (e.deathSpawn) for (let i=0;i<e.deathSpawn.n;i++){
+        const a = i/e.deathSpawn.n*Math.PI*2;
+        const u = mkUnit(e.team, e.deathSpawn.key, clamp(e.x + Math.cos(a)*0.6, 0.4, W-0.4), clamp(e.y + Math.sin(a)*0.6, 0.4, H-0.4), e.level);
+        u.deploy = 0.35; G.ents.push(u);
+      }
+    } if (!e.isTower) emit('die', e.x, e.y, {team:e.team, flying:e.flying, r:e.radius, building:e.isBuilding});
   }
   G.ents = G.ents.filter(e=>e.hp>0);
+  if (ending) endGame();
 }
 
 function step(dt){
@@ -579,8 +763,17 @@ function step(dt){
   const sec = Math.ceil(remaining);
   if (sec <= 10 && sec >= 1 && sec !== G.lastTick){ G.lastTick = sec; emit('tick', 0, 0, {n:sec}); }
   if (remaining <= 0){
-    if (!G.overtime && G.crowns[0] === G.crowns[1]){ G.overtime = true; G.lastTick = 0; emit('overtime', 0, 0, {}); }
-    else { endGame(); return; }
+    if (G.crowns[0] !== G.crowns[1]){ endGame(); return; }
+    if (!G.overtime){ G.overtime = true; G.lastTick = 0; emit('overtime', 0, 0, {}); }
+    else if (!G.tiebreaker){ G.tiebreaker = true; G.sel = -1; emit('tiebreaker', 0, 0, {}); }
+  }
+  if (G.tiebreaker){
+    // Tiebreaker: every tower crumbles at the same rate; the first to fall loses (simultaneous falls = draw)
+    for (const e of G.ents) if (e.isTower){ e.hp -= 420*dt; if (Math.random() < 0.15) e.flash = 0.06; }
+    processDeaths();
+    for (const f of G.fx) f.t += dt;
+    G.fx = G.fx.filter(f=>f.t < f.max);
+    return;
   }
   const mult = manaMult();
   for (let t=0;t<2;t++){
@@ -649,6 +842,8 @@ function aiThink(team){
       if (u.targets==='buildings') s -= 3;
       if (u.heal) s -= 2;
       if (u.beam && th.hp > 1000) s += 4;
+      if (u.chain && near.length >= 2) s += 2;
+      if (u.lifesteal) s += 1;
       if (o.c.type==='building' && th.targets!=='buildings') s -= 1;
       s -= o.c.cost * 0.15;
       if (s > bs){ bs=s; best=o; }
@@ -778,7 +973,7 @@ const cone = (r,h,s=12)     => geo(`cone${r}_${h}_${s}`, ()=>new THREE.ConeGeome
 const tor  = (r,t,arc=Math.PI*2, s=16) => geo(`tor${r}_${t}_${arc}_${s}`, ()=>new THREE.TorusGeometry(r, t, 6, s, arc));
 const rockG = d => geo('rock'+d, ()=>new THREE.DodecahedronGeometry(0.5, d));
 
-const UNIT_SCALE = {golem:1.3, bull:1.45, drake:1.45, cannon:1, spire:1};
+const UNIT_SCALE = {golem:1.3, bull:1.45, drake:1.45, cannon:1, spire:1, treant:1.3, sapling:1.5};
 const unitScale = e => UNIT_SCALE[e.key] ?? 1.7;
 const TEAM_HEX = [0x2f7de1, 0xe0413c], TEAM_LIGHT = [0x8cc4ff, 0xffa3a0], TEAM_DARK = [0x1b4d9c, 0x8f1d1d], GOLD = 0xf2c230;
 
@@ -1420,6 +1615,66 @@ function unitModel(key, team){
       const orbit = new THREE.Group(); orbit.position.y = 2.1; body.add(orbit); anim.orbit = orbit;
       for (let i=0;i<4;i++){ const a = i/4*Math.PI*2; const r = part(orbit, rockG(0), st, Math.cos(a)*0.55, Math.sin(a*2)*0.1, Math.sin(a)*0.55); r.scale.setScalar(0.22); }
       break; }
+    case 'treant': case 'sapling': {
+      const big = key === 'treant', k = big ? 1 : 0.42;
+      const bark = Mt(0x6b4a2e, {roughness:0.95}), barkD = Mt(0x4e3520, {roughness:0.95});
+      const leaves = [Mt(0x3f8f3a), Mt(0x4fa547), Mt(0x2f7a32)];
+      anim.legs = [];
+      for (const s of [-1,1]){
+        const p = new THREE.Group(); p.position.set(s*0.25*k, 0.55*k, 0); body.add(p);
+        part(p, cyl(0.13*k, 0.18*k, 0.6*k, 7), barkD, 0, -0.27*k, 0);
+        for (let r=0;r<3;r++){ const root = part(p, cone(0.06*k, 0.3*k, 5), barkD, Math.cos(r*2.1)*0.14*k, -0.52*k, Math.sin(r*2.1)*0.14*k + 0.05*k); root.rotation.set(Math.sin(r*2.1)*1.2, 0, -Math.cos(r*2.1)*1.2); }
+        anim.legs.push(p);
+      }
+      part(body, cyl(0.38*k, 0.45*k, 1.1*k, 9), bark, 0, 1.05*k, 0);
+      for (let i=0;i<5;i++) part(body, box(0.05*k, 0.9*k, 0.04*k), barkD, Math.cos(i*1.3)*0.4*k, 1.05*k, Math.sin(i*1.3)*0.4*k).rotation.y = i*1.3;
+      const face = new THREE.Group(); face.position.set(0, 1.25*k, 0.4*k); body.add(face);
+      for (const s of [-1,1]) part(face, sph(0.07*k, 8, 6), Mt(0xd9f99d, {emissive:0x84cc16, emissiveIntensity:1.5}), s*0.13*k, 0, 0);
+      part(face, box(0.22*k, 0.05*k, 0.05*k), barkD, 0, -0.18*k, 0);
+      for (let i=0;i<(big?6:3);i++){
+        const b = part(body, geo('leafball', ()=>new THREE.IcosahedronGeometry(0.6, 1)), leaves[i%3], Math.cos(i*1.1)*0.35*k, (1.75 + (i%2)*0.25)*k, Math.sin(i*1.1)*0.3*k - 0.05*k);
+        b.scale.setScalar((big ? 0.85 : 1.1)*k + Math.random()*0.15*k);
+      }
+      if (big){ for (let i=0;i<4;i++) part(body, sph(0.06, 6, 4), Mt(0xef4444), Math.cos(i*1.7)*0.5, 1.95 + Math.sin(i)*0.2, Math.sin(i*1.7)*0.4 + 0.2); }
+      anim.arms = [];
+      for (const s of [-1,1]){
+        const p = new THREE.Group(); p.position.set(s*0.45*k, 1.45*k, 0); body.add(p);
+        const a1 = part(p, cyl(0.07*k, 0.11*k, 0.7*k, 6), bark, s*0.1*k, -0.3*k, 0); a1.rotation.z = s*0.3;
+        for (let f=0;f<3;f++){ const tw = part(p, cyl(0.025*k, 0.04*k, 0.3*k, 5), barkD, s*0.2*k + (f-1)*0.06*k, -0.72*k, 0.05*k); tw.rotation.set(0.3, 0, (f-1)*0.5); }
+        part(p, geo('leafball', ()=>new THREE.IcosahedronGeometry(0.6, 1)), leaves[1], s*0.12*k, -0.1*k, 0).scale.setScalar(0.3*k);
+        anim.arms.push(p);
+      }
+      if (big) anim.armsHeavy = true;
+      break; }
+    case 'storm': {
+      const robe = Mt(0x1e3a8a), glow = Mt(0x9be7ff, {emissive:0x38bdf8, emissiveIntensity:2.5});
+      R = rig(body, {skin:Mt(0xe8c9a8), shirt:robe, robe:0.34, robeMat:robe, sleeve:T, torsoR:0.16, legLen:0.3});
+      part(body, cyl(0.17, 0.17, 0.06, 14), T, 0, 0.36, 0);
+      part(body, box(0.06, 0.55, 0.03), Mt(0xfacc15, {metalness:0.7, roughness:0.3}), 0, 0.35, 0.165);
+      const hood = part(R.head, hemi(R.headR*1.15, Math.PI*0.62), robe, 0, 0, -0.02); hood.rotation.x = -0.5;
+      part(R.head, cone(0.12, 0.3, 8), Mt(0xd1d5db), 0, -0.2, 0.09).rotation.x = Math.PI + 0.2;
+      for (const c of R.head.children) if (c.material && c.material.emissive && c.geometry.parameters && c.geometry.parameters.radius < 0.012) c.visible = false;
+      const st = new THREE.Group(); R.hands[1].add(st);
+      part(st, cyl(0.022, 0.026, 1.05, 6), Mt(0x334155, {metalness:0.6, roughness:0.4}), 0, 0.15, 0);
+      for (let i=0;i<3;i++){ const pr = part(st, cone(0.025, 0.2, 4), Mt(0xfacc15, {metalness:0.8, roughness:0.3}), Math.cos(i*2.1)*0.06, 0.72, Math.sin(i*2.1)*0.06); pr.rotation.set(Math.sin(i*2.1)*0.5, 0, -Math.cos(i*2.1)*0.5); }
+      anim.orb = part(st, geo('ico0', ()=>new THREE.IcosahedronGeometry(0.1, 0)), glow, 0, 0.76, 0);
+      anim.orbit = new THREE.Group(); anim.orbit.position.y = 0.9; body.add(anim.orbit);
+      for (let i=0;i<3;i++) part(anim.orbit, sph(0.035, 6, 4), glow, Math.cos(i*2.1)*0.42, Math.sin(i*3)*0.1, Math.sin(i*2.1)*0.42);
+      break; }
+    case 'reaper': {
+      const cloak = Mt(0x1c1a24, {roughness:0.9}), cloak2 = Mt(0x2a2633, {roughness:0.9});
+      R = rig(body, {skin:Mt(0x111018), shirt:cloak, robe:0.36, robeMat:cloak, sleeve:cloak2, gloves:Mt(0xd6d3d1), torsoR:0.17, legLen:0.32, noEyes:true});
+      part(body, cyl(0.18, 0.18, 0.05, 14), T, 0, 0.42, 0);
+      const hood = part(R.head, hemi(R.headR*1.25, Math.PI*0.7), cloak2, 0, 0.02, -0.04); hood.rotation.x = -0.45;
+      part(R.head, cone(R.headR*0.7, 0.25, 8), cloak2, 0, R.headR*0.6, -R.headR*0.9).rotation.x = -1.4;
+      for (const s of [-1,1]) part(R.head, sph(0.035, 8, 6), Mt(0xc084fc, {emissive:0xa855f7, emissiveIntensity:3}), s*0.07, 0.01, R.headR*0.9);
+      for (let i=0;i<6;i++){ const tt = part(body, cone(0.08, 0.22, 4), cloak, Math.cos(i*1.05)*0.3, 0.06, Math.sin(i*1.05)*0.3); tt.rotation.x = Math.PI; }
+      const sc = new THREE.Group(); R.hands[1].add(sc); holdForward(sc, -0.9);
+      part(sc, cyl(0.022, 0.026, 1.1, 6), Mt(0x3b2a1e), 0, 0.2, 0);
+      const blade = part(sc, tor(0.32, 0.03, Math.PI*0.55, 12), Mt(0xd4d4d8, {metalness:0.9, roughness:0.25}), 0.0, 0.7, 0); blade.rotation.set(0, Math.PI/2, Math.PI*0.95);
+      part(sc, box(0.05, 0.08, 0.05), Mt(0xc084fc, {emissive:0x7e22ce, emissiveIntensity:1.5}), 0, 0.72, 0);
+      anim.float = true;
+      break; }
   }
   if (R){ anim.legs = R.legs; anim.arms = R.arms; anim.head = R.head; }
   return {body, anim};
@@ -1549,10 +1804,11 @@ const projGeo = {
   fire: new THREE.IcosahedronGeometry(0.17,1),
   ball: new THREE.SphereGeometry(0.16,10,8),
   bomb: new THREE.SphereGeometry(0.18,10,8),
+  bolt: new THREE.OctahedronGeometry(0.16,0),
   spellball: new THREE.SphereGeometry(0.55,16,12),
 };
 const projMat = {
-  arrow: M(0x6b4423), fire: M(0xffb347, {emissive:0xff6a00, emissiveIntensity:2.5}), ball: M(0x1f2328, {metalness:0.6, roughness:0.4}), bomb: M(0x222831, {metalness:0.4, roughness:0.5}),
+  arrow: M(0x6b4423), fire: M(0xffb347, {emissive:0xff6a00, emissiveIntensity:2.5}), ball: M(0x1f2328, {metalness:0.6, roughness:0.4}), bomb: M(0x222831, {metalness:0.4, roughness:0.5}), bolt: M(0xbdf3ff, {emissive:0x38bdf8, emissiveIntensity:3}),
   spellball: M(0xffa040, {emissive:0xff5a00, emissiveIntensity:3}),
 };
 
@@ -1629,7 +1885,7 @@ function sync3D(dt){
     v.phase = (v.phase || 0) + (walking ? dt*(3 + e.speed*4.5) : 0);
     v.sw = (v.sw || 0) + ((walking ? 1 : 0) - (v.sw || 0)) * Math.min(1, dt*8);
     const swing = Math.sin(v.phase) * v.sw;
-    let lift = e.flying ? 1.7 + Math.sin(now*3 + e.id)*0.12 : Math.abs(Math.cos(v.phase))*0.05*v.sw;
+    let lift = e.flying ? 1.7 + Math.sin(now*3 + e.id)*0.12 : v.anim.float ? 0.12 + Math.sin(now*2.5 + e.id)*0.05 : Math.abs(Math.cos(v.phase))*0.05*v.sw;
     if (e.deploy > 0) lift += e.deploy * 5;
     v.holder.position.y = lift;
     if (e.isBuilding){
@@ -1647,7 +1903,7 @@ function sync3D(dt){
         const bowArm = e.key === 'rangers';
         A.arms[0].rotation.x = bowArm && aim ? -1.4 : swing*0.6;
         A.arms[1].rotation.x = -swing*0.6 - lunge*1.9 - (aim && !bowArm ? 0.3 : 0);
-        if (e.key === 'golem'){ A.arms[0].rotation.x = swing*0.4 - lunge*1.2; A.arms[1].rotation.x = -swing*0.4 - lunge*1.2; }
+        if (e.key === 'golem' || e.key === 'treant'){ A.arms[0].rotation.x = swing*0.4 - lunge*1.2; A.arms[1].rotation.x = -swing*0.4 - lunge*1.2; }
       }
       if (A.head && !e.flying && e.key !== 'bull') A.head.rotation.y = Math.sin(now*0.9 + e.id)*0.12;
       if (e.key === 'bull' && A.head) A.head.rotation.x = 0.15 + lunge*0.5 + swing*0.06;
@@ -1707,6 +1963,7 @@ function sync3D(dt){
     pv.m.position.set(wx(p.x), y, wz(p.y));
     if ((p.kind === 'fire' || p.kind === 'spellball') && Math.random() < (p.kind==='spellball' ? 0.9 : 0.5))
       burst(p.x, y, p.y, p.kind==='spellball' ? 2 : 1, {color:[0xff9a2e, 0xffd34d, 0xff5a1f], glow:true, speed:0.3, up:0.4, gravity:-0.5, life:0.35, size:p.kind==='spellball' ? 0.3 : 0.12, spread:0.15, grow:true});
+    if (p.kind === 'bolt') burst(p.x, y, p.y, 1, {color:[0x9be7ff, 0xffffff], glow:true, speed:0.6, up:0.3, gravity:0, life:0.18, size:0.08});
     if (p.kind === 'bomb' && Math.random() < 0.4) burst(p.x, y+0.15, p.y, 1, {color:[0xfff3a0], glow:true, speed:0.2, up:0.3, gravity:0, life:0.2, size:0.06});
     if (p.kind === 'arrow'){
       const dir = new THREE.Vector3(p.tx-p.x, (th-pv.h0)/pv.d0*rem*0.2, p.ty-p.y).normalize();
@@ -1715,7 +1972,7 @@ function sync3D(dt){
   }
   // effects
   for (const f of G.fx){
-    if (f.type === 'num') continue;
+    if (f.type === 'num' || f.type === 'chain') continue;
     let fv = fxViews.get(f);
     if (!fv){
       let m;
@@ -1805,7 +2062,7 @@ function drawOverlay(){
       if (e.kind==='king' && !e.active) otext('💤', sx + w*0.55, sy - ppt*0.3, Math.max(12, ppt*0.6));
       if (e.stun > 0 && e.ice) otext('❄️', sx - w*0.55, sy - ppt*0.3, Math.max(12, ppt*0.6));
     } else {
-      const h = v.holder.position.y + (e.key==='golem'?2.9:e.key==='spire'?2.7:e.key==='bull'?1.8:e.flying?0.9:e.isBuilding?1.3:2.0);
+      const h = v.holder.position.y + (e.key==='golem'?2.9:e.key==='treant'?3.1:e.key==='spire'?2.7:e.key==='bull'?1.8:e.flying?0.9:e.isBuilding?1.3:2.0);
       const [sx, sy] = project(e.x, h, e.y);
       if (e.hp < e.maxHp || e.isBuilding) obar(sx, sy, Math.max(16, e.radius*2*ppt*0.9), e.hp/e.maxHp, col);
       if (e.stun > 0) otext(e.ice ? '❄️' : '⚡', sx + ppt*0.4, sy - ppt*0.3, Math.max(10, ppt*0.45));
@@ -1815,6 +2072,17 @@ function drawOverlay(){
         octx.beginPath(); octx.arc(gx, gy, Math.max(8, ppt*e.radius*0.7), -Math.PI/2, -Math.PI/2 + Math.PI*2*(1-e.deploy)); octx.stroke();
       }
     }
+  }
+  for (const f of G.fx){
+    if (f.type !== 'chain') continue;
+    const [ax, ay] = project(f.x, f.h1, f.y), [bx, by] = project(f.x2, f.h2, f.y2), k = f.t/f.max;
+    octx.globalAlpha = 1 - k; octx.lineCap = 'round';
+    for (const [w, c] of [[7, 'rgba(56,189,248,.45)'], [2.5, '#e0f7ff']]){
+      octx.strokeStyle = c; octx.lineWidth = w; octx.beginPath(); octx.moveTo(ax, ay);
+      for (let i=1;i<6;i++){ const t = i/6; octx.lineTo(ax + (bx-ax)*t + (Math.random()-.5)*14, ay + (by-ay)*t + (Math.random()-.5)*14); }
+      octx.lineTo(bx, by); octx.stroke();
+    }
+    octx.globalAlpha = 1;
   }
   for (const f of G.fx){
     if (f.type !== 'num') continue;
@@ -2045,6 +2313,8 @@ function emit(type, x, y, o){
     case 'tick': banner(String(o.n), '#fff', 'small'); sfx('tick'); break;
     case 'double': banner(`${manaMult()}× Mana!`, '#f0abfc'); sfx('horn'); break;
     case 'overtime': banner('Overtime!', '#facc15'); toast('Sudden death: next crown wins'); sfx('horn'); break;
+    case 'tiebreaker': banner('Tiebreaker!', '#facc15'); toast('All towers take damage!'); sfx('horn'); shake = Math.max(shake, 0.3); break;
+    case 'chain': sfx('zap', 0.6, 0.1); break;
   }
 }
 
@@ -2097,7 +2367,7 @@ function buildHandUI(enterIdx){
     const d = document.createElement('div');
     d.className = 'card' + (G.sel===i ? ' sel' : '') + (enterIdx===i ? ' enter' : '');
     d.dataset.i = i;
-    d.innerHTML = `<div class="cost">${c.cost}</div><div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="shade"></div>`;
+    d.innerHTML = `<div class="cost">${c.cost}</div>${AUTOPLAY ? '' : `<div class="lvh">Lv${G.lv ? G.lv[0][k] : 1}</div>`}<div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="shade"></div>`;
     d.addEventListener('pointerdown', ev=>{ ev.preventDefault(); onCardDown(i, ev); });
     cardsEl.appendChild(d);
   });
@@ -2120,7 +2390,8 @@ function updateHUD(){
   document.getElementById('timer').textContent = `${Math.floor(tl/60)}:${String(Math.floor(tl%60)).padStart(2,'0')}`;
   const ph = document.getElementById('phase');
   const mm = manaMult();
-  if (G.overtime){ ph.textContent = `Overtime · ${mm}× mana`; ph.className='hot'; }
+  if (G.tiebreaker){ ph.textContent = 'Tiebreaker!'; ph.className='hot'; }
+  else if (G.overtime){ ph.textContent = `Overtime · ${mm}× mana`; ph.className='hot'; }
   else if (mm > 1){ ph.textContent = `${mm}× mana`; ph.className='hot'; }
   else { ph.textContent = MODES[G.mode].name; ph.className=''; }
   document.getElementById('crR').textContent = '👑 ' + G.crowns[1];
@@ -2143,7 +2414,7 @@ function toArena(ev){
   return {x, y, over: inside && x>=0 && x<=W && y>=0 && y<=H};
 }
 function tryDeployAt(x,y){
-  if (!G || G.over || G.sel < 0) return;
+  if (!G || G.over || G.sel < 0 || G.tiebreaker) return;
   const res = playCard(0, G.sel, x, y);
   if (res==='ok'){ G.sel = -1; }
   else if (res==='mana'){ toast('Not enough mana'); sfx('error'); }
@@ -2184,16 +2455,11 @@ function endGame(){
   if (G.over) return;
   G.over = true; G.sel = -1;
   const [b, r] = G.crowns;
-  if (b === r && G.overtime && G.tiebreak === undefined){
-    const weak = t => Math.min(...G.ents.filter(e=>e.isTower && e.team===t).map(e=>e.hp/e.maxHp));
-    const w0 = weak(0), w1 = weak(1);
-    if (Math.abs(w0 - w1) > 0.005) G.tiebreak = w0 > w1 ? 0 : 1;
-  }
-  const win = b > r ? 0 : b < r ? 1 : (G.tiebreak ?? -1);
+  const win = b > r ? 0 : b < r ? 1 : -1;
   const title = win === 0 ? 'Victory! 🏆' : win === 1 ? 'Defeat' : 'Draw';
   document.getElementById('endTitle').textContent = title;
   document.getElementById('endCrowns').innerHTML = `<span style="color:#93c5fd">You ${'👑'.repeat(b)||'—'}</span> &nbsp;vs&nbsp; <span style="color:#fca5a5">${'👑'.repeat(r)||'—'} Foe</span>`;
-  document.getElementById('endSub').textContent = (b === r && win !== -1 ? 'Tiebreak: least-damaged tower wins · ' : '') + `Match time ${Math.floor(G.t/60)}:${String(Math.floor(G.t%60)).padStart(2,'0')}`;
+  document.getElementById('endSub').textContent = (G.tiebreaker ? 'Decided by tiebreaker · ' : '') + `Match time ${Math.floor(G.t/60)}:${String(Math.floor(G.t%60)).padStart(2,'0')}`;
   window.__result = {blue:b, red:r, t:G.t, win};
   let delta = 0;
   if (!AUTOPLAY){
@@ -2205,48 +2471,562 @@ function endGame(){
     profile.trophies += delta; profile.peak = Math.max(profile.peak || 0, profile.trophies);
     saveJSON('cs_profile', profile);
     const newly = ARENAS.filter(arenaUnlocked).slice(before);
-    const un = document.getElementById('endUnlock');
-    if (newly.length){ const a = newly[newly.length-1]; un.hidden = false; un.textContent = `${a.icon} New arena unlocked: ${a.name}!`; settings.arena = a.key; saveJSON('cs_settings', settings); setTimeout(()=>sfx('crown'), 1700); }
-    else un.hidden = true;
-  }
+    for (const a of newly) popups.push({kind:'arena', a});
+    if (newly.length){ settings.arena = newly[newly.length-1].key; saveJSON('cs_settings', settings); }
+    const lvBefore = SV.level;
+    const rw = awardBattle(win, b, r);
+    const R = [];
+    R.push(`<div class="rr">🏆 Trophies<b>${delta>0?'+':''}${delta} → ${profile.trophies}</b></div>`);
+    R.push(`<div class="rr">🪙 Gold<b>+${rw.gold}</b></div>`);
+    R.push(`<div class="rr">⭐ King XP<b>+${rw.xp}${SV.level > lvBefore ? ` · LEVEL ${SV.level}!` : ''}</b></div>`);
+    if (rw.chest) R.push(`<div class="rr gold">${chestHTML(rw.chest,'small')} ${CHESTS[rw.chest].name}<b>earned!</b></div>`);
+    else if (rw.full) R.push(`<div class="rr">🎁 Chest slots full<b>open some!</b></div>`);
+    R.push(`<div class="rr">👑 Crown Chest<b>${SV.crowns}/10</b></div>`);
+    for (const q of rw.quests) R.push(`<div class="rr gold">📜 Quest done: ${q}<b>✔</b></div>`);
+    if (profile.streak > 1 && win === 0) R.push(`<div class="rr">🔥 Win streak<b>${profile.streak}</b></div>`);
+    for (const a of newly) R.push(`<div class="rr gold">${a.icon} New arena<b>${a.name}</b></div>`);
+    document.getElementById('endRewards').innerHTML = R.join('');
+  } else document.getElementById('endRewards').innerHTML = '';
   const S = G.stats, row = (label, k, f=(x)=>Math.round(x)) => `<span>${label}</span><span class="b">${f(S[0][k])}</span><span class="r">${f(S[1][k])}</span>`;
   document.getElementById('endStats').innerHTML = '<span class="h">Stats</span><span class="h b">You</span><span class="h r">Foe</span>'
     + row('Cards played', 'played') + row('Mana spent', 'mana') + row('Tower damage', 'towerDmg') + row('Troops defeated', 'kills');
-  document.getElementById('endTrophy').textContent = AUTOPLAY ? '' : (delta ? `🏆 ${delta>0?'+':''}${delta} → ${profile.trophies}` : `🏆 ${profile.trophies}`) + (win===0 && profile.streak>1 ? `  ·  🔥 ${profile.streak} win streak` : '');
   setTimeout(()=>sfx(win===0 ? 'win' : win===1 ? 'lose' : 'horn'), 500);
   banner(win===0 ? 'Victory!' : win===1 ? 'Defeat' : 'Draw', win===0 ? '#facc15' : win===1 ? '#fca5a5' : '#fff');
   setTimeout(()=>{ document.getElementById('end').hidden = false; }, 1600);
 }
 
+// ===== Progression: collection, King Level, chests, quests, shop, trophy road =====
+const RARITY = {
+  common:    {name:'Common',    col:'#a9b4c6', mul:1,   xp:1,   copies:[2,4,8,15,25,40,60,90,130]},
+  rare:      {name:'Rare',      col:'#f5a524', mul:1.6, xp:1.5, copies:[2,3,6,10,15,25,35,50,70]},
+  epic:      {name:'Epic',      col:'#c264ff', mul:3,   xp:2.5, copies:[1,2,3,5,8,12,16,22,30]},
+  legendary: {name:'Legendary', col:'#3fe0d5', mul:6,   xp:4,   copies:[1,1,2,3,4,5,6,8,10]},
+};
+const RARITY_ORDER = ['common','rare','epic','legendary'];
+const UP_GOLD = [10,25,60,120,250,500,900,1500,2500];
+const UP_XP   = [4,6,10,16,25,40,60,90,130];
+const MAX_LVL = 10;
+// [rarity, arena index where it starts dropping from chests]
+const META = {
+  squire:['common',0], rangers:['common',0], goblins:['common',0], bats:['common',0], bones:['common',0],
+  cannon:['common',0], bomber:['common',0], shock:['common',0],
+  fireball:['rare',0], pyro:['rare',0], mender:['rare',0], bull:['rare',0],
+  golem:['epic',1], frost:['epic',1], drake:['epic',1], spire:['epic',2], treant:['epic',2],
+  storm:['legendary',2], reaper:['legendary',3],
+};
+for (const k in META){ CARDS[k].rarity = META[k][0]; CARDS[k].arena = META[k][1]; }
+const STARTER = ['squire','rangers','goblins','bats','bones','cannon','fireball','shock'];
+const LEVEL_UNLOCKS = {2:['bomber','pyro'], 3:['mender','bull'], 4:['golem','frost'], 5:['drake','spire'], 6:['treant'], 7:['storm'], 8:['reaper']};
+const KING_XP = [0, 30, 80, 160, 280, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000, 5000];   // total XP to reach level i+1
+const MAX_KING = KING_XP.length;
+function lvMult(l){ return 1 + 0.08*(l-1); }
+
+const CHESTS = {
+  free:      {name:'Free Chest',      col:'#60a5fa', time:0},
+  silver:    {name:'Silver Chest',    col:'#c5ccd6', time:180},
+  golden:    {name:'Golden Chest',    col:'#f2c230', time:480},
+  giant:     {name:'Giant Chest',     col:'#fb923c', time:900},
+  magical:   {name:'Magical Chest',   col:'#b46cff', time:1200},
+  legendary: {name:'Legendary Chest', col:'#3fe0d5', time:1800},
+  crown:     {name:'Crown Chest',     col:'#facc15', time:0},
+};
+const FREE_INTERVAL = 60*60*1000;   // a free chest every hour, up to 2 stored
+
+const QUEST_POOL = [
+  {id:'win2',    text:'Win 2 battles',            goal:2,    stat:'wins',        r:{gold:60,  xp:20}},
+  {id:'win3',    text:'Win 3 battles',            goal:3,    stat:'wins',        r:{gold:100, gems:5,  xp:30}},
+  {id:'play40',  text:'Play 40 cards',            goal:40,   stat:'played',      r:{gold:50,  xp:15}},
+  {id:'tdmg',    text:'Deal 4,000 tower damage',  goal:4000, stat:'towerDmg',    r:{gold:70,  xp:20}},
+  {id:'crowns5', text:'Earn 5 crowns',            goal:5,    stat:'crowns',      r:{gold:80,  gems:5,  xp:25}},
+  {id:'kills40', text:'Defeat 40 troops',         goal:40,   stat:'kills',       r:{gold:60,  xp:20}},
+  {id:'spells8', text:'Cast 8 spells',            goal:8,    stat:'spells',      r:{gold:50,  xp:15}},
+  {id:'mana150', text:'Spend 150 mana',           goal:150,  stat:'mana',        r:{gold:60,  xp:20}},
+  {id:'rush1',   text:'Win a Mana Rush battle',   goal:1,    stat:'rushWins',    r:{gold:80,  gems:5,  xp:25}},
+  {id:'hard1',   text:'Win on Hard difficulty',   goal:1,    stat:'hardWins',    r:{gold:100, gems:10, xp:30}},
+  {id:'three1',  text:'Win with 3 crowns',        goal:1,    stat:'threeCrowns', r:{gold:120, gems:10, xp:40}},
+  {id:'battle3', text:'Play 3 battles',           goal:3,    stat:'battles',     r:{gold:40,  xp:15}},
+  {id:'upgr1',   text:'Upgrade a card',           goal:1,    stat:'upgrades',    r:{gold:50,  gems:3,  xp:10}},
+];
+const ROAD = [
+  {t:30, r:{gold:100}}, {t:80, r:{chest:'silver'}}, {t:150, r:{gems:30}}, {t:250, r:{chest:'golden'}},
+  {t:350, r:{gold:400}}, {t:450, r:{chest:'giant'}}, {t:600, r:{chest:'magical'}}, {t:700, r:{gems:60}},
+  {t:850, r:{gold:1000}}, {t:1000, r:{chest:'legendary'}}, {t:1200, r:{chest:'magical'}}, {t:1400, r:{gems:120}},
+  {t:1600, r:{chest:'legendary'}}, {t:2000, r:{gold:5000}},
+];
+
+// ---- save data ----
+const dayKey = (d = new Date()) => `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+function newSave(){
+  const s = {gold:200, gems:50, xp:0, level:1, cards:{}, chests:[{type:'silver', state:'ready'}, null, null, null],
+    freeReady:1, freeNext:Date.now() + FREE_INTERVAL, crowns:0, day:'', quests:[], questBonus:false,
+    gift:{day:'', streak:0}, shop:null, road:[], totals:{upgrades:0, chests:0}};
+  for (const k of STARTER) s.cards[k] = {lvl:1, copies:0};
+  if (profile.games > 0){   // existing players keep the cards they were already using
+    for (const k of playerDeck) if (CARDS[k] && !CARDS[k].hidden) s.cards[k] = s.cards[k] || {lvl:1, copies:0};
+    s.gems += 100; s.chests[1] = {type:'golden', state:'locked'};
+  }
+  return s;
+}
+let SV = (()=>{ try { const v = JSON.parse(localStorage.getItem('cs_save2')); return v && typeof v === 'object' && v.cards ? v : null; } catch(e){ return null; } })() || newSave();
+function save(){ saveJSON('cs_save2', SV); }
+const owned = k => !!SV.cards[k];
+const cardLv = k => SV.cards[k] ? SV.cards[k].lvl : 1;
+function fixDeck(){
+  playerDeck = playerDeck.filter(k => owned(k));
+  for (const k of Object.keys(SV.cards)) if (playerDeck.length < 8 && !playerDeck.includes(k)) playerDeck.push(k);
+  saveDeck();
+}
+fixDeck(); save();
+
+const arenaIdx = () => Math.max(0, ARENAS.filter(arenaUnlocked).length - 1);
+const pool = rar => ALL_KEYS.filter(k => CARDS[k].rarity === rar && CARDS[k].arena <= arenaIdx());
+const needCopies = k => { const c = SV.cards[k]; return c && c.lvl < MAX_LVL ? RARITY[CARDS[k].rarity].copies[c.lvl-1] : 0; };
+const upgradeCost = k => Math.round(UP_GOLD[cardLv(k)-1] * RARITY[CARDS[k].rarity].mul);
+const canUpgrade = k => owned(k) && cardLv(k) < MAX_LVL && SV.cards[k].copies >= needCopies(k);
+const affordUpgrade = k => canUpgrade(k) && SV.gold >= upgradeCost(k);
+
+// levels used in battle: yours from your collection, the opponent's from your trophies
+function battleLevels(){
+  const off = [-1, 0, 1][difficulty];
+  const aiCard = clamp(1 + Math.floor(profile.trophies/150) + off, 1, MAX_LVL);
+  const aiKing = clamp(1 + Math.floor(profile.trophies/110) + off, 1, MAX_KING);
+  const mine = {}, theirs = {};
+  for (const k of ALL_KEYS){ mine[k] = cardLv(k); theirs[k] = aiCard; }
+  return {lv:[mine, theirs], kingLv:[SV.level, aiKing]};
+}
+function aiDeckPick(){
+  const avail = shuffle(ALL_KEYS.filter(k => CARDS[k].arena <= arenaIdx()));
+  return avail.slice(0, 8);
+}
+
+// ---- XP & King Level ----
+const popups = [];
+function addXP(n){
+  SV.xp += n;
+  while (SV.level < MAX_KING && SV.xp >= KING_XP[SV.level]){
+    SV.level++;
+    const r = {gold:100*SV.level, gems:15, cards:LEVEL_UNLOCKS[SV.level] || []};
+    SV.gold += r.gold; SV.gems += r.gems;
+    for (const k of r.cards) if (!owned(k)) SV.cards[k] = {lvl:1, copies:0};
+    popups.push({kind:'level', level:SV.level, r});
+  }
+}
+
+function doUpgrade(k){
+  if (!affordUpgrade(k)) return false;
+  const c = SV.cards[k], cost = upgradeCost(k), need = needCopies(k);
+  SV.gold -= cost; c.copies -= need; c.lvl++;
+  addXP(Math.round(UP_XP[c.lvl-2] * RARITY[CARDS[k].rarity].xp));
+  bumpQuest('upgrades', 1);
+  save(); sfx('crown');
+  return true;
+}
+
+// ---- chests ----
+function chestLoot(type){
+  const a = arenaIdx();
+  const S = {
+    free:      {cards:4+2*a,   gold:[20,40],   rare:0.4, epic:0,    leg:0},
+    silver:    {cards:7+3*a,   gold:[25,50],   rare:1,   epic:0.1,  leg:0.01},
+    golden:    {cards:16+6*a,  gold:[80,140],  rare:3,   epic:0.4,  leg:0.03},
+    giant:     {cards:50+20*a, gold:[250,400], rare:8,   epic:0.5,  leg:0.05},
+    magical:   {cards:30+10*a, gold:[200,300], rare:6,   epic:2.5,  leg:0.2},
+    legendary: {cards:1,       gold:[0,0],     rare:0,   epic:0,    leg:1},
+    crown:     {cards:14+5*a,  gold:[80,150],  rare:2,   epic:0.3,  leg:0.03, gems:[4,10]},
+  }[type];
+  const roll = f => Math.floor(f) + (Math.random() < f % 1 ? 1 : 0);
+  const ri = ([lo,hi]) => lo + Math.floor(Math.random()*(hi-lo+1));
+  let leg = roll(S.leg), epic = roll(S.epic), rare = roll(S.rare);
+  if (!pool('legendary').length){ epic += leg*2; leg = 0; }
+  if (!pool('epic').length){ rare += epic*3; epic = 0; }
+  const common = Math.max(0, S.cards - leg - epic - rare);
+  const cards = [];
+  const stacks = (rar, n, maxStacks) => {
+    const p = shuffle(pool(rar).slice()); if (!n || !p.length) return;
+    const ns = Math.min(maxStacks, p.length, n);
+    let left = n;
+    for (let i=0;i<ns;i++){ const take = i === ns-1 ? left : Math.max(1, Math.round(left/(ns-i) * (0.6 + Math.random()*0.8))); cards.push({k:p[i], n:Math.min(take, left)}); left -= Math.min(take, left); }
+  };
+  stacks('common', common, 3); stacks('rare', rare, 2); stacks('epic', epic, 2); stacks('legendary', leg, 1);
+  return {type, gold:ri(S.gold), gems:S.gems ? ri(S.gems) : 0, cards:cards.filter(c=>c.n > 0)};
+}
+function applyLoot(L){
+  SV.gold += L.gold; SV.gems += L.gems;
+  for (const c of L.cards){
+    c.isNew = !owned(c.k);
+    if (c.isNew) SV.cards[c.k] = {lvl:1, copies:c.n};
+    else SV.cards[c.k].copies += c.n;
+  }
+  SV.totals.chests++;
+  save();
+}
+function randomChestType(){
+  const r = Math.random();
+  if (r < 0.04 && pool('legendary').length) return 'legendary';
+  if (r < 0.12) return 'magical';
+  if (r < 0.20) return 'giant';
+  if (r < 0.45) return 'golden';
+  return 'silver';
+}
+function tickTimers(){
+  const now = Date.now();
+  for (const c of SV.chests) if (c && c.state === 'unlocking' && now >= c.end) c.state = 'ready';
+  while (SV.freeReady < 2 && now >= SV.freeNext){ SV.freeReady++; SV.freeNext += FREE_INTERVAL; }
+  if (SV.freeReady >= 2) SV.freeNext = Math.max(SV.freeNext, now);
+  if (SV.day !== dayKey()) newDay();
+}
+const gemCost = sec => Math.max(1, Math.ceil(sec/60));
+const fmtTime = sec => { sec = Math.max(0, Math.ceil(sec)); const h = Math.floor(sec/3600), m = Math.floor(sec%3600/60), s = sec%60; return h ? `${h}h ${m}m` : m ? `${m}m ${String(s).padStart(2,'0')}s` : `${s}s`; };
+
+// ---- daily quests, gift and shop ----
+function newDay(){
+  SV.day = dayKey();
+  SV.quests = shuffle(QUEST_POOL.slice()).slice(0, 3).map(q => ({id:q.id, prog:0, claimed:false}));
+  SV.questBonus = false;
+  SV.shop = genShop();
+  save();
+}
+function bumpQuest(stat, n){
+  const done = [];
+  for (const q of SV.quests){
+    const def = QUEST_POOL.find(d => d.id === q.id);
+    if (!def || def.stat !== stat || q.prog >= def.goal) continue;
+    q.prog = Math.min(def.goal, q.prog + n);
+    if (q.prog >= def.goal) done.push(def.text);
+  }
+  return done;
+}
+const questDef = q => QUEST_POOL.find(d => d.id === q.id);
+function genShop(){
+  const pickFrom = rar => { const p = pool(rar); const o = p.filter(owned); const src = o.length ? o : p; return src.length ? src[Math.random()*src.length|0] : null; };
+  const offers = [];
+  const add = (rar, n, price) => { const k = pickFrom(rar); if (k && !offers.some(o=>o.k===k)) offers.push({k, n, price, bought:false}); };
+  add('common', 6, 0);          // free daily deal
+  add('common', 12, 120); add('rare', 3, 180);
+  if (pool('legendary').length && Math.random() < 0.3) add('legendary', 1, 2500); else add('epic', 1, 450);
+  return {offers};
+}
+const yesterdayKey = () => { const d = new Date(); d.setDate(d.getDate()-1); return dayKey(d); };
+const giftReady = () => SV.gift.day !== dayKey();
+tickTimers();
+
+// ---- battle results ----
+function awardBattle(win, b, r){
+  const a = arenaIdx(), res = {gold:0, xp:0, chest:null, full:false, quests:[]};
+  if (win === 0){ res.gold = 15 + 8*a + 3*b; res.xp = 12 + 4*a; }
+  else if (win === -1){ res.gold = 5; res.xp = 6; }
+  else { res.gold = 2; res.xp = 4; }
+  SV.gold += res.gold; addXP(res.xp);
+  if (win === 0){
+    const slot = SV.chests.findIndex(c => !c);
+    if (slot >= 0){ res.chest = randomChestType(); SV.chests[slot] = {type:res.chest, state:'locked'}; }
+    else res.full = true;
+  }
+  SV.crowns = Math.min(10, SV.crowns + b);
+  const st = G.stats[0];
+  const add = (k, n) => { res.quests.push(...bumpQuest(k, n)); };
+  add('battles', 1); add('played', st.played); add('mana', st.mana); add('towerDmg', st.towerDmg);
+  add('kills', st.kills); add('spells', st.spells); add('crowns', b);
+  if (win === 0){ add('wins', 1); if (G.mode === 'rush') add('rushWins', 1); if (difficulty === 2) add('hardWins', 1); if (b === 3) add('threeCrowns', 1); }
+  save();
+  return res;
+}
+
+// ===== Hub UI =====
+const $ = id => document.getElementById(id);
+let hubTab = 'battle', swapFor = null;
+function chestHTML(type, cls=''){
+  const c = CHESTS[type];
+  return `<div class="chest ${cls}" style="--c:${c.col}"><div class="bod"></div><div class="lid"></div><div class="band"></div><div class="lock"></div></div>`;
+}
+function cardTile(k, opts={}){
+  const c = CARDS[k], rar = RARITY[c.rarity], o = owned(k);
+  const need = needCopies(k), have = o ? SV.cards[k].copies : 0, lv = cardLv(k);
+  const bar = !o ? '' : lv >= MAX_LVL ? `<div class="bar max"><i style="width:100%"></i><span>MAX</span></div>`
+    : `<div class="bar ${have >= need ? 'ready' : ''}"><i style="width:${Math.min(100, have/need*100)}%"></i><span>${have>=need ? '⬆ ' : ''}${have}/${need}</span></div>`;
+  return `<div class="ctile ${o ? '' : 'locked'} ${opts.sel ? 'sel' : ''}" data-k="${k}" style="--r:${rar.col}">
+    <div class="cost">${c.cost}</div>${o ? `<div class="lvb">Lv ${lv}</div>` : ''}
+    <div class="icon">${o ? c.icon : '🔒'}</div><div class="nm">${c.name}</div>${bar}</div>`;
+}
+const dot = on => on ? '<i class="dot"></i>' : '';
+function renderHub(){
+  tickTimers();
+  const next = SV.level < MAX_KING ? KING_XP[SV.level] : null, prev = KING_XP[SV.level-1];
+  $('hubTop').innerHTML = `
+    <div class="king"><div class="kbadge">👑<b>${SV.level}</b></div>
+      <div class="xp"><div class="xpbar"><i style="width:${next ? (SV.xp-prev)/(next-prev)*100 : 100}%"></i></div><span>${next ? `${SV.xp-prev}/${next-prev} XP` : 'MAX'}</span></div></div>
+    <div class="cur">🪙 <b>${SV.gold.toLocaleString()}</b></div><div class="cur">💎 <b>${SV.gems}</b></div><div class="cur tr">🏆 <b>${profile.trophies}</b></div>`;
+  const questDot = SV.quests.some(q => !q.claimed && q.prog >= questDef(q).goal) || giftReady() || (SV.quests.every(q=>q.claimed) && !SV.questBonus);
+  const cardDot = Object.keys(SV.cards).some(affordUpgrade);
+  const roadDot = ROAD.some((m,i) => profile.peak >= m.t && !SV.road.includes(i));
+  const shopDot = SV.shop.offers.some(o => o.price === 0 && !o.bought);
+  $('hubTabs').innerHTML = [['shop','🛒','Shop',shopDot],['cards','🃏','Cards',cardDot],['battle','⚔️','Battle',false],['quests','📜','Quests',questDot],['road','🏆','Road',roadDot]]
+    .map(([k,i,n,d]) => `<button data-tab="${k}" class="${hubTab===k?'on':''}">${dot(d)}<span>${i}</span>${n}</button>`).join('');
+  for (const id of ['battle','cards','quests','shop','road']) $('tab-'+id).hidden = hubTab !== id;
+  ({battle:renderBattleTab, cards:renderCardsTab, quests:renderQuestsTab, shop:renderShopTab, road:renderRoadTab})[hubTab]();
+}
+function renderBattleTab(){
+  const a = arenaByKey(settings.arena);
+  $('arenaShow').innerHTML = `<div class="aicon">${a.icon}</div><div><b>${a.name}</b><br><small>Opponent cards ~Lv ${battleLevels().lv[1].squire} · King Lv ${battleLevels().kingLv[1]}</small></div>`;
+  buildArenaMenu();
+  renderChestArea();
+  $('startBtn').disabled = playerDeck.length !== 8;
+}
+function renderChestArea(){
+  const now = Date.now();
+  let anyUnlocking = SV.chests.some(c => c && c.state === 'unlocking');
+  const slotsHTML = SV.chests.map((c, i) => {
+    if (!c) return `<div class="slot empty">Win battles<br>to earn chests</div>`;
+    const ch = CHESTS[c.type];
+    const label = c.state === 'ready' ? '<b class="open">OPEN</b>' : c.state === 'unlocking' ? `<b>${fmtTime((c.end-now)/1000)}</b><small>💎 ${gemCost((c.end-now)/1000)}</small>`
+      : anyUnlocking ? `<small>${fmtTime(ch.time)}</small>` : `<b class="tap">Tap to unlock</b><small>${fmtTime(ch.time)}</small>`;
+    return `<div class="slot ${c.state}" data-slot="${i}">${chestHTML(c.type, c.state==='ready' ? 'bounce' : '')}<div class="sl">${ch.name}</div>${label}</div>`;
+  }).join('');
+  setHTML('chestSlots', slotsHTML);
+  setHTML('freeRow', `
+    <div class="mini" id="freeChest">${chestHTML('free','small')}<div><b>Free Chest</b><br><small>${SV.freeReady ? `${SV.freeReady} ready!` : `Next in ${fmtTime((SV.freeNext-now)/1000)}`}</small></div>${SV.freeReady ? '<b class="open">OPEN</b>' : ''}</div>
+    <div class="mini" id="crownChest">${chestHTML('crown','small')}<div><b>Crown Chest</b><br><small>👑 ${SV.crowns}/10</small><div class="cbar"><i style="width:${SV.crowns*10}%"></i></div></div>${SV.crowns >= 10 ? '<b class="open">OPEN</b>' : ''}</div>`);
+}
+// only touch the DOM when content changes, so taps aren't lost to a re-render
+function setHTML(id, html){ const el = $(id); if (el._html !== html){ el._html = html; el.innerHTML = html; } }
+function renderCardsTab(){
+  $('deckInfo').textContent = `${playerDeck.length}/8 · avg cost ${(playerDeck.reduce((a,k)=>a+CARDS[k].cost,0)/Math.max(1,playerDeck.length)).toFixed(1)}`;
+  $('deckRow').innerHTML = playerDeck.map(k => cardTile(k, {sel: swapFor && true})).join('') + '<div class="ctile ghost"></div>'.repeat(8 - playerDeck.length);
+  $('swapHint').hidden = !swapFor;
+  if (swapFor) $('swapHint').innerHTML = `Tap a card in your deck to swap in <b>${CARDS[swapFor].icon} ${CARDS[swapFor].name}</b> <button class="btn sm" id="swapCancel">Cancel</button>`;
+  const sorted = ALL_KEYS.slice().sort((x, y) => (owned(y)-owned(x)) || (RARITY_ORDER.indexOf(CARDS[x].rarity) - RARITY_ORDER.indexOf(CARDS[y].rarity)) || CARDS[x].cost - CARDS[y].cost);
+  $('collection').innerHTML = sorted.filter(k => !playerDeck.includes(k)).map(k => cardTile(k)).join('');
+  $('collCount').textContent = `${Object.keys(SV.cards).length}/${ALL_KEYS.length} found`;
+}
+function renderQuestsTab(){
+  const streak = SV.gift.day === yesterdayKey() ? SV.gift.streak % 7 + 1 : (giftReady() ? 1 : SV.gift.streak);
+  $('giftBox').innerHTML = giftReady()
+    ? `<div class="gift on"><span class="gi">🎁</span><div><b>Daily gift · day ${streak}</b><br><small>${streak === 7 ? 'Magical Chest + 25 💎' : `${30+20*streak} 🪙 + 3 💎`}</small></div><button class="btn go sm" id="giftBtn">Claim</button></div>`
+    : `<div class="gift"><span class="gi">✅</span><div><b>Daily gift claimed</b> (day ${SV.gift.streak} streak)<br><small>Come back tomorrow — day 7 gives a Magical Chest!</small></div></div>`;
+  const midnight = new Date(); midnight.setHours(24,0,0,0);
+  $('questReset').textContent = `New quests in ${fmtTime((midnight - Date.now())/1000)}`;
+  $('questList').innerHTML = SV.quests.map((q, i) => {
+    const d = questDef(q), done = q.prog >= d.goal;
+    const rw = [d.r.gold && `🪙${d.r.gold}`, d.r.gems && `💎${d.r.gems}`, d.r.xp && `⭐${d.r.xp}`].filter(Boolean).join(' ');
+    return `<div class="quest ${q.claimed ? 'claimed' : ''}"><div class="qt"><b>${d.text}</b><small>${rw}</small>
+      <div class="qbar"><i style="width:${q.prog/d.goal*100}%"></i><span>${Math.floor(q.prog).toLocaleString()}/${d.goal.toLocaleString()}</span></div></div>
+      ${q.claimed ? '<span class="ok">✔</span>' : `<button class="btn sm ${done ? 'go' : ''}" data-q="${i}" ${done ? '' : 'disabled'}>Claim</button>`}</div>`;
+  }).join('');
+  const all = SV.quests.every(q => q.claimed);
+  $('questBonus').innerHTML = `${chestHTML('golden','small')}<div><b>Complete all 3 quests</b><br><small>Bonus: Golden Chest</small></div>`
+    + (SV.questBonus ? '<span class="ok">✔</span>' : `<button class="btn sm ${all ? 'go' : ''}" id="bonusBtn" ${all ? '' : 'disabled'}>Open</button>`);
+}
+function renderShopTab(){
+  const midnight = new Date(); midnight.setHours(24,0,0,0);
+  $('shopReset').textContent = `Refreshes in ${fmtTime((midnight - Date.now())/1000)}`;
+  $('shopDeals').innerHTML = SV.shop.offers.map((o, i) => {
+    const c = CARDS[o.k];
+    return `<div class="deal ${o.bought ? 'bought' : ''}" style="--r:${RARITY[c.rarity].col}"><div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="cnt">×${o.n}</div>
+      ${o.bought ? '<span class="ok">Bought</span>' : `<button class="btn sm ${o.price===0 ? 'go' : ''}" data-buy="${i}">${o.price === 0 ? 'FREE' : `🪙 ${o.price}`}</button>`}</div>`;
+  }).join('');
+  const gemChests = [['golden',50],['giant',120],['magical',150]].concat(pool('legendary').length ? [['legendary',300]] : []);
+  $('shopChests').innerHTML = gemChests.map(([t, p]) => `<div class="deal">${chestHTML(t,'small')}<div class="nm">${CHESTS[t].name}</div><button class="btn sm" data-chest="${t}" data-price="${p}">💎 ${p}</button></div>`).join('');
+  $('shopGold').innerHTML = [[30,300],[100,1200],[250,3500]].map(([g, au]) => `<div class="deal"><div class="icon">🪙</div><div class="nm">${au.toLocaleString()} gold</div><button class="btn sm" data-gold="${au}" data-price="${g}">💎 ${g}</button></div>`).join('');
+}
+function renderRoadTab(){
+  const items = [];
+  const marks = ROAD.map((m, i) => ({t:m.t, html:() => {
+    const got = SV.road.includes(i), ok = profile.peak >= m.t, r = m.r;
+    const what = r.chest ? `${chestHTML(r.chest,'small')}<span>${CHESTS[r.chest].name}</span>` : r.gold ? `<span class="ri">🪙</span><span>${r.gold.toLocaleString()} gold</span>` : `<span class="ri">💎</span><span>${r.gems} gems</span>`;
+    return `<div class="rm ${got ? 'got' : ok ? 'ok' : ''}"><div class="rt">🏆 ${m.t}</div><div class="rw">${what}</div>${got ? '<span class="ok">✔</span>' : ok ? `<button class="btn sm go" data-road="${i}">Claim</button>` : '<span class="lk">🔒</span>'}</div>`;
+  }}));
+  const arenas = ARENAS.map(a => ({t:a.trophies, html:() => `<div class="ra ${arenaUnlocked(a) ? 'ok' : ''}"><span>${a.icon}</span> <b>${a.name}</b> <small>· arena unlocks at 🏆 ${a.trophies}</small></div>`}));
+  for (const m of arenas.concat(marks).sort((x, y) => x.t - y.t)) items.push(m.html());
+  $('roadList').innerHTML = `<div class="rnow">Your best: 🏆 ${profile.peak}</div>` + items.join('');
+}
+
+// ---- modal + chest opening ----
+function modal(html, mount){
+  $('modalBody').innerHTML = html; $('modal').hidden = false;
+  const close = () => { $('modal').hidden = true; renderHub(); setTimeout(flushPopups, 0); };
+  $('modalBody').querySelectorAll('[data-close]').forEach(b => b.onclick = close);
+  if (mount) mount(close);
+}
+function cardModal(k){
+  const c = CARDS[k], rar = RARITY[c.rarity], o = owned(k), lv = cardLv(k), m0 = lvMult(lv), m1 = lvMult(lv+1);
+  const up = o && lv < MAX_LVL;
+  const statRow = (label, base, fmt=(x)=>Math.round(x)) => `<tr><td>${label}</td><td>${fmt(base*m0)}</td>${up && canUpgrade(k) ? `<td class="nx">+${fmt(base*m1)-fmt(base*m0)}</td>` : '<td></td>'}</tr>`;
+  let stats = '';
+  if (c.type === 'spell'){ stats = statRow('Damage', c.spell.dmg) + `<tr><td>Radius</td><td>${c.spell.radius}</td><td></td></tr>` + (c.spell.stun ? `<tr><td>${c.spell.freeze?'Freeze':'Stun'}</td><td>${c.spell.stun}s</td><td></td></tr>` : ''); }
+  else {
+    const u = c.u;
+    stats = statRow('Hitpoints', u.hp) + statRow('Damage', u.dmg) + `<tr><td>Hit speed</td><td>${u.hit}s</td><td></td></tr><tr><td>Range</td><td>${u.range < 1.5 ? 'Melee' : u.range}</td><td></td></tr>`
+      + (c.count > 1 ? `<tr><td>Count</td><td>×${c.count}</td><td></td></tr>` : '') + (u.heal ? statRow('Heal / s', u.heal.amt) : '')
+      + `<tr><td>Targets</td><td>${u.targets==='buildings' ? 'Buildings' : u.air ? 'Air & ground' : 'Ground'}</td><td></td></tr>`;
+  }
+  const unlockAt = Object.entries(LEVEL_UNLOCKS).find(([, ks]) => ks.includes(k));
+  const lockMsg = o ? '' : `<p class="lockmsg">🔒 Not found yet. ${unlockAt && +unlockAt[0] > SV.level ? `Unlocks at <b>King Level ${unlockAt[0]}</b>, or` : 'Can be'} found in chests${c.arena > arenaIdx() ? ` from <b>${ARENAS[c.arena].name}</b>` : ''}.</p>`;
+  const inDeck = playerDeck.includes(k);
+  const need = needCopies(k), cost = up ? upgradeCost(k) : 0;
+  modal(`<div class="cmod" style="--r:${rar.col}">
+    <div class="chead"><div class="bigicon">${o ? c.icon : '🔒'}</div><div><div class="rar">${rar.name}</div><h2>${c.name}</h2>${o ? `<div class="lvl">Level ${lv}${lv>=MAX_LVL?' (max)':''}</div>` : ''}<div class="ds">${c.desc} · ${c.cost} mana</div></div></div>
+    <table class="stt">${stats}</table>${lockMsg}
+    ${up ? `<div class="bar big ${canUpgrade(k) ? 'ready' : ''}"><i style="width:${Math.min(100, SV.cards[k].copies/need*100)}%"></i><span>${SV.cards[k].copies}/${need} cards</span></div>` : ''}
+    <div class="row mrow">
+      ${up ? `<button class="btn ${affordUpgrade(k) ? 'go' : ''}" id="upBtn" ${canUpgrade(k) ? '' : 'disabled'}>⬆ Upgrade · 🪙 ${cost}</button>` : ''}
+      ${o && !inDeck ? '<button class="btn" id="useBtn">➕ Use in deck</button>' : ''}
+      <button class="btn" data-close>Close</button>
+    </div></div>`, close => {
+    const ub = $('upBtn');
+    if (ub) ub.onclick = () => {
+      if (SV.gold < cost){ sfx('error'); toast('Not enough gold'); return; }
+      if (doUpgrade(k)){ close(); if (popups.length) flushPopups(); else cardModal(k); }
+    };
+    const us = $('useBtn');
+    if (us) us.onclick = () => { swapFor = k; hubTab = 'cards'; close(); sfx('select'); };
+  });
+}
+function lootCardsHTML(L){
+  return L.cards.map(c => `<div class="lc" style="--r:${RARITY[CARDS[c.k].rarity].col}">${c.isNew ? '<i class="new">NEW</i>' : ''}<div class="icon">${CARDS[c.k].icon}</div><b>×${c.n}</b></div>`).join('');
+}
+function openChestUI(type, done){
+  const L = chestLoot(type); applyLoot(L);
+  const steps = [];
+  if (L.gold || L.gems) steps.push(() => `<div class="ldrop"><div class="big">${L.gold ? `🪙 +${L.gold}` : ''}${L.gems ? `<br>💎 +${L.gems}` : ''}</div></div>`);
+  for (const c of L.cards){
+    const k = c.k, card = CARDS[k], rar = RARITY[card.rarity];
+    steps.push(() => {
+      const need = needCopies(k), have = SV.cards[k].copies;
+      return `<div class="ldrop lcard" style="--r:${rar.col}">${c.isNew ? '<div class="newbig">NEW CARD!</div>' : ''}
+        <div class="bigicon">${card.icon}</div><div class="rar">${rar.name}</div><h2>${card.name}</h2><div class="big">×${c.n}</div>
+        ${cardLv(k) < MAX_LVL ? `<div class="bar big ${have>=need?'ready':''}"><i style="width:${Math.min(100,have/need*100)}%"></i><span>${have}/${need}${have>=need ? ' · upgrade ready!' : ''}</span></div>` : ''}</div>`;
+    });
+  }
+  steps.push(() => `<div class="ldrop"><h2>${CHESTS[type].name}</h2><div class="lgrid">${lootCardsHTML(L)}</div><div class="sum">🪙 ${L.gold}${L.gems ? ` · 💎 ${L.gems}` : ''}</div></div>`);
+  const ov = $('chestOpen'); ov.hidden = false;
+  let i = -1;
+  const show = () => {
+    if (i < 0){ ov.innerHTML = `<div class="cwrap">${chestHTML(type, 'big shake')}<h2>${CHESTS[type].name}</h2><p>Tap to open!</p></div>`; return; }
+    if (i >= steps.length){ ov.hidden = true; ov.innerHTML = ''; renderHub(); flushPopups(); if (done) done(); return; }
+    ov.innerHTML = `<div class="cwrap pop">${steps[i]()}<p class="hint">${i === steps.length-1 ? 'Tap to collect' : `Tap to continue · ${steps.length-1-i} left`}</p></div>`;
+    const c = L.cards[i - ((L.gold || L.gems) ? 1 : 0)];
+    if (c && i < steps.length-1){ const r = CARDS[c.k].rarity; sfx(r === 'legendary' ? 'win' : r === 'epic' ? 'crown' : 'select', r === 'common' ? 1.4 : 1, 0); }
+  };
+  ov.onclick = () => { if (i < 0) sfx('towerfall', 0.4, 0); i++; show(); };
+  show();
+}
+function flushPopups(){
+  if (!$('modal').hidden || !$('chestOpen').hidden) return;
+  const p = popups.shift(); if (!p) return;
+  if (p.kind === 'level'){
+    const cards = p.r.cards.map(k => `<div class="lc" style="--r:${RARITY[CARDS[k].rarity].col}"><i class="new">NEW</i><div class="icon">${CARDS[k].icon}</div><b>${CARDS[k].name}</b></div>`).join('');
+    sfx('win');
+    modal(`<div class="lvup"><div class="kbadge huge">👑<b>${p.level}</b></div><h2>King Level ${p.level}!</h2>
+      <p>Your towers are stronger, and you earned:</p><div class="big">🪙 +${p.r.gold} · 💎 +${p.r.gems}</div>
+      ${cards ? `<h3>Cards unlocked</h3><div class="lgrid">${cards}</div>` : ''}<button class="btn go" data-close>Awesome!</button></div>`,
+      close => { $('modalBody').querySelector('[data-close]').onclick = () => { close(); flushPopups(); }; });
+  } else if (p.kind === 'arena'){
+    sfx('crown');
+    modal(`<div class="lvup"><div class="huge">${p.a.icon}</div><h2>New arena unlocked!</h2><p><b>${p.a.name}</b> — new cards can now drop from chests.</p><button class="btn go" data-close>Let's go!</button></div>`,
+      close => { $('modalBody').querySelector('[data-close]').onclick = () => { close(); flushPopups(); }; });
+  }
+}
+
+// ---- hub event wiring ----
+$('hubTabs').onclick = ev => { const b = ev.target.closest('[data-tab]'); if (!b) return; audioInit(); sfx('select'); hubTab = b.dataset.tab; swapFor = null; renderHub(); $('hubBody').scrollTop = 0; };
+$('chestSlots').onclick = ev => {
+  const el = ev.target.closest('[data-slot]'); if (!el) return; audioInit();
+  const i = +el.dataset.slot, c = SV.chests[i]; if (!c) return;
+  if (c.state === 'ready'){ SV.chests[i] = null; save(); openChestUI(c.type); return; }
+  const remain = c.state === 'unlocking' ? (c.end - Date.now())/1000 : CHESTS[c.type].time;
+  const busy = SV.chests.some(x => x && x.state === 'unlocking');
+  const g = gemCost(remain);
+  modal(`<div class="lvup">${chestHTML(c.type,'big')}<h2>${CHESTS[c.type].name}</h2><p>${c.state === 'unlocking' ? `Unlocking… ${fmtTime(remain)} left` : `Takes ${fmtTime(remain)} to unlock`}</p>
+    <div class="row mrow">${c.state === 'locked' && !busy ? '<button class="btn go" id="startUnlock">⏳ Start unlock</button>' : ''}
+    <button class="btn" id="gemOpen">💎 ${g} Open now</button><button class="btn" data-close>Close</button></div>
+    ${c.state === 'locked' && busy ? '<p class="lockmsg">Another chest is already unlocking.</p>' : ''}</div>`, close => {
+    const su = $('startUnlock'); if (su) su.onclick = () => { c.state = 'unlocking'; c.end = Date.now() + CHESTS[c.type].time*1000; save(); sfx('select'); close(); };
+    $('gemOpen').onclick = () => { if (SV.gems < g){ sfx('error'); toast('Not enough gems'); return; } SV.gems -= g; SV.chests[i] = null; save(); close(); openChestUI(c.type); };
+  });
+};
+$('freeRow').onclick = ev => {
+  audioInit();
+  if (ev.target.closest('#freeChest') && SV.freeReady > 0){
+    if (SV.freeReady === 2) SV.freeNext = Date.now() + FREE_INTERVAL;
+    SV.freeReady--; save(); openChestUI('free');
+  } else if (ev.target.closest('#crownChest') && SV.crowns >= 10){ SV.crowns = 0; save(); openChestUI('crown'); }
+  else sfx('error');
+};
+$('tab-cards').onclick = ev => {
+  if (ev.target.id === 'swapCancel'){ swapFor = null; renderHub(); return; }
+  const t = ev.target.closest('.ctile[data-k]'); if (!t) return; audioInit(); sfx('select');
+  const k = t.dataset.k;
+  if (swapFor && playerDeck.includes(k)){ playerDeck[playerDeck.indexOf(k)] = swapFor; swapFor = null; saveDeck(); renderHub(); return; }
+  cardModal(k);
+};
+$('tab-quests').onclick = ev => {
+  audioInit();
+  if (ev.target.id === 'giftBtn'){
+    const streak = SV.gift.day === yesterdayKey() ? SV.gift.streak % 7 + 1 : 1;
+    SV.gift = {day:dayKey(), streak};
+    if (streak === 7){ SV.gems += 25; save(); openChestUI('magical'); }
+    else { SV.gold += 30 + 20*streak; SV.gems += 3; save(); sfx('crown'); toast(`+${30+20*streak} 🪙  +3 💎`); }
+    renderHub(); return;
+  }
+  if (ev.target.id === 'bonusBtn'){ SV.questBonus = true; save(); openChestUI('golden'); return; }
+  const b = ev.target.closest('[data-q]'); if (!b) return;
+  const q = SV.quests[+b.dataset.q], d = questDef(q);
+  if (q.claimed || q.prog < d.goal) return;
+  q.claimed = true; SV.gold += d.r.gold || 0; SV.gems += d.r.gems || 0; addXP(d.r.xp || 0); save();
+  sfx('crown'); toast(`Quest complete! +${d.r.gold||0} 🪙${d.r.gems ? ` +${d.r.gems} 💎` : ''} +${d.r.xp} XP`);
+  renderHub(); flushPopups();
+};
+$('tab-shop').onclick = ev => {
+  audioInit();
+  const b = ev.target.closest('button'); if (!b) return;
+  if (b.dataset.buy !== undefined){
+    const o = SV.shop.offers[+b.dataset.buy]; if (o.bought) return;
+    if (SV.gold < o.price){ sfx('error'); toast('Not enough gold'); return; }
+    SV.gold -= o.price; o.bought = true;
+    const isNew = !owned(o.k);
+    if (isNew) SV.cards[o.k] = {lvl:1, copies:o.n}; else SV.cards[o.k].copies += o.n;
+    save(); sfx('crown'); toast(`${isNew ? 'NEW! ' : ''}${CARDS[o.k].icon} ${CARDS[o.k].name} ×${o.n}`);
+  } else if (b.dataset.chest){
+    const p = +b.dataset.price; if (SV.gems < p){ sfx('error'); toast('Not enough gems'); return; }
+    SV.gems -= p; save(); openChestUI(b.dataset.chest); return;
+  } else if (b.dataset.gold){
+    const p = +b.dataset.price; if (SV.gems < p){ sfx('error'); toast('Not enough gems'); return; }
+    SV.gems -= p; SV.gold += +b.dataset.gold; save(); sfx('crown'); toast(`+${(+b.dataset.gold).toLocaleString()} 🪙`);
+  }
+  renderHub();
+};
+$('tab-road').onclick = ev => {
+  const b = ev.target.closest('[data-road]'); if (!b) return; audioInit();
+  const i = +b.dataset.road, m = ROAD[i];
+  if (SV.road.includes(i) || profile.peak < m.t) return;
+  SV.road.push(i);
+  if (m.r.chest){ save(); openChestUI(m.r.chest); return; }
+  SV.gold += m.r.gold || 0; SV.gems += m.r.gems || 0; save(); sfx('crown');
+  toast(m.r.gold ? `+${m.r.gold.toLocaleString()} 🪙` : `+${m.r.gems} 💎`); renderHub();
+};
+setInterval(() => {
+  if ($('menu').hidden || !$('modal').hidden || !$('chestOpen').hidden) return;
+  const before = JSON.stringify(SV.chests) + SV.freeReady + SV.day;
+  tickTimers();
+  if (JSON.stringify(SV.chests) + SV.freeReady + SV.day !== before){ save(); renderHub(); return; }
+  const midnight = new Date(); midnight.setHours(24,0,0,0);
+  if (hubTab === 'battle' && (SV.chests.some(c => c && c.state === 'unlocking') || SV.freeReady < 2)) renderChestArea();
+  if (hubTab === 'quests') $('questReset').textContent = `New quests in ${fmtTime((midnight - Date.now())/1000)}`;
+  if (hubTab === 'shop') $('shopReset').textContent = `Refreshes in ${fmtTime((midnight - Date.now())/1000)}`;
+}, 1000);
+
 // ===== Menu =====
 function buildMenu(){
-  const grid = document.getElementById('deckGrid'); grid.innerHTML='';
-  for (const k of ALL_KEYS){
-    const c = CARDS[k];
-    const d = document.createElement('div');
-    d.className = 'pick' + (playerDeck.includes(k)?' on':'');
-    const st = c.type==='spell' ? `⚔ ${c.spell.dmg}` + (c.spell.stun ? ` · ${c.spell.freeze?'❄':'⚡'} ${c.spell.stun}s` : '')
-      : `❤ ${c.u.hp} · ⚔ ${c.u.dmg}` + (c.u.heal ? ` · 💚${c.u.heal.amt}` : '');
-    d.innerHTML = `<div class="cost">${c.cost}</div>${c.count>1?`<div class="cnt">×${c.count}</div>`:''}<div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="ds">${c.desc}</div><div class="st">${st}</div>`;
-    d.onclick = ()=>{
-      audioInit(); sfx('select');
-      if (playerDeck.includes(k)) playerDeck = playerDeck.filter(x=>x!==k);
-      else if (playerDeck.length < 8) playerDeck.push(k);
-      buildMenu();
-    };
-    grid.appendChild(d);
-  }
-  document.getElementById('deckCount').textContent = playerDeck.length;
-  document.getElementById('avgCost').textContent = playerDeck.length ? (playerDeck.reduce((a,k)=>a+CARDS[k].cost,0)/playerDeck.length).toFixed(1) : '—';
+  fixDeck();
   const rank = profile.trophies >= 1500 ? 'Legend' : profile.trophies >= 900 ? 'Champion' : profile.trophies >= 500 ? 'Knight' : profile.trophies >= 200 ? 'Squire' : 'Recruit';
-  document.getElementById('profile').innerHTML = `<span class="tr">🏆 ${profile.trophies} <span style="font-size:12px;color:var(--muted);font-weight:600">${rank}</span></span>`
+  $('profile').innerHTML = `<span class="tr">🏆 ${profile.trophies} <span style="font-size:12px;color:var(--muted);font-weight:600">${rank}</span></span>`
     + `<span><b>${profile.wins}</b> W</span><span><b>${profile.losses}</b> L</span><span>🔥 best <b>${profile.best}</b></span>`;
-  refreshSettings(); buildArenaMenu();
-  document.getElementById('startBtn').disabled = playerDeck.length !== 8;
+  refreshSettings(); renderHub();
 }
 document.querySelectorAll('#diffRow .btn').forEach(b=>b.onclick=()=>{
-  difficulty = +b.dataset.d;
+  difficulty = +b.dataset.d; sfx('select');
   document.querySelectorAll('#diffRow .btn').forEach(x=>x.classList.toggle('on', x===b));
+  renderHub();
 });
 function refreshSettings(){
   for (const id of ['sndBtn','sndBtn2']) document.getElementById(id).textContent = settings.sound ? '🔊 Sound: On' : '🔇 Sound: Off';
@@ -2278,7 +3058,7 @@ function buildArenaMenu(){
     const d = document.createElement('div'), ok = arenaUnlocked(a);
     d.className = 'arena' + (settings.arena === a.key ? ' on' : '') + (ok ? '' : ' locked');
     d.innerHTML = `<div class="ai">${ok ? a.icon : '🔒'}</div>${a.name}${ok ? '' : `<br><span style="color:var(--gold)">🏆 ${a.trophies}</span>`}`;
-    d.onclick = ()=>{ if (!ok){ sfx('error'); return; } settings.arena = a.key; saveJSON('cs_settings', settings); sfx('select'); buildArenaMenu(); };
+    d.onclick = ()=>{ if (!ok){ sfx('error'); return; } settings.arena = a.key; saveJSON('cs_settings', settings); sfx('select'); renderHub(); };
     row.appendChild(d);
   }
   const mr = document.getElementById('modeRow'); mr.innerHTML = '';
@@ -2294,6 +3074,7 @@ document.getElementById('quitBtn').onclick = ()=>{ document.getElementById('paus
 document.addEventListener('visibilitychange', ()=>{ if (document.hidden && G && !G.over && !AUTOPLAY) setPaused(true); });
 function start(){
   audioInit();
+  fixDeck(); if (playerDeck.length !== 8){ toast('Your deck needs 8 cards'); return; }
   saveDeck();
   document.getElementById('menu').hidden = true;
   document.getElementById('end').hidden = true;
@@ -2303,7 +3084,7 @@ function start(){
   if (profile.games === 0) setTimeout(()=>toast('Drag a card onto your side of the arena!'), 3400);
 }
 document.getElementById('startBtn').onclick = start;
-document.getElementById('againBtn').onclick = ()=>{ document.getElementById('end').hidden = true; document.getElementById('menu').hidden = false; buildMenu(); };
+document.getElementById('againBtn').onclick = ()=>{ document.getElementById('end').hidden = true; document.getElementById('menu').hidden = false; hubTab = 'battle'; buildMenu(); flushPopups(); };
 
 // ===== Main loop =====
 let last = performance.now(), acc = 0, hudT = 0;
