@@ -4,10 +4,10 @@ A real-time lane-battle card game in 3D, rendered with [Three.js](https://threej
 
 ## Play
 
-Open `index.html` in any modern browser with WebGL, on desktop or mobile.
+Open `index.html` in any modern browser with WebGL. On a laptop or desktop it switches to a widescreen layout automatically: the arena fills the screen and your cards sit in a sidebar. Press **F** (or ⛶) for fullscreen; Settings → Layout can force Phone or Desktop.
 
 - Pick 8 of the 12 cards for your deck, choose a difficulty and press **Battle**.
-- Drag a card onto your (bottom) half of the arena, or tap a card and then tap where to deploy it. On desktop, keys `1`–`4` select cards.
+- Drag a card onto your (bottom) half of the arena, or tap a card and then tap where to deploy it. On a keyboard, `1`–`4` select cards, `Esc` deselects or pauses, and `F` toggles fullscreen.
 - Mana refills over time. It refills twice as fast in the last minute and three times as fast in overtime.
 - A side tower is worth 1 crown and the king tower is worth 3. Destroying a side tower lets you deploy deeper into that lane.
 - When the 3:00 clock runs out, the player with the most crowns wins. A tie goes to a sudden-death overtime.

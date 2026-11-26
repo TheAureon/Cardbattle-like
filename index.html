@@ -288,6 +288,59 @@
   .pstats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   .pstats div{background:var(--panel2);border-radius:10px;padding:8px 10px}.pstats b{display:block;font-size:18px}.pstats small{font-size:11px}
   .fav{margin-top:10px;font-size:13px}
+  /* ---- laptop / desktop layout ---- */
+  #fsBtn{position:absolute;top:8px;right:52px;z-index:5;width:38px;height:38px;border-radius:50%;border:none;background:rgba(20,24,40,.55);color:#fff;font-size:17px;cursor:pointer}
+  body.in-menu #fsBtn{display:none}
+  .card .key{display:none}
+  .fsTitle{background:rgba(20,24,40,.7);color:#fff;font-size:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.25)}
+  body.desk #app{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr)}
+  body.desk #top{grid-column:1 / 3;padding:8px 16px}
+  body.desk #stage{grid-column:1;grid-row:2}
+  body.desk #bottom{grid-column:2;grid-row:2;display:flex;flex-direction:column;padding:16px;gap:14px;border-left:2px solid #11131d;
+    background:linear-gradient(#262b3f,#1b1f2e);min-height:0;overflow:auto}
+  body.desk.in-menu #app{grid-template-columns:1fr;grid-template-rows:1fr}
+  body.desk.in-menu #stage{grid-column:1;grid-row:1}
+  body.desk #hand{flex-direction:column;align-items:stretch;gap:12px}
+  body.desk #cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  body.desk .card{height:auto;aspect-ratio:4/5;flex:none;border-width:3px}
+  body.desk .card .icon{font-size:54px}
+  body.desk .card .nm{font-size:13px;margin-top:6px}
+  body.desk .card .cost{width:28px;height:28px;font-size:16px;top:5px;left:5px}
+  body.desk .card .lvh{font-size:12px}
+  body.desk .card .key{display:block;position:absolute;right:6px;bottom:5px;font-style:normal;font-size:11px;font-weight:800;color:#cbd5f5;
+    background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);border-radius:5px;padding:0 5px;pointer-events:none}
+  body.desk .card:hover{filter:brightness(1.12)}
+  body.desk .card.sel{transform:translateY(-4px) scale(1.04)}
+  body.desk #nextWrap{width:auto;order:2;display:flex;align-items:center;gap:10px;font-size:12px}
+  body.desk #next{width:64px;height:64px;font-size:34px;margin:0}
+  body.desk #manaRow{margin-top:auto}
+  body.desk #manaNum{width:42px;height:42px;font-size:20px}
+  body.desk #manaBar{height:22px;border-radius:11px}
+  body.desk .side .av{width:44px;height:44px;font-size:26px}
+  body.desk .side b{font-size:16px} body.desk .side small{font-size:12px}
+  body.desk .side .crowns{font-size:18px}
+  body.desk #timer{font-size:30px} body.desk #phase{font-size:12px}
+  body.desk .cbub.hand,body.desk .cbub.mana{left:auto;right:18px;transform:none;bottom:40%}
+  body.desk .cbub.hand::after,body.desk .cbub.mana::after{left:auto;right:-17px;bottom:auto;top:50%;margin:-9px 0 0;border-top-color:transparent;border-left-color:#fffbeb}
+  body.desk #menu .panel.hub{max-width:none}
+  body.desk #hubTop{padding:10px max(16px, calc(50% - 540px))}
+  body.desk #hubTabs{padding:0 max(0px, calc(50% - 540px))}
+  body.desk #hubBody > section{max-width:1080px;margin-left:auto;margin-right:auto;width:100%}
+  body.desk .pcard{flex:0 1 440px}
+  body.desk .homeTop{justify-content:space-between}
+  .kbhelp{display:none}
+  body.desk .kbhelp{display:block;font-size:12px;color:var(--muted);background:rgba(0,0,0,.2);border-radius:10px;padding:10px 12px;line-height:1.7}
+  body.desk .kbhelp kbd{display:inline-block;min-width:20px;text-align:center;background:#12151f;border:1px solid #3a4163;border-bottom-width:3px;border-radius:5px;padding:0 5px;color:var(--text);font:700 11px system-ui}
+  body.desk #hubBody{padding:18px 28px 18px}
+  body.desk .homeBot{width:min(580px,100%);align-self:center;margin:0 auto -18px;border-radius:20px 20px 0 0;padding:26px 20px 16px}
+  body.desk .cgrid{grid-template-columns:repeat(8,1fr)}
+  body.desk .shopgrid{grid-template-columns:repeat(6,1fr)}
+  body.desk .arenas.troops{grid-template-columns:repeat(3,1fr);max-width:620px}
+  body.desk #tab-quests,body.desk #tab-road,body.desk #tab-events{max-width:760px;margin:0 auto;width:100%}
+  body.desk #hubTabs button{font-size:13px}
+  body.desk #hubTabs button span{font-size:24px}
+  body.desk #title h1{font-size:96px}
+  body.desk .tcrown{font-size:120px}
   details.help summary{cursor:pointer;font-weight:700;color:var(--text);margin:14px 0 6px}
   @keyframes enter{from{transform:translateY(40px) scale(.7);opacity:0}}
   #manaBar.full{box-shadow:0 0 0 2px #f0abfc,0 0 14px #e879f9}
@@ -351,13 +404,15 @@
     <div id="timerBox"><div id="timer">3:00</div><div id="phase">Battle</div></div>
     <div class="side blue"><div class="crowns blue" id="crB">👑 0</div><div class="nm"><b id="nmB">You</b><small id="lvB"></small></div><span class="av" id="avB">🙂</span></div>
   </div>
-  <div id="stage"><canvas id="ov"></canvas><div id="banner"></div><div id="toast"></div><button id="pauseBtn" title="Pause">⏸</button>
+  <div id="stage"><canvas id="ov"></canvas><div id="banner"></div><div id="toast"></div><button id="pauseBtn" title="Pause (Esc)">⏸</button><button id="fsBtn" title="Fullscreen (F)">⛶</button>
     <button id="emoteBtn" title="Emote">💬</button><button id="abilityBtn" hidden><span class="aic">🌟</span><b>2</b><i class="cdov"></i></button><div id="emoteBar" hidden></div><div id="coach" hidden></div></div>
   <div id="bottom">
     <div id="hand">
       <div id="nextWrap">Next<div id="next"></div></div>
       <div id="cards"></div>
     </div>
+    <div class="kbhelp"><kbd>1</kbd>–<kbd>4</kbd> select a card · click the arena to deploy<br>
+      <kbd>Esc</kbd> deselect / pause · <kbd>F</kbd> fullscreen<br>Drag cards with the mouse too.</div>
     <div id="manaRow">
       <div id="manaNum">5</div>
       <div id="manaBar"><div id="manaFill"></div><div id="manaTicks"></div></div>
@@ -368,7 +423,7 @@
 <div id="title" class="overlay">
   <div class="tlogo"><div class="tcrown">👑</div><h1>Crown <span>Siege</span></h1><p>41 cards · 6 arenas · endless battles</p></div>
   <div class="tstart">Tap to start</div>
-  <div class="tfoot">v3.0 · made with Three.js</div>
+  <div class="tfoot"><button class="btn fsTitle" id="fsTitle">⛶ Play fullscreen</button><br>v3.1 · made with Three.js · press F for fullscreen</div>
 </div>
 
 <div id="settingsOv" class="overlay" hidden>
@@ -378,6 +433,8 @@
       <button class="btn" id="sndBtn"></button>
       <button class="btn" id="musBtn"></button>
       <button class="btn" id="gfxBtn"></button>
+      <button class="btn" id="layoutBtn"></button>
+      <button class="btn" id="fsSet"></button>
     </div>
     <details class="help" open><summary>How to play</summary>
       Drag a card onto your (bottom) half of the arena, or tap a card then tap the arena. Cards cost mana, which refills over time.
@@ -469,6 +526,7 @@
       <button class="btn go" id="resumeBtn" style="margin-top:0">▶ Resume</button>
       <button class="btn" id="sndBtn2"></button>
       <button class="btn" id="gfxBtn2"></button>
+      <button class="btn" id="fsPause">⛶ Fullscreen</button>
       <button class="btn" id="quitBtn">🏳️ Surrender</button>
     </div>
   </div>
@@ -608,7 +666,7 @@ function loadJSON(k, def){ try { const v = JSON.parse(localStorage.getItem(k)); 
 function saveJSON(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 const profile = loadJSON('cs_profile', {trophies:0, wins:0, losses:0, draws:0, streak:0, best:0, games:0, peak:0});
 profile.peak = Math.max(profile.peak || 0, profile.trophies);
-const settings = loadJSON('cs_settings', {sound:true, music:true, hq:true, arena:'meadow', mode:'classic'});
+const settings = loadJSON('cs_settings', {sound:true, music:true, hq:true, arena:'meadow', mode:'classic', layout:'auto'});
 const MODES = {classic:{name:'Classic', icon:'⚔️', desc:'Standard 3-minute battle'}, rush:{name:'Mana Rush', icon:'⚡', desc:'Double mana all match'}, random:{name:'Random Decks', icon:'🎲', desc:'Both sides get 8 random cards'},
   triple:{name:'Triple Mana', icon:'🔥', desc:'Triple mana all match', event:true}, sudden:{name:'Sudden Death', icon:'💀', desc:'First crown wins', event:true}};
 const AUTOPLAY = /autoplay/.test(location.search); // AI vs AI (for testing)
@@ -2622,7 +2680,20 @@ function sync3D(dt){
 // ---- camera fit & resize ----
 let OW = 1, OH = 1, ODPR = 1, shake = 0;
 const camBase = new THREE.Vector3();
+function updateLayout(){
+  const l = settings.layout || 'auto';
+  const desk = l === 'desk' || (l === 'auto' && window.innerWidth >= 900 && window.innerWidth > window.innerHeight*1.05);
+  document.body.classList.toggle('desk', desk);
+}
+function toggleFullscreen(){
+  const d = document, el = d.documentElement;
+  try {
+    if (!(d.fullscreenElement || d.webkitFullscreenElement)) (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+    else (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+  } catch(e){ toast('Fullscreen not available here'); }
+}
 function resize(){
+  updateLayout();
   const w = Math.max(50, stageEl.clientWidth), h = Math.max(50, stageEl.clientHeight);
   renderer.setSize(w, h, false);
   cv.style.width = w+'px'; cv.style.height = h+'px';
@@ -3027,7 +3098,7 @@ function buildHandUI(enterIdx){
     d.className = 'card' + (G.sel===i ? ' sel' : '') + (enterIdx===i ? ' enter' : '');
     if (c.rarity && RARITY[c.rarity] && G.sel !== i) d.style.borderColor = RARITY[c.rarity].col;
     d.dataset.i = i;
-    d.innerHTML = `<div class="cost">${c.cost}</div>${AUTOPLAY ? '' : `<div class="lvh">Lv${G.lv ? G.lv[0][k] : 1}</div>`}<div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="shade"></div>`;
+    d.innerHTML = `<div class="cost">${c.cost}</div>${AUTOPLAY ? '' : `<div class="lvh">Lv${G.lv ? G.lv[0][k] : 1}</div>`}<div class="icon">${c.icon}</div><div class="nm">${c.name}</div><i class="key">${i+1}</i><div class="shade"></div>`;
     d.addEventListener('pointerdown', ev=>{ ev.preventDefault(); onCardDown(i, ev); });
     cardsEl.appendChild(d);
   });
@@ -3107,6 +3178,7 @@ window.addEventListener('pointerup', ev=>{
 });
 cv.addEventListener('pointerdown', ev=>{ const a = toArena(ev); pointer.x=a.x; pointer.y=a.y; pointer.over=a.over; });
 window.addEventListener('keydown', ev=>{
+  if ((ev.key === 'f' || ev.key === 'F') && !(ev.target && ev.target.tagName === 'INPUT')){ toggleFullscreen(); return; }
   if (!G || G.demo) return;
   const n = parseInt(ev.key,10);
   if (n>=1 && n<=4 && !G.over){ G.sel = G.sel===n-1 ? -1 : n-1; sfx('select'); updateHUD(); }
@@ -4212,6 +4284,10 @@ $('title').onclick = () => {
 };
 $('setBtn').onclick = () => { audioInit(); sfx('select'); refreshSettings(); $('settingsOv').hidden = false; };
 $('setClose').onclick = () => { $('settingsOv').hidden = true; sfx('select'); };
+$('layoutBtn').onclick = () => { const order = ['auto','desk','phone']; settings.layout = order[(order.indexOf(settings.layout || 'auto') + 1) % 3]; saveJSON('cs_settings', settings); resize(); refreshSettings(); sfx('select'); };
+for (const id of ['fsSet','fsPause','fsBtn','fsTitle']) $(id).addEventListener('click', toggleFullscreen);
+document.addEventListener('fullscreenchange', () => { setTimeout(resize, 60); refreshSettings(); });
+document.addEventListener('webkitfullscreenchange', () => { setTimeout(resize, 60); refreshSettings(); });
 $('profBtn').onclick = () => { audioInit(); sfx('select'); profileModal(); };
 $('achBtn').onclick = () => { audioInit(); sfx('select'); achModal(); };
 $('musBtn').onclick = () => { settings.music = !settings.music; saveJSON('cs_settings', settings); if (settings.music) music(MUS.track || 'menu'); refreshSettings(); sfx('select'); };
@@ -4240,6 +4316,8 @@ function refreshSettings(){
   for (const id of ['sndBtn','sndBtn2']) document.getElementById(id).textContent = settings.sound ? '🔊 Sound: On' : '🔇 Sound: Off';
   for (const id of ['gfxBtn','gfxBtn2']) document.getElementById(id).textContent = settings.hq ? '✨ Graphics: High' : '⚡ Graphics: Fast';
   document.getElementById('musBtn').textContent = settings.music ? '🎵 Music: On' : '🎵 Music: Off';
+  document.getElementById('layoutBtn').textContent = '🖥️ Layout: ' + ({auto:'Auto', phone:'Phone', desk:'Desktop'})[settings.layout || 'auto'];
+  document.getElementById('fsSet').textContent = (document.fullscreenElement || document.webkitFullscreenElement) ? '⛶ Exit fullscreen' : '⛶ Fullscreen';
 }
 function applyGraphics(){
   renderer.setPixelRatio(settings.hq ? Math.min(2, window.devicePixelRatio || 1) : 1);
