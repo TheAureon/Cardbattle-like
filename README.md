@@ -35,6 +35,27 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 | Elder Treant | 5 | Epic tank that splits into 3 saplings when it dies |
 | Storm Caller | 4 | Legendary; lightning that chains to 3 enemies |
 | Shadow Reaper | 4 | Legendary; fast melee that heals itself on every hit |
+| Javelin Imps | 2 | Common; three ranged imps that hit air |
+| Shield Wall | 3 | Common; two tough shield bearers |
+| Ember Sprites | 1 | Common; three flyers that explode on contact |
+| Pikemen | 3 | Common; long-reach spear squad |
+| Arrow Volley | 3 | Common spell; wide rain of arrows |
+| Watchtower | 3 | Common building; archer post that hits air |
+| Battle Monk | 4 | Rare; punches knock enemies back |
+| Lancer Knight | 4 | Rare; after moving 2s, charges for double damage |
+| Healing Spring | 3 | Rare spell; heals your troops |
+| Mortar | 4 | Rare building; very long-range splash, can't hit close targets |
+| Gargoyle Trio | 4 | Rare; three stone flyers |
+| Necromancer | 5 | Rare; raises 2 skeletons every 6s |
+| Plague Cloud | 4 | Epic spell; poison zone that damages and slows for 5s |
+| Quicksand | 3 | Epic spell; slows enemies for 5s |
+| Bomb Balloon | 5 | Epic; flies to buildings, drops a bomb when it dies |
+| Whirlwind Berserker | 4 | Epic; spin attack hits everything around |
+| Frost Weaver | 4 | Legendary; ice bolts slow targets |
+| Phoenix | 5 | Legendary; reborn from its egg once |
+| Magma Wyrm | 7 | Legendary; flying tank that bursts into 6 wyrmlings |
+| Blade Dancer | 4 | Champion; Whirling Dash ability hits up to 4 enemies |
+| Frost Matriarch | 4 | Champion; Glacial Nova ability freezes everything nearby |
 | Sun Paladin | 4 | Champion; tap the ability button for Radiant Aegis (2 mana: 3s invulnerable and heals). One champion per deck |
 
 ## Progression
@@ -42,7 +63,7 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 - **Cards and rarities.** Cards are Common, Rare, Epic or Legendary. You start with 8 cards.
 - **Upgrading.** Collect copies from chests and the shop, then spend gold to upgrade a card (up to level 10, +8% stats per level). Upgrading also earns King XP.
 - **King Level.** Earn XP from battles, quests and upgrades. Each King Level makes your towers stronger, gives gold and gems, and unlocks new cards (levels 2–8).
-- **Chests.** Winning earns a chest if one of your 4 slots is free. Chests take real time to unlock (one at a time), or you can open them right away with gems. There's also a free chest every hour, a Crown Chest after every 10 crowns, and Golden, Giant, Magical and Legendary chests in the shop. Higher arenas add new cards to the drops.
+- **Chests.** There are 12 types: Wooden, Silver, Golden, Lucky (rolls 1–5 stars for better loot), Giant, Magical, Epic, Legendary, Champion, Mega, Free and Crown. Winning earns a chest if one of your 4 slots is free. Chests take real time to unlock (one at a time), or you can open them right away with gems. There's also a free chest every hour, a Crown Chest after every 10 crowns, and Golden, Giant, Magical and Legendary chests in the shop. Higher arenas add new cards to the drops.
 - **Daily.** 3 daily quests (with a bonus chest for finishing all three), a daily gift with a 7-day streak, and daily shop deals.
 - **Trophy Road.** Rewards at trophy milestones.
 - **Matchmaking.** The opponent's card and tower levels rise with your trophies.

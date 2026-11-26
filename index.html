@@ -155,6 +155,10 @@
   .lc{--r:#a9b4c6;position:relative;width:70px;border-radius:10px;border:2px solid var(--r);background:#2a3050;padding:6px 2px;font-size:11px;text-align:center}
   .lc .icon{font-size:28px}.lc .new{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1b1f2e;font-size:9px;font-style:normal;font-weight:900;border-radius:5px;padding:0 4px}
   .sum{font-size:20px;font-weight:800}
+  .stars5{font-size:52px;letter-spacing:4px;margin:14px 0}
+  .stars5 span{color:#3a4163;display:inline-block}
+  .stars5 span.on{color:var(--gold);text-shadow:0 0 18px #facc15;animation:starpop .45s cubic-bezier(.2,1.8,.4,1) both}
+  @keyframes starpop{from{transform:scale(0) rotate(-90deg)}}
   .lvup{text-align:center}.lvup .huge{font-size:64px}
   #endRewards{display:flex;flex-direction:column;gap:5px;margin:12px auto 0;max-width:300px;font-size:14px}
   #endRewards .rr{display:flex;align-items:center;gap:8px;background:var(--panel2);border-radius:10px;padding:6px 10px}
@@ -430,14 +434,63 @@ const CARDS = {
              u:{hp:620, dmg:170, hit:1.6, range:5, speed:1.0, radius:0.45, air:true, proj:'bolt', chain:2, mass:3}},
   paladin:  {name:'Sun Paladin', cost:4, icon:'🌟', count:1, champion:true, desc:'Champion · ability: Radiant Aegis',
              u:{hp:1500, dmg:180, hit:1.1, range:0.9, speed:1.1, radius:0.55, mass:6},
-             ability:{name:'Radiant Aegis', cost:2, cd:12, dur:3, heal:0.3, allyHeal:200, radius:3}},
+             ability:{name:'Radiant Aegis', kind:'aegis', cost:2, cd:12, dur:3, heal:0.3, allyHeal:200, radius:3, desc:'3s of invulnerability; heals itself 30% and nearby allies'}},
   reaper:   {name:'Shadow Reaper',cost:4, icon:'👻', count:1, desc:'Fast; heals from every hit',
              u:{hp:1050, dmg:250, hit:1.3, range:0.9, speed:1.6, radius:0.5, mass:5, lifesteal:0.4}},
+  // --- expansion ---
+  imps:     {name:'Javelin Imps', cost:2, icon:'😈', count:3, desc:'Three ranged imps, hit air',
+             u:{hp:130, dmg:70, hit:1.2, range:4.5, speed:1.4, radius:0.32, air:true, proj:'arrow', mass:1}},
+  shieldwall:{name:'Shield Wall', cost:3, icon:'🧱', count:2, desc:'Two tough shield bearers',
+             u:{hp:720, dmg:70, hit:1.2, range:0.7, speed:0.9, radius:0.48, mass:5}},
+  sprites:  {name:'Ember Sprites', cost:1, icon:'✨', count:3, desc:'Fly in and explode',
+             u:{hp:70, dmg:95, hit:0.5, range:0.6, speed:2.4, radius:0.28, air:true, flying:true, splash:1.2, kamikaze:true, mass:0.5}},
+  pikemen:  {name:'Pikemen', cost:3, icon:'🔱', count:3, desc:'Long-reach spear squad',
+             u:{hp:300, dmg:85, hit:1.1, range:1.4, speed:1.0, radius:0.38, mass:2}},
+  volley:   {name:'Arrow Volley', cost:3, icon:'🎯', type:'spell', desc:'Wide rain of arrows',
+             spell:{radius:4, dmg:150, tower:0.3}},
+  watchtower:{name:'Watchtower', cost:3, icon:'🗼', type:'building', count:1, desc:'Archer post, hits air, 35s',
+             u:{hp:800, dmg:75, hit:0.9, range:6.5, speed:0, radius:0.8, air:true, proj:'arrow', lifetime:35, mass:99}},
+  monk:     {name:'Battle Monk', cost:4, icon:'🥋', count:1, desc:'Punches knock enemies back',
+             u:{hp:1100, dmg:150, hit:1.0, range:0.8, speed:1.15, radius:0.5, knockback:1.1, mass:5}},
+  lancer:   {name:'Lancer Knight', cost:4, icon:'🏇', count:1, desc:'Charges for double damage',
+             u:{hp:1250, dmg:200, hit:1.4, range:0.9, speed:1.1, radius:0.6, charge:true, mass:7}},
+  spring:   {name:'Healing Spring', cost:3, icon:'⛲', type:'spell', desc:'Heals your troops in an area',
+             spell:{radius:3, dmg:0, heal:450, tower:0}},
+  mortar:   {name:'Mortar', cost:4, icon:'🎇', type:'building', count:1, desc:'Long-range splash, ground only',
+             u:{hp:900, dmg:180, hit:4.5, range:11, minRange:3, speed:0, radius:0.8, splash:1.5, proj:'bomb', lifetime:30, mass:99}},
+  gargoyles:{name:'Gargoyle Trio', cost:4, icon:'🦅', count:3, desc:'Three stone flyers',
+             u:{hp:280, dmg:100, hit:1.2, range:0.7, speed:1.7, radius:0.38, air:true, flying:true, mass:2}},
+  necro:    {name:'Necromancer', cost:5, icon:'🧟', count:1, desc:'Raises 2 skeletons every 6s',
+             u:{hp:650, dmg:110, hit:1.4, range:4.5, speed:1.0, radius:0.45, air:true, proj:'bolt', spawn:{key:'bones', n:2, every:6}, mass:3}},
+  poison:   {name:'Plague Cloud', cost:4, icon:'☠️', type:'spell', desc:'Damages and slows for 5s',
+             spell:{radius:3, dmg:0, tower:0.3, zone:{dps:95, dur:5, slow:true}}},
+  quicksand:{name:'Quicksand', cost:3, icon:'⏳', type:'spell', desc:'Slows enemies for 5s',
+             spell:{radius:3.5, dmg:40, tower:0.3, slow:5}},
+  balloon:  {name:'Bomb Balloon', cost:5, icon:'🎈', count:1, desc:'Flies to buildings, drops bombs',
+             u:{hp:1100, dmg:600, hit:3.0, range:0.5, speed:1.1, radius:0.7, flying:true, targets:'buildings', splash:1.0, deathDmg:{r:2, dmg:220}, mass:6}},
+  berserker:{name:'Whirlwind Berserker', cost:4, icon:'🪓', count:1, desc:'Spins, hitting all around',
+             u:{hp:1200, dmg:150, hit:1.5, range:0.7, speed:1.15, radius:0.5, spin:1.8, mass:5}},
+  phoenix:  {name:'Phoenix', cost:5, icon:'🐦', count:1, desc:'Reborn from its egg once',
+             u:{hp:900, dmg:160, hit:1.3, range:3, speed:1.6, radius:0.55, air:true, flying:true, splash:1.0, proj:'fire', deathSpawn:{key:'phoenixEgg', n:1}, mass:4}},
+  phoenixEgg:{name:'Phoenix Egg', cost:0, icon:'🥚', count:1, hidden:true, desc:'',
+             u:{hp:320, dmg:0, hit:99, range:0, speed:0, radius:0.4, hatch:{key:'phoenix', after:4, hpFrac:0.6}, mass:99}},
+  weaver:   {name:'Frost Weaver', cost:4, icon:'🧊', count:1, desc:'Ice bolts slow targets',
+             u:{hp:560, dmg:115, hit:1.1, range:5.5, speed:1.0, radius:0.45, air:true, proj:'ice', slowHit:2, mass:3}},
+  wyrm:     {name:'Magma Wyrm', cost:7, icon:'🐲', count:1, desc:'Flying tank; bursts into 6 wyrmlings',
+             u:{hp:3200, dmg:40, hit:1.3, range:0.8, speed:0.9, radius:0.85, flying:true, targets:'buildings', deathSpawn:{key:'wyrmling', n:6}, mass:14}},
+  wyrmling: {name:'Wyrmling', cost:0, icon:'🔥', count:1, hidden:true, desc:'',
+             u:{hp:180, dmg:45, hit:1.2, range:2, speed:1.5, radius:0.3, air:true, flying:true, proj:'fire', mass:1}},
+  dancer:   {name:'Blade Dancer', cost:4, icon:'🗡️', count:1, champion:true, desc:'Champion · ability: Whirling Dash',
+             u:{hp:1100, dmg:160, hit:0.9, range:0.8, speed:1.5, radius:0.5, mass:5},
+             ability:{name:'Whirling Dash', kind:'dash', cost:1, cd:8, hits:4, dmg:260, radius:5, desc:'Dashes through up to 4 nearby enemies'}},
+  matriarch:{name:'Frost Matriarch', cost:4, icon:'👸', count:1, champion:true, desc:'Champion · ability: Glacial Nova',
+             u:{hp:900, dmg:140, hit:1.2, range:5, speed:1.0, radius:0.48, air:true, proj:'ice', slowHit:1.5, mass:4},
+             ability:{name:'Glacial Nova', kind:'nova', cost:2, cd:14, radius:3.5, freeze:2.5, dmg:150, desc:'Freezes and damages every enemy around her'}},
 };
 for (const k in CARDS) { CARDS[k].key = k; CARDS[k].type = CARDS[k].type || 'troop'; }
 const ALL_KEYS = Object.keys(CARDS).filter(k=>!CARDS[k].hidden);
 const DEFAULT_DECK = ['squire','rangers','golem','goblins','pyro','bats','fireball','shock'];
-const PROJ_SPEED = {arrow:14, fire:10, ball:12, bomb:7, bolt:18, spell:11};
+const PROJ_SPEED = {arrow:14, fire:10, ball:12, bomb:7, bolt:18, ice:13, spell:11};
 
 // ===== State =====
 let G = null;          // current game
@@ -488,7 +541,7 @@ function newGame(){
   const myDeck = cfg.deck || ((AUTOPLAY || mode === 'random') ? shuffle(ALL_KEYS.slice()).slice(0,8) : playerDeck.slice());
   G = {
     ctx:cfg, myDeck, cardUse:{}, towerTroop: AUTOPLAY ? ['archer','archer'] : [SV.troop || 'archer', aiTroopPick()],
-    mode, stats:[{played:0, mana:0, towerDmg:0, kills:0, spells:0}, {played:0, mana:0, towerDmg:0, kills:0, spells:0}], emotes:[],
+    zones:[], mode, stats:[{played:0, mana:0, towerDmg:0, kills:0, spells:0}, {played:0, mana:0, towerDmg:0, kills:0, spells:0}], emotes:[],
     ...(AUTOPLAY ? {} : (cfg.levels || battleLevels())),
     t: 0, over:false, overtime:false, ents:[], projs:[], fx:[],
     mana: mode==='rush' ? [7,7] : [5,5], crowns:[0,0], hands:[mkHand(myDeck), mkHand(aiDeck)],
@@ -504,7 +557,10 @@ function mkUnit(team, key, x, y, lvl){
   const L = lvl || (G && G.lv ? (G.lv[team][key] || 1) : 1), m = lvMult(L);
   const hp = Math.round(u.hp*m);
   return { id:nid++, team, key, icon:c.icon, x, y, hp, maxHp:hp, dmg:u.dmg*m, hit:u.hit, range:u.range, level:L,
-    ability:c.ability||null, abilityCd:0, invuln:0,
+    ability:c.ability||null, abilityCd:0, invuln:0, slow:0, slowHit:u.slowHit||0,
+    kamikaze:!!u.kamikaze, knockback:u.knockback||0, charge:!!u.charge, chargeT:0, charged:false, minRange:u.minRange||0,
+    spawn:u.spawn||null, spawnT:0, spin:u.spin||0, deathDmg:u.deathDmg ? {r:u.deathDmg.r, dmg:u.deathDmg.dmg*m} : null,
+    hatch:u.hatch||null, hatchT:0, inert:!!u.hatch,
     chain:u.chain||0, lifesteal:u.lifesteal||0, deathSpawn:u.deathSpawn||null,
     speed:u.speed, radius:u.radius, mass:u.mass, air:!!u.air, flying:!!u.flying, targets:u.targets||'any',
     splash:u.splash||0, proj:u.proj||null, isBuilding:c.type==='building', life:u.lifetime||0,
@@ -596,24 +652,63 @@ function castSpell(team, key, x, y){
 function applySpell(team, key, x, y){
   const s0 = CARDS[key].spell, dm = lvMult((G.lv && G.lv[team][key]) || 1);
   const s = Object.assign({}, s0, {dmg: s0.dmg*dm});
+  if (s.heal){
+    for (const o of G.ents){
+      if (o.team !== team || o.isTower || o.hp <= 0 || dist(o,{x,y}) > s.radius + (o.radius||0)*0.5) continue;
+      const amt = Math.min(o.maxHp - o.hp, s.heal*dm);
+      if (amt > 0){ o.hp += amt; G.fx.push({type:'num', x:o.x, y:o.y - (o.radius||0.5), t:0, max:0.8, text:'+'+Math.round(amt), color:'#4ade80'}); }
+    }
+    G.fx.push({type:'blast', x, y, r:s.radius, t:0, max:0.6, color:'#4ade80'});
+    emit(key, x, y, {r:s.radius, team});
+    return;
+  }
+  if (s.zone) G.zones.push({team, key, x, y, r:s.radius, dps:s.zone.dps*dm, slow:s.zone.slow, t:s.zone.dur, max:s.zone.dur, tick:0, tower:s.tower});
   for (const o of G.ents){
     if (o.team===team || o.hp<=0) continue;
     if (dist(o,{x,y}) <= s.radius + (o.radius||0)*0.5){
-      hurt(o, o.isTower ? s.dmg*s.tower : s.dmg);
+      if (s.dmg > 0) hurt(o, o.isTower ? s.dmg*s.tower : s.dmg);
+      if (s.slow && !o.isTower) o.slow = Math.max(o.slow||0, s.slow);
       if (s.stun && (!o.isTower || s.freeze)){ o.stun = Math.max(o.stun, s.stun); o.cd = Math.max(o.cd, o.hit*0.5); if (s.freeze) o.ice = true; }
     }
   }
-  G.fx.push({type:'blast', x, y, r:s.radius, t:0, max:0.5, color: key==='shock' ? '#7dd3fc' : key==='frost' ? '#e0f2fe' : '#fb923c'});
+  G.fx.push({type:'blast', x, y, r:s.radius, t:0, max:0.5, color: ({shock:'#7dd3fc', frost:'#e0f2fe', volley:'#e7e5e4', quicksand:'#d6b46a', poison:'#84cc16'})[key] || '#fb923c'});
   emit(key, x, y, {r:s.radius, team});
 }
 
 function useAbility(team){
   const e = G.ents.find(u=>u.team===team && u.ability && u.deploy<=0 && u.hp>0);
   if (!e || e.abilityCd > 0 || G.mana[team] < e.ability.cost || G.over || G.tiebreaker) return false;
-  const A = e.ability;
-  G.mana[team] -= A.cost; e.abilityCd = A.cd; e.invuln = A.dur;
+  const A = e.ability, kind = A.kind || 'aegis', lm = lvMult(e.level || 1);
+  if (kind === 'dash'){
+    const hit = new Set(), path = [[e.x, e.y]];
+    for (let n=0;n<A.hits;n++){
+      let best = null, bd = A.radius;
+      for (const o of G.ents){ if (o.team===team || o.hp<=0 || o.flying || hit.has(o)) continue; const d = dist(o, e); if (d < bd){ bd = d; best = o; } }
+      if (!best) break;
+      const d = dist(best, e) || 1;
+      e.x = clamp(best.x - (best.x-e.x)/d*(best.radius+0.3), 0.5, W-0.5); e.y = clamp(best.y - (best.y-e.y)/d*(best.radius+0.3), 0.5, H-0.5);
+      hurt(best, A.dmg*lm*(best.isTower ? 0.5 : 1)); hit.add(best); path.push([e.x, e.y]);
+    }
+    if (!hit.size) return false;
+    G.mana[team] -= A.cost; e.abilityCd = A.cd; e.invuln = 0.4;
+    G.fx.push({type:'dash', path, t:0, max:0.45});
+    emit('dash', e.x, e.y, {team});
+    return true;
+  }
+  G.mana[team] -= A.cost; e.abilityCd = A.cd;
+  if (kind === 'nova'){
+    for (const o of G.ents){
+      if (o.team===team || o.hp<=0 || dist(o,e) > A.radius + (o.radius||0)*0.5) continue;
+      hurt(o, A.dmg*lm*(o.isTower ? 0.35 : 1));
+      o.stun = Math.max(o.stun, A.freeze); o.ice = true;
+    }
+    G.fx.push({type:'blast', x:e.x, y:e.y, r:A.radius, t:0, max:0.6, color:'#bae6fd'});
+    emit('nova', e.x, e.y, {team, r:A.radius});
+    return true;
+  }
+  e.invuln = A.dur;
   e.hp = Math.min(e.maxHp, e.hp + e.maxHp*A.heal);
-  for (const o of G.ents) if (o.team===team && o !== e && !o.isTower && !o.isBuilding && dist(o,e) <= A.radius) o.hp = Math.min(o.maxHp, o.hp + A.allyHeal*lvMult(e.level||1));
+  for (const o of G.ents) if (o.team===team && o !== e && !o.isTower && !o.isBuilding && dist(o,e) <= A.radius) o.hp = Math.min(o.maxHp, o.hp + A.allyHeal*lm);
   G.fx.push({type:'ring', x:e.x, y:e.y, r:A.radius, t:0, max:0.7, color:'#fde047'});
   emit('aegis', e.x, e.y, {team});
   return true;
@@ -651,6 +746,7 @@ function findTarget(e){
   let best=null, bd=Infinity;
   for (const o of G.ents){
     if (!canHit(e,o)) continue;
+    if (e.minRange && dist(e,o) < e.minRange) continue;
     const d = edge(e,o);
     if (d <= sight && d < bd){ bd=d; best=o; }
   }
@@ -671,13 +767,20 @@ function attack(e, t){
     emit('beam', t.x, t.y, {ramp:e.ramp});
     return;
   }
+  const mult = e.charged ? 2 : 1;
+  if (e.charged){ e.charged = false; e.chargeT = 0; emit('chargehit', t.x, t.y, {}); }
   if (e.proj){
     emit('shoot', e.x, e.y, {kind:e.proj, tower:!!e.isTower, team:e.team});
-    G.projs.push({x:e.x, y:e.y - (e.flying?0.4:0), target:t, tx:t.x, ty:t.y, speed:PROJ_SPEED[e.proj], dmg:e.dmg, chain:e.chain,
+    G.projs.push({x:e.x, y:e.y - (e.flying?0.4:0), target:t, tx:t.x, ty:t.y, speed:PROJ_SPEED[e.proj], dmg:e.dmg*mult, chain:e.chain, slowHit:e.slowHit,
       splash:e.splash, team:e.team, air:e.air, kind:e.proj,
       h0: e.isTower ? (e.kind==='king'?3.6:3.0) : e.flying ? 1.8 : e.isBuilding ? 0.75 : 0.8});
   } else {
-    if (e.splash) splashAt(e.team, t.x, t.y, e.splash, e.dmg, e.air); else hurt(t, e.dmg);
+    if (e.spin){ splashAt(e.team, e.x, e.y, e.spin + e.radius, e.dmg*mult, e.air); emit('spin', e.x, e.y, {r:e.spin}); }
+    else if (e.splash) splashAt(e.team, t.x, t.y, e.splash, e.dmg*mult, e.air); else hurt(t, e.dmg*mult);
+    if (e.knockback && !t.isTower && !t.isBuilding && t.speed > 0 && (t.mass||1) < 10){
+      const d = dist(e,t) || 1; t.x += (t.x-e.x)/d*e.knockback; t.y += (t.y-e.y)/d*e.knockback; t.stun = Math.max(t.stun, 0.25);
+    }
+    if (e.kamikaze){ e.hp = 0; e.kamikazed = true; }
     if (e.lifesteal){ e.hp = Math.min(e.maxHp, e.hp + e.dmg*e.lifesteal); G.fx.push({type:'num', x:e.x, y:e.y - e.radius, t:0, max:0.6, text:'+'+Math.round(e.dmg*e.lifesteal), color:'#c084fc'}); }
     G.fx.push({type:'slash', x:(e.x+t.x)/2, y:(e.y+t.y)/2, t:0, max:0.15});
     emit('hit', t.x, t.y, {big: e.dmg >= 180, flying:t.flying});
@@ -707,10 +810,34 @@ function updateEntity(e, dt){
       if (any){ G.fx.push({type:'ring', x:e.x, y:e.y, r:e.heal.radius, t:0, max:0.6, color:'#4ade80'}); emit('heal', e.x, e.y, {}); }
     }
   }
+  const sf = e.slow > 0 ? 0.55 : 1;
+  if (e.slow > 0) e.slow -= dt;
+  if (e.hatch){
+    e.hatchT += dt;
+    if (e.hatchT >= e.hatch.after){
+      const u = mkUnit(e.team, e.hatch.key, e.x, e.y, e.level);
+      u.deathSpawn = null; u.hp = Math.round(u.maxHp*e.hatch.hpFrac); u.deploy = 0.2; G.ents.push(u);
+      e.hatched = true; e.hp = 0; emit('hatch', e.x, e.y, {});
+    }
+    return;
+  }
+  if (e.spawn){
+    e.spawnT += dt*sf;
+    if (e.spawnT >= e.spawn.every){
+      e.spawnT = 0;
+      for (let i=0;i<e.spawn.n;i++){
+        const a = Math.random()*Math.PI*2;
+        const u = mkUnit(e.team, e.spawn.key, clamp(e.x+Math.cos(a)*0.8,0.4,W-0.4), clamp(e.y+Math.sin(a)*0.8,0.4,H-0.4), e.level);
+        u.deploy = 0.4; G.ents.push(u);
+      }
+      emit('summon', e.x, e.y, {});
+    }
+  }
   if (e.isTower && !e.active) return;
-  e.cd -= dt; e.retarget -= dt;
+  e.cd -= dt*sf; e.retarget -= dt;
   if (e.target && e.target.hp <= 0) e.target = null;
-  const inRange = e.target && edge(e, e.target) <= e.range;
+  const tooClose = t0 => e.minRange && dist(e, t0) < e.minRange;
+  const inRange = e.target && edge(e, e.target) <= e.range && !tooClose(e.target);
   if (e.target && e.isTower && edge(e,e.target) > e.range) e.target = null;
   if (!e.target || (!inRange && e.retarget <= 0)){
     const nt = findTarget(e);
@@ -719,14 +846,16 @@ function updateEntity(e, dt){
   }
   const t = e.target;
   if (!t) return;
-  if (edge(e,t) <= e.range){
+  if (edge(e,t) <= e.range && !tooClose(t)){
+    if (e.charge && !e.charged) e.chargeT = 0;
     if (e.beam){ e.beaming = true; if (e.rampTarget === t) e.ramp += dt; }
     if (e.cd <= 0){ attack(e,t); e.cd = e.hit; }
     e.face = Math.sign(t.y - e.y) || e.face;
   } else if (e.speed > 0){
     const [px,py] = navPoint(e, t.x, t.y);
     const dx = px-e.x, dy = py-e.y, d = Math.hypot(dx,dy) || 1;
-    const step = Math.min(d, e.speed*dt);
+    if (e.charge){ e.chargeT += dt; if (e.chargeT > 2 && !e.charged){ e.charged = true; emit('charge', e.x, e.y, {}); } }
+    const step = Math.min(d, e.speed*dt*sf*(e.charged ? 2 : 1));
     e.x += dx/d*step; e.y += dy/d*step;
     if (Math.abs(dy) > 0.01) e.face = Math.sign(dy);
   }
@@ -777,7 +906,7 @@ function updateProjectiles(dt){
       p.done = true;
       if (p.kind === 'spellball') applySpell(p.team, p.spellKey, p.tx, p.ty);
       else if (p.splash){ splashAt(p.team, p.tx, p.ty, p.splash, p.dmg, p.air); G.fx.push({type:'blast', x:p.tx, y:p.ty, r:p.splash, t:0, max:0.3, color:'#fdba74'}); emit('impact', p.tx, p.ty, {r:p.splash, kind:p.kind, h: p.target && p.target.flying ? 1.8 : 0.3}); }
-      else if (p.target && p.target.hp > 0){ hurt(p.target, p.dmg); if (p.chain) chainZap(p.team, p.target, p.dmg*0.75, p.chain, p.air); emit('phit', p.tx, p.ty, {kind:p.kind, h: p.target.isTower ? 1.8 : p.target.flying ? 1.8 : 0.6}); }
+      else if (p.target && p.target.hp > 0){ hurt(p.target, p.dmg); if (p.chain) chainZap(p.team, p.target, p.dmg*0.75, p.chain, p.air); if (p.slowHit && !p.target.isTower) p.target.slow = Math.max(p.target.slow||0, p.slowHit); emit('phit', p.tx, p.ty, {kind:p.kind, h: p.target.isTower ? 1.8 : p.target.flying ? 1.8 : 0.6}); }
     } else { p.x += dx/d*step; p.y += dy/d*step; }
   }
   G.projs = G.projs.filter(p=>!p.done);
@@ -799,6 +928,7 @@ function chainZap(team, from, dmg, n, air){
 }
 function processDeaths(){
   let ending = false;
+  const blasts = [];
   for (const e of G.ents){
     if (e.hp > 0) continue;
     G.fx.push({type:'poof', x:e.x, y:e.y, r:e.radius*1.6, t:0, max:0.45});
@@ -811,16 +941,19 @@ function processDeaths(){
       }
       emit('towerfall', e.x, e.y, {team:e.team, king:e.kind==='king', r:e.radius});
       if (e.kind === 'king' || G.overtime || G.mode === 'sudden') ending = true;
+    } else if (e.hatched){ continue;
     } else {
-      G.stats[1-e.team].kills++;
+      if (!e.kamikazed) G.stats[1-e.team].kills++;
+      if (e.deathDmg) blasts.push(e);
       if (e.deathSpawn) for (let i=0;i<e.deathSpawn.n;i++){
         const a = i/e.deathSpawn.n*Math.PI*2;
         const u = mkUnit(e.team, e.deathSpawn.key, clamp(e.x + Math.cos(a)*0.6, 0.4, W-0.4), clamp(e.y + Math.sin(a)*0.6, 0.4, H-0.4), e.level);
         u.deploy = 0.35; G.ents.push(u);
       }
-    } if (!e.isTower) emit('die', e.x, e.y, {team:e.team, flying:e.flying, r:e.radius, building:e.isBuilding});
+    } if (!e.isTower && !e.hatched) emit('die', e.x, e.y, {team:e.team, flying:e.flying, r:e.radius, building:e.isBuilding});
   }
   G.ents = G.ents.filter(e=>e.hp>0);
+  for (const e of blasts){ splashAt(e.team, e.x, e.y, e.deathDmg.r, e.deathDmg.dmg, false); emit('impact', e.x, e.y, {r:e.deathDmg.r, kind:'bomb', h:0.3}); shake = Math.max(shake, 0.3); }
   if (ending) endGame();
 }
 
@@ -858,6 +991,18 @@ function step(dt){
   for (const e of G.ents) updateEntity(e, dt);
   separate();
   updateProjectiles(dt);
+  for (const z of G.zones){
+    z.t -= dt; z.tick -= dt;
+    if (z.tick <= 0){
+      z.tick = 0.5;
+      for (const o of G.ents){
+        if (o.team === z.team || o.hp <= 0 || dist(o, z) > z.r + (o.radius||0)*0.5) continue;
+        hurt(o, z.dps*0.5*(o.isTower ? z.tower : 1));
+        if (z.slow && !o.isTower) o.slow = Math.max(o.slow||0, 0.6);
+      }
+    }
+  }
+  G.zones = G.zones.filter(z => z.t > 0);
   processDeaths();
   for (const f of G.fx) f.t += dt;
   G.fx = G.fx.filter(f=>f.t < f.max);
@@ -883,7 +1028,17 @@ function aiThink(team){
   const threats = enemies.filter(e=>fy(e.y) < RB + 3).sort((a,b)=>fy(a.y)-fy(b.y));
   const tryPlay = (o, x, y) => playCard(team, o.i, clamp(x,0.6,W-0.6), clamp(fy(y),0.6,H-0.6)) === 'ok';
   const champ = G.ents.find(e=>e.team===team && e.ability && e.deploy<=0);
-  if (champ && champ.abilityCd <= 0 && mana >= champ.ability.cost && (champ.hp < champ.maxHp*0.55 || (champ.target && champ.target.isTower))){ useAbility(team); return reaction; }
+  if (champ && champ.abilityCd <= 0 && mana >= champ.ability.cost){
+    const k = champ.ability.kind || 'aegis', nearC = enemies.filter(o => dist(o, champ) <= (champ.ability.radius || 3)).length;
+    const want = k === 'aegis' ? (champ.hp < champ.maxHp*0.55 || (champ.target && champ.target.isTower))
+      : k === 'nova' ? (nearC >= 3 || champ.hp < champ.maxHp*0.5) : nearC >= 2;
+    if (want && useAbility(team)) return reaction;
+  }
+  const spr = afford.find(o => o.c.spell && o.c.spell.heal);
+  if (spr){
+    const hurtU = mine.filter(m => !m.isBuilding && m.maxHp - m.hp > 350).sort((a,b) => (b.maxHp-b.hp) - (a.maxHp-a.hp))[0];
+    if (hurtU && tryPlay(spr, hurtU.x, fy(hurtU.y))) return reaction;
+  }
 
   if (threats.length){
     const th = threats[0];
@@ -896,6 +1051,7 @@ function aiThink(team){
     for (const o of afford){
       if (o.c.type!=='spell') continue;
       const s = o.c.spell;
+      if (s.heal) continue;
       const worth = o.k==='fireball' ? (clusterHp >= 700 || (near.length>=2 && clusterHp>=450))
         : o.k==='frost' ? (threatHp >= 1500 && fy(th.y) < RT + 1)
         : (near.length >= 3);
@@ -1050,7 +1206,7 @@ const cone = (r,h,s=12)     => geo(`cone${r}_${h}_${s}`, ()=>new THREE.ConeGeome
 const tor  = (r,t,arc=Math.PI*2, s=16) => geo(`tor${r}_${t}_${arc}_${s}`, ()=>new THREE.TorusGeometry(r, t, 6, s, arc));
 const rockG = d => geo('rock'+d, ()=>new THREE.DodecahedronGeometry(0.5, d));
 
-const UNIT_SCALE = {paladin:1.8, golem:1.3, bull:1.45, drake:1.45, cannon:1, spire:1, treant:1.3, sapling:1.5};
+const UNIT_SCALE = {watchtower:1, mortar:1, sprites:1.4, gargoyles:1.5, balloon:1.35, wyrm:1.35, wyrmling:1.5, lancer:1.4, phoenix:1.5, phoenixEgg:1.3, imps:1.6, shieldwall:1.7, paladin:1.8, golem:1.3, bull:1.45, drake:1.45, cannon:1, spire:1, treant:1.3, sapling:1.5};
 const unitScale = e => UNIT_SCALE[e.key] ?? 1.7;
 const TEAM_HEX = [0x2f7de1, 0xe0413c], TEAM_LIGHT = [0x8cc4ff, 0xffa3a0], TEAM_DARK = [0x1b4d9c, 0x8f1d1d], GOLD = 0xf2c230;
 
@@ -1768,6 +1924,198 @@ function unitModel(key, team){
       part(sc, box(0.05, 0.08, 0.05), Mt(0xc084fc, {emissive:0x7e22ce, emissiveIntensity:1.5}), 0, 0.72, 0);
       anim.float = true;
       break; }
+    case 'imps': {
+      const red = Mt(0xd9452b, {roughness:0.6});
+      R = rig(body, {skin:red, shirt:T, pants:Mt(0x3b2a1e), boots:Mt(0x2b1a10), sleeve:red, headR:0.2, legLen:0.18, torsoH:0.25, torsoR:0.12, armLen:0.22});
+      for (const sd of [-1,1]){ const h = part(R.head, cone(0.04, 0.16, 5), Mt(0x2b2a33), sd*0.1, 0.16, 0); h.rotation.z = -sd*0.4; }
+      part(body, cone(0.03, 0.3, 4), red, 0, 0.25, -0.15).rotation.x = -2.2;
+      const jv = new THREE.Group(); R.hands[1].add(jv); holdForward(jv, -1.2);
+      part(jv, cyl(0.015, 0.015, 0.6, 5), Mt(0x6b4423), 0, 0.15, 0);
+      part(jv, cone(0.035, 0.1, 4), metal, 0, 0.48, 0);
+      break; }
+    case 'shieldwall': {
+      R = rig(body, {skin, shirt:metal, pants:Mt(0x4b5563), boots:leather, sleeve:T, gloves:leather, torsoR:0.2, torsoH:0.36, belt:leather});
+      part(R.head, hemi(R.headR*1.12, Math.PI*0.55), metal, 0, 0.02, 0);
+      part(R.head, box(0.04, 0.16, 0.04), metal, 0, 0, R.headR*1.02);
+      const sh = new THREE.Group(); R.hands[0].add(sh); sh.position.set(0.1, 0.1, 0.18); sh.rotation.y = 0.2;
+      part(sh, box(0.48, 0.66, 0.06), T, 0, 0, 0);
+      part(sh, box(0.52, 0.06, 0.08), metal, 0, 0.32, 0); part(sh, box(0.52, 0.06, 0.08), metal, 0, -0.32, 0);
+      part(sh, box(0.1, 0.1, 0.03), gold, 0, 0.04, 0.04);
+      const mc = new THREE.Group(); R.hands[1].add(mc); holdForward(mc, -1.2);
+      part(mc, cyl(0.02, 0.02, 0.3, 5), leather, 0, 0.1, 0); part(mc, sph(0.07, 8, 6), metal, 0, 0.27, 0);
+      break; }
+    case 'sprites': {
+      const fire = Mt(0xffb347, {emissive:0xff6a00, emissiveIntensity:2.6});
+      part(body, sph(0.14, 12, 10), fire, 0, 0, 0);
+      part(body, sph(0.07, 8, 6), Mt(0xfff3b0, {emissive:0xffe066, emissiveIntensity:3}), 0, 0.02, 0.08);
+      const wm = Mt(TEAM_LIGHT[team], {side:THREE.DoubleSide, transparent:true, opacity:0.8});
+      for (const sd of [-1,1]){ const piv = new THREE.Group(); piv.position.set(sd*0.08, 0.05, 0); piv.scale.x = sd; body.add(piv); part(piv, wingGeo('bat'), wm, 0, 0, 0).scale.setScalar(0.55); anim[sd<0?'wingL':'wingR'] = piv; }
+      anim.orb = body.children[0];
+      break; }
+    case 'pikemen': {
+      R = rig(body, {skin, shirt:T, pants:Mt(0x57534e), boots:leather, sleeve:Mt(0x78716c), belt:leather, torsoR:0.15});
+      part(R.head, cyl(0.3, 0.22, 0.08, 14), metal, 0, R.headR*0.55, 0);
+      part(R.head, hemi(R.headR*1.05, Math.PI*0.45), metal, 0, R.headR*0.5, 0);
+      const pk = new THREE.Group(); R.hands[1].add(pk); holdForward(pk, -1.45);
+      part(pk, cyl(0.018, 0.02, 1.4, 6), Mt(0x6b4423), 0, 0.35, 0);
+      part(pk, cone(0.045, 0.18, 4), metal, 0, 1.12, 0);
+      part(pk, box(0.1, 0.06, 0.02), T, 0, 0.95, 0);
+      break; }
+    case 'watchtower': {
+      const wd = woodMat;
+      for (const [x,z] of [[-0.45,-0.45],[0.45,-0.45],[-0.45,0.45],[0.45,0.45]]) part(body, cyl(0.07, 0.09, 1.5, 6), wd, x, 0.75, z);
+      for (const y of [0.5, 1.0]) for (const r of [0, Math.PI/2]){ const br = part(body, box(1.0, 0.06, 0.06), woodDark, 0, y, 0); br.rotation.y = r; }
+      part(body, box(1.2, 0.12, 1.2), wd, 0, 1.55, 0);
+      for (const [x,z,w,d] of [[0,-0.56,1.2,0.08],[0,0.56,1.2,0.08],[-0.56,0,0.08,1.2],[0.56,0,0.08,1.2]]) part(body, box(w, 0.3, d), woodDark, x, 1.75, z);
+      const tur = new THREE.Group(); tur.position.y = 1.62; body.add(tur); anim.turret = tur;
+      const A2 = rig(tur, {skin, shirt:T, pants:Mt(0x4a3a2a), boots:leather, sleeve:TD, torsoR:0.13});
+      tur.scale.setScalar(0.85); bow(A2.hands[0], Mt); A2.arms[0].rotation.x = -1.3;
+      part(body, cone(0.95, 0.6, 4), T, 0, 2.75, 0).rotation.y = Math.PI/4;
+      for (const [x,z] of [[-0.5,-0.5],[0.5,-0.5],[-0.5,0.5],[0.5,0.5]]) part(body, cyl(0.03, 0.03, 0.8, 5), woodDark, x, 2.1, z);
+      break; }
+    case 'monk': {
+      const robe = Mt(0xf59e0b);
+      R = rig(body, {skin, shirt:robe, robe:0.3, robeMat:robe, sleeve:skin, torsoR:0.16, legLen:0.28});
+      part(body, cyl(0.17, 0.17, 0.07, 14), T, 0, 0.32, 0);
+      part(body, box(0.08, 0.5, 0.03), Mt(0xb45309), 0.04, 0.5, 0.15).rotation.z = 0.5;
+      const beads = part(body, tor(0.15, 0.02, Math.PI*2, 14), Mt(0x7c2d12), 0, 0.66, 0.02); beads.rotation.x = Math.PI/2 - 0.3;
+      for (const hd of R.hands) part(hd, box(0.09, 0.07, 0.09), T, 0, 0, 0);
+      break; }
+    case 'lancer': {
+      const coat = Mt(0xe7e5e4), mane = Mt(0x44403c);
+      anim.legs4 = [];
+      for (const [x,z] of [[-0.18,0.38],[0.18,0.38],[-0.18,-0.38],[0.18,-0.38]]){
+        const p = new THREE.Group(); p.position.set(x, 0.5, z); body.add(p);
+        part(p, cap(0.06, 0.34, 6), coat, 0, -0.22, 0); part(p, cyl(0.06, 0.07, 0.06, 8), Mt(0x1c1917), 0, -0.47, 0);
+        anim.legs4.push(p);
+      }
+      const tb = part(body, cap(0.25, 0.6, 12), coat, 0, 0.7, 0); tb.rotation.x = Math.PI/2;
+      part(body, box(0.56, 0.32, 0.9), T, 0, 0.66, 0);
+      part(body, box(0.58, 0.05, 0.92), gold, 0, 0.5, 0);
+      const neck = part(body, cap(0.12, 0.3, 8), coat, 0, 0.95, 0.42); neck.rotation.x = 0.6;
+      const hd = new THREE.Group(); hd.position.set(0, 1.1, 0.6); body.add(hd); anim.head = hd;
+      part(hd, box(0.18, 0.2, 0.36), coat, 0, 0, 0.06); part(hd, box(0.2, 0.06, 0.2), metal, 0, 0.08, 0.05);
+      part(body, box(0.05, 0.2, 0.4), mane, 0, 1.08, 0.4).rotation.x = 0.6;
+      part(body, cone(0.06, 0.4, 6), mane, 0, 0.68, -0.62).rotation.x = -2.4;
+      const rider = new THREE.Group(); rider.position.set(0, 0.88, -0.05); body.add(rider);
+      part(rider, cap(0.15, 0.2, 10), metal, 0, 0.25, 0);
+      part(rider, box(0.3, 0.3, 0.04), T, 0, 0.22, 0.14);
+      const rh = new THREE.Group(); rh.position.y = 0.58; rider.add(rh);
+      part(rh, sph(0.15, 12, 10), metal, 0, 0, 0); part(rh, box(0.2, 0.03, 0.03), dark, 0, 0, 0.14);
+      part(rh, cap(0.04, 0.12, 6), T, 0, 0.18, -0.03).rotation.x = -0.5;
+      const lance = new THREE.Group(); lance.position.set(0.2, 0.25, 0.05); rider.add(lance); anim.lance = lance;
+      part(lance, cone(0.07, 1.6, 8), Mt(0xd4d4d8, {metalness:0.7, roughness:0.35}), 0, 0, 0.75).rotation.x = Math.PI/2;
+      part(lance, cyl(0.12, 0.12, 0.05, 10), gold, 0, 0, 0).rotation.x = Math.PI/2;
+      part(rider, cyl(0.16, 0.16, 0.04, 14), T, -0.22, 0.25, 0.05).rotation.z = Math.PI/2;
+      break; }
+    case 'mortar': {
+      part(body, cyl(0.8, 0.9, 0.3, 10), Mt(0x8f877d, {roughness:0.9}), 0, 0.15, 0);
+      part(body, cyl(0.82, 0.82, 0.07, 10), T, 0, 0.33, 0);
+      const tur = new THREE.Group(); tur.position.y = 0.4; body.add(tur); anim.turret = tur;
+      part(tur, box(0.7, 0.3, 0.7), woodMat, 0, 0.15, 0);
+      const br = new THREE.Group(); br.position.y = 0.45; br.rotation.x = -0.7; tur.add(br);
+      part(br, cyl(0.3, 0.26, 0.7, 14), Mt(0x3f3f46, {metalness:0.6, roughness:0.4}), 0, 0.2, 0);
+      part(br, tor(0.31, 0.04, Math.PI*2, 14), gold, 0, 0.55, 0).rotation.x = Math.PI/2;
+      part(br, cyl(0.2, 0.2, 0.02, 12), dark, 0, 0.56, 0);
+      break; }
+    case 'gargoyles': {
+      const st = Mt(0x7d838c, {roughness:0.9});
+      const b2 = part(body, sph(0.2, 10, 8), st, 0, 0, 0); b2.scale.set(1, 1.1, 0.9);
+      const hd = new THREE.Group(); hd.position.set(0, 0.2, 0.12); body.add(hd);
+      part(hd, box(0.2, 0.18, 0.2), st, 0, 0, 0);
+      for (const sd of [-1,1]){ part(hd, cone(0.03, 0.14, 4), Mt(0x52525b), sd*0.08, 0.13, -0.04).rotation.x = -0.5; part(hd, sph(0.025, 6, 4), Mt(0xfbbf24, {emissive:0xf59e0b, emissiveIntensity:2}), sd*0.05, 0.02, 0.1); }
+      part(body, cyl(0.12, 0.12, 0.05, 10), T, 0, 0.12, 0);
+      const wm = Mt(0x6b7280, {side:THREE.DoubleSide, roughness:0.8});
+      for (const sd of [-1,1]){ const piv = new THREE.Group(); piv.position.set(sd*0.12, 0.08, -0.03); piv.scale.x = sd; body.add(piv); part(piv, wingGeo('bat'), wm, 0, 0, 0).scale.setScalar(1.2); anim[sd<0?'wingL':'wingR'] = piv; }
+      part(body, cone(0.04, 0.3, 5), st, 0, -0.1, -0.22).rotation.x = -2.2;
+      break; }
+    case 'necro': {
+      const robe = Mt(0x2e1065), robe2 = Mt(0x1e1b4b);
+      R = rig(body, {skin:Mt(0xc7d2c0), shirt:robe, robe:0.34, robeMat:robe, sleeve:robe2, torsoR:0.16, legLen:0.3, eyeMat:Mt(0x86efac, {emissive:0x22c55e, emissiveIntensity:2})});
+      part(body, cyl(0.17, 0.17, 0.06, 14), T, 0, 0.36, 0);
+      const hood = part(R.head, hemi(R.headR*1.2, Math.PI*0.66), robe2, 0, 0.01, -0.03); hood.rotation.x = -0.45;
+      const st = new THREE.Group(); R.hands[1].add(st);
+      part(st, cyl(0.022, 0.026, 1.05, 6), Mt(0x3f3f46), 0, 0.15, 0);
+      part(st, sph(0.1, 10, 8), Mt(0xeeeae0), 0, 0.72, 0);
+      for (const sd of [-1,1]) part(st, sph(0.025, 6, 4), Mt(0x86efac, {emissive:0x22c55e, emissiveIntensity:3}), sd*0.035, 0.73, 0.08);
+      anim.orbit = new THREE.Group(); anim.orbit.position.y = 0.8; body.add(anim.orbit);
+      for (let i=0;i<3;i++) part(anim.orbit, sph(0.04, 6, 4), Mt(0x86efac, {emissive:0x22c55e, emissiveIntensity:2.5}), Math.cos(i*2.1)*0.4, 0, Math.sin(i*2.1)*0.4);
+      break; }
+    case 'balloon': {
+      const env = new THREE.Group(); env.position.y = 0.7; body.add(env);
+      part(env, sph(0.55, 18, 14), T, 0, 0, 0).scale.set(1, 1.15, 1);
+      for (let i=0;i<4;i++){ const st = part(env, sph(0.553, 18, 14, 0), TL, 0, 0, 0); st.scale.set(0.12, 1.16, 1.005); st.rotation.y = i*Math.PI/4; }
+      part(env, cyl(0.1, 0.2, 0.15, 10), TD, 0, -0.62, 0);
+      for (const [x,z] of [[-0.15,-0.15],[0.15,-0.15],[-0.15,0.15],[0.15,0.15]]){ const rp = part(body, cyl(0.008, 0.008, 0.5, 3), Mt(0xd6c7a1), x*0.8, -0.1, z*0.8); rp.castShadow = false; }
+      part(body, box(0.32, 0.22, 0.32), woodMat, 0, -0.42, 0);
+      anim.spark = part(body, sph(0.13, 10, 8), Mt(0x222831, {metalness:0.4, roughness:0.5}), 0, -0.62, 0);
+      break; }
+    case 'berserker': {
+      const fur = Mt(0x8b6b4a, {roughness:1});
+      R = rig(body, {skin:Mt(0xe5b48f), shirt:Mt(0xe5b48f), pants:Mt(0x3f2a1d), boots:fur, sleeve:Mt(0xe5b48f), belt:T, torsoR:0.19, torsoH:0.36});
+      part(body, cyl(0.21, 0.2, 0.2, 12), fur, 0, 0.62, 0);
+      part(R.head, hemi(R.headR*1.08, Math.PI*0.5), metal, 0, 0.03, 0);
+      for (const sd of [-1,1]){ const hn = part(R.head, cone(0.04, 0.2, 6), Mt(0xf5f0e0), sd*0.2, 0.12, 0); hn.rotation.z = -sd*0.9; }
+      part(R.head, cone(0.12, 0.22, 8), Mt(0xb45309), 0, -0.18, 0.1).rotation.x = Math.PI + 0.2;
+      for (const hd of R.hands){ const ax = new THREE.Group(); hd.add(ax); holdForward(ax, -1.2);
+        part(ax, cyl(0.02, 0.02, 0.45, 5), Mt(0x5b3a22), 0, 0.15, 0);
+        part(ax, box(0.03, 0.18, 0.16), Mt(0xd4d4d8, {metalness:0.85, roughness:0.3}), 0, 0.33, 0.07); }
+      anim.spinner = true;
+      break; }
+    case 'phoenix': {
+      const fl = Mt(0xff7a1a, {emissive:0xff4500, emissiveIntensity:1.4}), fl2 = Mt(0xffd23f, {emissive:0xffa000, emissiveIntensity:1.6});
+      const b2 = part(body, sph(0.26, 14, 10), fl, 0, 0, 0); b2.scale.set(0.9, 0.85, 1.3);
+      const hd = new THREE.Group(); hd.position.set(0, 0.22, 0.32); body.add(hd); anim.head = hd;
+      part(hd, sph(0.13, 12, 10), fl, 0, 0, 0);
+      part(hd, cone(0.05, 0.16, 6), Mt(0xfde047), 0, -0.02, 0.15).rotation.x = Math.PI/2;
+      for (let i=0;i<3;i++){ const c2 = part(hd, cone(0.03, 0.2, 4), fl2, (i-1)*0.04, 0.14, -0.06); c2.rotation.x = -0.6; }
+      for (let i=0;i<5;i++){ const tf = part(body, cone(0.05, 0.6, 4), i%2 ? fl2 : fl, (i-2)*0.06, -0.05, -0.55); tf.rotation.x = -Math.PI/2 - 0.2; }
+      const wm = Mt(0xff8c2a, {emissive:0xff5000, emissiveIntensity:1.4, side:THREE.DoubleSide});
+      for (const sd of [-1,1]){ const piv = new THREE.Group(); piv.position.set(sd*0.18, 0.08, 0.05); piv.scale.x = sd; body.add(piv); part(piv, wingGeo('drake'), wm, 0, 0, 0).scale.setScalar(1.1); anim[sd<0?'wingL':'wingR'] = piv; }
+      anim.flame = true;
+      break; }
+    case 'phoenixEgg': {
+      part(body, tor(0.28, 0.07, Math.PI*2, 16), Mt(0x6b4423), 0, 0.06, 0).rotation.x = Math.PI/2;
+      anim.orb = part(body, sph(0.24, 16, 12), Mt(0xffb347, {emissive:0xff5a00, emissiveIntensity:1.6, roughness:0.3}), 0, 0.32, 0);
+      anim.orb.scale.set(1, 1.3, 1);
+      break; }
+    case 'weaver': case 'matriarch': {
+      const champ = key === 'matriarch';
+      const robe = Mt(champ ? 0xe0f2fe : 0x7dd3fc), ice = Mt(0xd5f3ff, {emissive:0x38bdf8, emissiveIntensity:1.2, roughness:0.15, metalness:0.1});
+      R = rig(body, {skin:Mt(0xf5e1d0), shirt:robe, robe:champ ? 0.38 : 0.32, robeMat:robe, sleeve:Mt(champ ? 0xbae6fd : 0x38bdf8), torsoR:0.15, legLen:0.3});
+      part(body, cyl(0.16, 0.16, 0.06, 14), T, 0, 0.36, 0);
+      part(R.head, hemi(R.headR*1.08, Math.PI*0.6), Mt(champ ? 0xf8fafc : 0xe2e8f0), 0, 0.02, -0.03).rotation.x = -0.3;
+      const crownN = champ ? 7 : 4;
+      for (let i=0;i<crownN;i++){ const a = (i/(crownN-1) - 0.5)*2.2; const ic = part(R.head, cone(0.03, champ ? 0.24 : 0.14, 4), ice, Math.sin(a)*R.headR, R.headR*0.75 + Math.cos(a)*0.03, Math.cos(a)*R.headR*0.4); ic.rotation.z = -a*0.4; }
+      if (champ){ const cape = part(body, box(0.42, 0.62, 0.03), Mt(0xbae6fd, {transparent:true, opacity:0.85}), 0, 0.42, -0.2); cape.rotation.x = 0.12; }
+      const st = new THREE.Group(); R.hands[1].add(st);
+      part(st, cyl(0.02, 0.025, 1.05, 6), Mt(0xcbd5e1, {metalness:0.6, roughness:0.3}), 0, 0.15, 0);
+      anim.orb = part(st, geo('octa', ()=>new THREE.OctahedronGeometry(0.3, 0)), ice, 0, 0.75, 0);
+      anim.orb.scale.set(champ ? 0.5 : 0.35, champ ? 0.8 : 0.55, champ ? 0.5 : 0.35);
+      break; }
+    case 'wyrm': case 'wyrmling': {
+      const big = key === 'wyrm', k = big ? 1 : 0.35;
+      const rock = Mt(0x3a2a24, {roughness:0.85}), lava = Mt(0xff7a1a, {emissive:0xff4500, emissiveIntensity:2.2});
+      const tb = part(body, cap(0.42*k, 0.9*k, 12), rock, 0, 0, 0); tb.rotation.x = Math.PI/2;
+      for (let i=0;i<5;i++) part(body, box(0.5*k, 0.04*k, 0.06*k), lava, 0, 0.3*k, (0.5 - i*0.25)*k);
+      for (let i=0;i<4;i++) part(body, cone(0.09*k, 0.25*k, 4), Mt(0x1c1412), 0, 0.42*k, (0.4 - i*0.28)*k);
+      const hd = new THREE.Group(); hd.position.set(0, 0.25*k, 0.85*k); body.add(hd); anim.head = hd;
+      part(hd, box(0.42*k, 0.32*k, 0.5*k), rock, 0, 0, 0);
+      anim.jaw = part(hd, box(0.36*k, 0.1*k, 0.42*k), lava, 0, -0.18*k, 0.06*k);
+      for (const sd of [-1,1]){ part(hd, sph(0.05*k, 6, 4), Mt(0xfff36b, {emissive:0xffc400, emissiveIntensity:2}), sd*0.14*k, 0.08*k, 0.24*k); part(hd, cone(0.06*k, 0.3*k, 5), Mt(0x1c1412), sd*0.15*k, 0.22*k, -0.12*k).rotation.x = -0.8; }
+      for (let i=0;i<3;i++){ const tl = part(body, cone((0.3 - i*0.08)*k, 0.5*k, 8), rock, 0, -0.04*i*k, (-0.85 - i*0.4)*k); tl.rotation.x = -Math.PI/2 - 0.12; }
+      const wm = Mt(TEAM_DARK[team], {side:THREE.DoubleSide, roughness:0.6});
+      for (const sd of [-1,1]){ const piv = new THREE.Group(); piv.position.set(sd*0.35*k, 0.25*k, 0.1*k); piv.scale.set(sd*k, k, k); body.add(piv); part(piv, wingGeo('drake'), wm, 0, 0, 0).scale.setScalar(1.9); anim[sd<0?'wingL':'wingR'] = piv; }
+      break; }
+    case 'dancer': {
+      R = rig(body, {skin, shirt:Mt(0x1f2937), pants:Mt(0x111827), boots:Mt(0x111827), sleeve:Mt(0x1f2937), gloves:Mt(0x111827), belt:T, torsoR:0.14, torsoH:0.36});
+      part(body, box(0.06, 0.4, 0.03), T, -0.05, 0.5, 0.14).rotation.z = 0.6;
+      part(R.head, hemi(R.headR*1.04, Math.PI*0.5), Mt(0x111827), 0, 0.02, -0.01);
+      part(R.head, box(R.headR*2.05, 0.08, 0.05), T, 0, 0.0, R.headR*0.86);
+      const tail = part(R.head, cap(0.04, 0.3, 6), Mt(0x111827), 0, 0.05, -R.headR*1.1); tail.rotation.x = 0.9;
+      for (const hd of R.hands){ const bl = new THREE.Group(); hd.add(bl); holdForward(bl, -1.3);
+        const b = part(bl, tor(0.22, 0.018, Math.PI*0.6, 12), Mt(0xe5e7eb, {metalness:0.9, roughness:0.25}), 0.05, 0.25, 0); b.rotation.set(0, Math.PI/2, -0.3); }
+      break; }
   }
   if (R){ anim.legs = R.legs; anim.arms = R.arms; anim.head = R.head; }
   return {body, anim};
@@ -1912,10 +2260,11 @@ const projGeo = {
   ball: new THREE.SphereGeometry(0.16,10,8),
   bomb: new THREE.SphereGeometry(0.18,10,8),
   bolt: new THREE.OctahedronGeometry(0.16,0),
+  ice: new THREE.OctahedronGeometry(0.14,0),
   spellball: new THREE.SphereGeometry(0.55,16,12),
 };
 const projMat = {
-  arrow: M(0x6b4423), fire: M(0xffb347, {emissive:0xff6a00, emissiveIntensity:2.5}), ball: M(0x1f2328, {metalness:0.6, roughness:0.4}), bomb: M(0x222831, {metalness:0.4, roughness:0.5}), bolt: M(0xbdf3ff, {emissive:0x38bdf8, emissiveIntensity:3}),
+  arrow: M(0x6b4423), fire: M(0xffb347, {emissive:0xff6a00, emissiveIntensity:2.5}), ball: M(0x1f2328, {metalness:0.6, roughness:0.4}), bomb: M(0x222831, {metalness:0.4, roughness:0.5}), bolt: M(0xbdf3ff, {emissive:0x38bdf8, emissiveIntensity:3}), ice: M(0xe0f7ff, {emissive:0x7dd3fc, emissiveIntensity:2}),
   spellball: M(0xffa040, {emissive:0xff5a00, emissiveIntensity:3}),
 };
 
@@ -1931,6 +2280,7 @@ function makeView(e){
     const {body, anim} = unitModel(e.key, e.team);
     const holder = new THREE.Group(); holder.add(body); root.add(holder);
     holder.scale.setScalar(unitScale(e));
+    v.topY = new THREE.Box3().setFromObject(holder).max.y;
     v.holder = holder; v.body = body; v.anim = anim; v.ring = ring;
     if (e.ability){
       const bub = new THREE.Mesh(geo('bubble', ()=>new THREE.SphereGeometry(1, 24, 16)), new THREE.MeshBasicMaterial({color:0xffe066, transparent:true, opacity:0.28, blending:THREE.AdditiveBlending, depthWrite:false}));
@@ -1964,8 +2314,8 @@ function sync3D(dt){
     _seen.add(e.id);
     let v = views.get(e.id);
     if (!v){ v = makeView(e); views.set(e.id, v); }
-    const em = e.flash > 0 ? 1 : (e.ice && e.stun > 0) ? 2 : 0;
-    if (em !== v.emState){ v.emState = em; for (const m of v.mats) m.emissive.setHex(em===1 ? 0x888888 : em===2 ? 0x2f6fb8 : m.userData.baseEmissive); }
+    const em = e.flash > 0 ? 1 : (e.ice && e.stun > 0) ? 2 : e.slow > 0 ? 3 : e.invuln > 0 && !e.ability ? 4 : 0;
+    if (em !== v.emState){ v.emState = em; for (const m of v.mats) m.emissive.setHex(em===1 ? 0x888888 : em===2 ? 0x2f6fb8 : em===3 ? 0x2a3f66 : m.userData.baseEmissive); }
     if (e.isTower){
       const guard = v.tower.userData.guard;
       if (e.target && e.target.hp > 0){
@@ -2030,6 +2380,10 @@ function sync3D(dt){
     v.body.rotation.z = e.stun > 0 && !frozen ? Math.sin(now*30)*0.1 : 0;
     if (v.bubble){ v.bubble.visible = e.invuln > 0; if (e.invuln > 0){ v.bubble.scale.setScalar(1.25 + Math.sin(now*8)*0.05); v.bubble.position.y = 1.1; } }
     if (v.anim.halo) v.anim.halo.rotation.z = now*1.5;
+    if (e.charged && Math.random() < 0.5) burst(e.x, 0.2, e.y, 1, {color:[0xd6c7a1, 0xffffff], speed:1, up:1, gravity:4, life:0.4, size:0.12});
+    if (v.anim.spinner && e.lunge) v.body.rotation.y = (1 - e.lunge/0.15)*Math.PI*2; else if (v.anim.spinner) v.body.rotation.y = 0;
+    if (v.anim.lance) v.anim.lance.rotation.x = e.charged ? 0 : 0.35;
+    if (v.anim.flame && Math.random() < 0.35) burst(e.x, v.holder.position.y, e.y, 1, {color:[0xff9a2e, 0xffd34d], glow:true, speed:0.4, up:0.2, gravity:0.5, life:0.4, size:0.1, grow:true});
     if (v.anim.crystal){ v.anim.crystal.rotation.y = now*2; v.anim.crystal.position.y = 2.15 + Math.sin(now*3)*0.08; }
     if (v.beam){
       const t = e.target;
@@ -2078,6 +2432,7 @@ function sync3D(dt){
     pv.m.position.set(wx(p.x), y, wz(p.y));
     if ((p.kind === 'fire' || p.kind === 'spellball') && Math.random() < (p.kind==='spellball' ? 0.9 : 0.5))
       burst(p.x, y, p.y, p.kind==='spellball' ? 2 : 1, {color:[0xff9a2e, 0xffd34d, 0xff5a1f], glow:true, speed:0.3, up:0.4, gravity:-0.5, life:0.35, size:p.kind==='spellball' ? 0.3 : 0.12, spread:0.15, grow:true});
+    if (p.kind === 'ice' && Math.random() < 0.5) burst(p.x, y, p.y, 1, {color:[0xe0f7ff, 0xffffff], glow:true, speed:0.3, up:0.2, gravity:0, life:0.25, size:0.07});
     if (p.kind === 'bolt') burst(p.x, y, p.y, 1, {color:[0x9be7ff, 0xffffff], glow:true, speed:0.6, up:0.3, gravity:0, life:0.18, size:0.08});
     if (p.kind === 'bomb' && Math.random() < 0.4) burst(p.x, y+0.15, p.y, 1, {color:[0xfff3a0], glow:true, speed:0.2, up:0.3, gravity:0, life:0.2, size:0.06});
     if (p.kind === 'arrow'){
@@ -2087,7 +2442,7 @@ function sync3D(dt){
   }
   // effects
   for (const f of G.fx){
-    if (f.type === 'num' || f.type === 'chain') continue;
+    if (f.type === 'num' || f.type === 'chain' || f.type === 'dash') continue;
     let fv = fxViews.get(f);
     if (!fv){
       let m;
@@ -2107,6 +2462,16 @@ function sync3D(dt){
     else if (f.type === 'blast'){ m.scale.set(f.r*(0.5+0.5*k), f.r*(0.5+0.5*k)*0.6, f.r*(0.5+0.5*k)); m.position.y = 0; m.material.opacity = 0.6*(1-k); }
     else if (f.type === 'poof'){ m.scale.setScalar(f.r*(0.5+k)); m.position.y = 0.5 + k; m.material.opacity = 0.7*(1-k); }
     else if (f.type === 'slash'){ m.scale.setScalar(0.18+k*0.2); m.position.y = 0.7; m.material.opacity = 1-k; }
+  }
+  for (const z of G.zones){
+    let zv = fxViews.get(z);
+    if (!zv){
+      const m = new THREE.Mesh(geo('zone', ()=>new THREE.CylinderGeometry(1, 1, 0.8, 32, 1, true)), new THREE.MeshBasicMaterial({color:0x84cc16, transparent:true, opacity:0.3, side:THREE.DoubleSide, depthWrite:false}));
+      m.position.set(wx(z.x), 0.4, wz(z.y)); m.scale.set(z.r, 1, z.r); dyn.add(m); zv = {m}; fxViews.set(z, zv);
+    }
+    keepP.add(zv.m);
+    zv.m.material.opacity = 0.28 * Math.min(1, z.t) + Math.sin(now*6)*0.03;
+    if (Math.random() < 0.5) burst(z.x + (Math.random()-.5)*z.r*1.4, 0.2, z.y + (Math.random()-.5)*z.r*1.4, 1, {color:[0x84cc16, 0x4d7c0f, 0xa3e635], glow:true, speed:0.2, up:0.6, gravity:-0.3, life:0.9, size:0.25, grow:true});
   }
   // drop finished projectile / fx meshes
   for (let i = dyn.children.length-1; i >= 0; i--){
@@ -2177,16 +2542,28 @@ function drawOverlay(){
       if (e.kind==='king' && !e.active) otext('💤', sx + w*0.55, sy - ppt*0.3, Math.max(12, ppt*0.6));
       if (e.stun > 0 && e.ice) otext('❄️', sx - w*0.55, sy - ppt*0.3, Math.max(12, ppt*0.6));
     } else {
-      const h = v.holder.position.y + (e.key==='golem'?2.9:e.key==='treant'?3.1:e.key==='spire'?2.7:e.key==='bull'?1.8:e.flying?0.9:e.isBuilding?1.3:2.0);
+      const h = v.holder.position.y + v.topY + 0.35;
       const [sx, sy] = project(e.x, h, e.y);
       if (e.hp < e.maxHp || e.isBuilding) obar(sx, sy, Math.max(16, e.radius*2*ppt*0.9), e.hp/e.maxHp, col);
       if (e.stun > 0) otext(e.ice ? '❄️' : '⚡', sx + ppt*0.4, sy - ppt*0.3, Math.max(10, ppt*0.45));
+      else if (e.slow > 0) otext('🐌', sx + ppt*0.4, sy - ppt*0.3, Math.max(10, ppt*0.42));
+      if (e.hatch) otext('🥚 ' + Math.ceil(e.hatch.after - e.hatchT), sx, sy - ppt*0.45, Math.max(10, ppt*0.4));
       if (e.deploy > 0){
         octx.strokeStyle = '#fff'; octx.lineWidth = 2.5;
         const [gx, gy] = project(e.x, 0.05, e.y);
         octx.beginPath(); octx.arc(gx, gy, Math.max(8, ppt*e.radius*0.7), -Math.PI/2, -Math.PI/2 + Math.PI*2*(1-e.deploy)); octx.stroke();
       }
     }
+  }
+  for (const f of G.fx){
+    if (f.type !== 'dash') continue;
+    const k = f.t/f.max; octx.globalAlpha = 1 - k; octx.lineCap = 'round'; octx.lineJoin = 'round';
+    for (const [w, c] of [[10, 'rgba(250,204,21,.35)'], [3, '#fffbe6']]){
+      octx.strokeStyle = c; octx.lineWidth = w; octx.beginPath();
+      f.path.forEach(([x, y], i) => { const [sx, sy] = project(x, 0.8, y); i ? octx.lineTo(sx, sy) : octx.moveTo(sx, sy); });
+      octx.stroke();
+    }
+    octx.globalAlpha = 1;
   }
   for (const f of G.fx){
     if (f.type !== 'chain') continue;
@@ -2430,6 +2807,20 @@ function emit(type, x, y, o){
     case 'overtime': banner('Overtime!', '#facc15'); toast('Sudden death: next crown wins'); sfx('horn'); break;
     case 'tiebreaker': banner('Tiebreaker!', '#facc15'); toast('All towers take damage!'); sfx('horn'); shake = Math.max(shake, 0.3); break;
     case 'chain': sfx('zap', 0.6, 0.1); break;
+    case 'volley':
+      for (let i=0;i<28;i++) burst(x + (Math.random()-.5)*o.r*1.6, 4 + Math.random()*2, y + (Math.random()-.5)*o.r*1.6, 1, {color:[0x5b3a22], speed:0.2, up:-8, gravity:18, life:0.35, size:0.12});
+      burst(x, 0.3, y, 16, {color:[0xd6d3d1, 0xa8a29e], speed:3, up:2, gravity:8, life:0.5, size:0.08, spread:o.r});
+      sfx('arrow', 1, 0); setTimeout(()=>sfx('impact', 0.6), 200); break;
+    case 'spring': burst(x, 0.2, y, 26, {color:[0x4ade80, 0x86efac, 0x7dd3fc], glow:true, speed:1.5, up:3.5, gravity:2, life:1, size:0.12, spread:o.r}); sfx('heal', 1, 0); break;
+    case 'quicksand': burst(x, 0.2, y, 30, {color:[0xd6b46a, 0xb98a52, 0xe7d3a1], speed:2.5, up:1, gravity:3, life:0.9, size:0.14, spread:o.r*1.2}); sfx('impact', 0.5); break;
+    case 'poison': burst(x, 0.4, y, 20, {color:[0x84cc16, 0x4d7c0f], glow:true, speed:1.5, up:1.5, gravity:-0.5, life:1.2, size:0.35, grow:true, spread:o.r}); sfx('fire', 0.6); break;
+    case 'nova': burst(x, 0.6, y, 40, {color:[0xe0f2fe, 0xbae6fd, 0xffffff], glow:true, speed:6, up:2, gravity:3, life:0.8, size:0.14, spread:0.5}); sfx('freeze'); shake = Math.max(shake, 0.2); if (o.team === 1) toast('Enemy champion used Glacial Nova!'); break;
+    case 'dash': burst(x, 0.8, y, 18, {color:[0xfde047, 0xffffff], glow:true, speed:4, up:2, gravity:4, life:0.4, size:0.1}); sfx('bighit'); sfx('zap', 0.5); if (o.team === 1) toast('Enemy champion used Whirling Dash!'); break;
+    case 'hatch': burst(x, 0.5, y, 24, {color:[0xff9a2e, 0xffd34d, 0xffffff], glow:true, speed:3, up:4, gravity:5, life:0.7, size:0.14}); sfx('crown', 0.7); break;
+    case 'summon': burst(x, 0.3, y, 12, {color:[0x86efac, 0x22c55e], glow:true, speed:1.2, up:2, gravity:-0.5, life:0.7, size:0.12, spread:0.8}); sfx('wake', 0.4, 0.5); break;
+    case 'charge': sfx('horn', 0.5, 0.5); break;
+    case 'chargehit': burst(x, 0.6, y, 14, {color:[0xffffff, 0xfde68a], glow:true, speed:3.5, up:2.5, gravity:8, life:0.35, size:0.09}); sfx('bighit'); shake = Math.max(shake, 0.12); break;
+    case 'spin': burst(x, 0.6, y, 10, {color:[0xe5e7eb, 0xffffff], glow:true, speed:4, up:0.6, gravity:2, life:0.25, size:0.06, spread:o.r}); sfx('hit', 1, 0.08); break;
     case 'aegis':
       burst(x, 1, y, 26, {color:[0xfde047, 0xffffff, 0xfbbf24], glow:true, speed:3.5, up:3, gravity:2, life:0.7, size:0.12, spread:1});
       sfx('freeze', 0.8); sfx('win', 0.5);
@@ -2641,10 +3032,14 @@ const META = {
   fireball:['rare',0], pyro:['rare',0], mender:['rare',0], bull:['rare',0],
   golem:['epic',1], frost:['epic',1], drake:['epic',1], spire:['epic',2], treant:['epic',2],
   storm:['legendary',2], reaper:['legendary',3],
+  imps:['common',0], sprites:['common',0], pikemen:['common',0], volley:['common',0], shieldwall:['common',1], watchtower:['common',1],
+  spring:['rare',0], monk:['rare',1], lancer:['rare',1], gargoyles:['rare',1], mortar:['rare',2], necro:['rare',2],
+  quicksand:['epic',1], berserker:['epic',1], balloon:['epic',2], poison:['epic',2],
+  weaver:['legendary',2], phoenix:['legendary',3], wyrm:['legendary',3],
 };
 for (const k in META){ CARDS[k].rarity = META[k][0]; CARDS[k].arena = META[k][1]; }
 const STARTER = ['squire','rangers','goblins','bats','bones','cannon','fireball','shock'];
-const LEVEL_UNLOCKS = {2:['bomber','pyro'], 3:['mender','bull'], 4:['golem','frost'], 5:['drake','spire'], 6:['treant'], 7:['storm'], 8:['reaper']};
+const LEVEL_UNLOCKS = {2:['bomber','pyro','imps'], 3:['mender','bull','pikemen'], 4:['golem','frost','volley'], 5:['drake','spire','shieldwall'], 6:['treant','monk'], 7:['storm','lancer'], 8:['reaper','berserker'], 10:['weaver'], 11:['dancer'], 12:['phoenix'], 13:['matriarch'], 14:['wyrm']};
 const KING_XP = [0, 30, 80, 160, 280, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000, 5000];   // total XP to reach level i+1
 const MAX_KING = KING_XP.length;
 function lvMult(l){ return 1 + 0.08*(l-1); }
@@ -2657,6 +3052,11 @@ const CHESTS = {
   magical:   {name:'Magical Chest',   col:'#b46cff', time:1200},
   legendary: {name:'Legendary Chest', col:'#3fe0d5', time:1800},
   crown:     {name:'Crown Chest',     col:'#facc15', time:0},
+  wooden:    {name:'Wooden Chest',    col:'#a0703c', time:15},
+  lucky:     {name:'Lucky Chest',     col:'#34d399', time:600},
+  epic:      {name:'Epic Chest',      col:'#e879f9', time:1500},
+  champion:  {name:'Champion Chest',  col:'#ff9f1c', time:2400},
+  mega:      {name:'Mega Chest',      col:'#f43f5e', time:3600},
 };
 const FREE_INTERVAL = 60*60*1000;   // a free chest every hour, up to 2 stored
 
@@ -2676,10 +3076,10 @@ const QUEST_POOL = [
   {id:'upgr1',   text:'Upgrade a card',           goal:1,    stat:'upgrades',    r:{gold:50,  gems:3,  xp:10}},
 ];
 const ROAD = [
-  {t:30, r:{gold:100}}, {t:80, r:{chest:'silver'}}, {t:150, r:{gems:30}}, {t:250, r:{chest:'golden'}},
+  {t:15, r:{chest:'wooden'}}, {t:30, r:{gold:100}}, {t:80, r:{chest:'silver'}}, {t:120, r:{chest:'lucky'}}, {t:150, r:{gems:30}}, {t:250, r:{chest:'golden'}},
   {t:350, r:{gold:400}}, {t:450, r:{chest:'giant'}}, {t:600, r:{chest:'magical'}}, {t:700, r:{gems:60}},
   {t:850, r:{gold:1000}}, {t:1000, r:{chest:'legendary'}}, {t:1200, r:{chest:'magical'}}, {t:1400, r:{gems:120}},
-  {t:1600, r:{chest:'legendary'}}, {t:2000, r:{gold:5000}},
+  {t:1600, r:{chest:'legendary'}}, {t:1800, r:{chest:'epic'}}, {t:2000, r:{gold:5000}}, {t:2300, r:{chest:'champion'}}, {t:2600, r:{chest:'mega'}},
 ];
 
 // ---- save data ----
@@ -2726,7 +3126,8 @@ function battleLevels(){
 }
 function aiDeckPick(){
   const avail = shuffle(ALL_KEYS.filter(k => CARDS[k].arena <= arenaIdx()));
-  return avail.slice(0, 8);
+  let champ = false;
+  return avail.filter(k => { if (!CARDS[k].champion) return true; if (champ) return false; return champ = true; }).slice(0, 8);
 }
 
 // ---- XP & King Level ----
@@ -2763,6 +3164,9 @@ function chestLoot(type){
     magical:   {cards:30+10*a, gold:[200,300], rare:6,   epic:2.5,  leg:0.2},
     legendary: {cards:1,       gold:[0,0],     rare:0,   epic:0,    leg:1},
     crown:     {cards:14+5*a,  gold:[80,150],  rare:2,   epic:0.3,  leg:0.03, gems:[4,10]},
+    wooden:    {cards:3+a,     gold:[10,20],   rare:0.25,epic:0,    leg:0},
+    epic:      {cards:6+2*a,   gold:[0,0],     rare:0,   epic:6+2*a, leg:0},
+    mega:      {cards:160+50*a,gold:[1000,1500],rare:30, epic:6,    leg:0.7, gems:[20,40]},
   }[type];
   const roll = f => Math.floor(f) + (Math.random() < f % 1 ? 1 : 0);
   const ri = ([lo,hi]) => lo + Math.floor(Math.random()*(hi-lo+1));
@@ -2792,11 +3196,15 @@ function applyLoot(L){
 }
 function randomChestType(){
   const r = Math.random();
-  if (r < 0.04 && pool('legendary').length) return 'legendary';
-  if (r < 0.12) return 'magical';
-  if (r < 0.20) return 'giant';
+  if (r < 0.006) return 'mega';
+  if (r < 0.025 && pool('legendary').length) return 'legendary';
+  if (r < 0.05 && pool('epic').length) return 'epic';
+  if (r < 0.11) return 'magical';
+  if (r < 0.18) return 'giant';
+  if (r < 0.27) return 'lucky';
   if (r < 0.45) return 'golden';
-  return 'silver';
+  if (r < 0.78) return 'silver';
+  return 'wooden';
 }
 function tickTimers(){
   const now = Date.now();
@@ -2891,7 +3299,7 @@ function renderHub(){
   const cardDot = Object.keys(SV.cards).some(k => affordUpgrade(k) || masteryReady(k));
   ensureSeason();
   const passDot = Array.from({length:passTier()}, (_, i) => i).some(i => !SV.pass.free.includes(i) || (SV.pass.premium && !SV.pass.prem.includes(i)));
-  const roadDot = passDot || ROAD.some((m,i) => profile.peak >= m.t && !SV.road.includes(i));
+  const roadDot = passDot || ROAD.some(m => profile.peak >= m.t && !SV.road.includes(m.t));
   const shopDot = SV.shop.offers.some(o => o.price === 0 && !o.bought);
   const evDot = (SV.chal && SV.chal.done) || SV.chalFree !== dayKey();
   $('hubTabs').innerHTML = [['shop','🛒','Shop',shopDot],['cards','🃏','Cards',cardDot],['battle','⚔️','Battle',false],['events','🎪','Events',evDot],['quests','📜','Quests',questDot],['road','🏆','Road',roadDot]]
@@ -2959,7 +3367,7 @@ function renderShopTab(){
     return `<div class="deal ${o.bought ? 'bought' : ''}" style="--r:${RARITY[c.rarity].col}"><div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="cnt">×${o.n}</div>
       ${o.bought ? '<span class="ok">Bought</span>' : `<button class="btn sm ${o.price===0 ? 'go' : ''}" data-buy="${i}">${o.price === 0 ? 'FREE' : `🪙 ${o.price}`}</button>`}</div>`;
   }).join('');
-  const gemChests = [['golden',50],['giant',120],['magical',150]].concat(pool('legendary').length ? [['legendary',300]] : []);
+  const gemChests = [['lucky',40],['golden',50],['giant',120],['magical',150]].concat(pool('epic').length ? [['epic',220]] : []).concat([['mega',500]]).concat(pool('legendary').length ? [['legendary',300]] : []).concat(pool('champion').length ? [['champion',600]] : []);
   $('shopChests').innerHTML = gemChests.map(([t, p]) => `<div class="deal">${chestHTML(t,'small')}<div class="nm">${CHESTS[t].name}</div><button class="btn sm" data-chest="${t}" data-price="${p}">💎 ${p}</button></div>`).join('');
   $('shopGold').innerHTML = [[30,300],[100,1200],[250,3500]].map(([g, au]) => `<div class="deal"><div class="icon">🪙</div><div class="nm">${au.toLocaleString()} gold</div><button class="btn sm" data-gold="${au}" data-price="${g}">💎 ${g}</button></div>`).join('');
 }
@@ -2968,7 +3376,7 @@ function renderRoadTab(){
   if (roadView === 'pass') return renderPass();
   const items = [];
   const marks = ROAD.map((m, i) => ({t:m.t, html:() => {
-    const got = SV.road.includes(i), ok = profile.peak >= m.t, r = m.r;
+    const got = SV.road.includes(m.t), ok = profile.peak >= m.t, r = m.r;
     const what = r.chest ? `${chestHTML(r.chest,'small')}<span>${CHESTS[r.chest].name}</span>` : r.gold ? `<span class="ri">🪙</span><span>${r.gold.toLocaleString()} gold</span>` : `<span class="ri">💎</span><span>${r.gems} gems</span>`;
     return `<div class="rm ${got ? 'got' : ok ? 'ok' : ''}"><div class="rt">🏆 ${m.t}</div><div class="rw">${what}</div>${got ? '<span class="ok">✔</span>' : ok ? `<button class="btn sm go" data-road="${i}">Claim</button>` : '<span class="lk">🔒</span>'}</div>`;
   }}));
@@ -2989,12 +3397,18 @@ function cardModal(k){
   const up = o && lv < MAX_LVL;
   const statRow = (label, base, fmt=(x)=>Math.round(x)) => `<tr><td>${label}</td><td>${fmt(base*m0)}</td>${up && canUpgrade(k) ? `<td class="nx">+${fmt(base*m1)-fmt(base*m0)}</td>` : '<td></td>'}</tr>`;
   let stats = '';
-  if (c.type === 'spell'){ stats = statRow('Damage', c.spell.dmg) + `<tr><td>Radius</td><td>${c.spell.radius}</td><td></td></tr>` + (c.spell.stun ? `<tr><td>${c.spell.freeze?'Freeze':'Stun'}</td><td>${c.spell.stun}s</td><td></td></tr>` : ''); }
+  if (c.type === 'spell' && c.spell.heal){ stats = statRow('Healing', c.spell.heal) + `<tr><td>Radius</td><td>${c.spell.radius}</td><td></td></tr>`; }
+  else if (c.type === 'spell' && c.spell.zone){ stats = statRow('Damage / s', c.spell.zone.dps) + `<tr><td>Duration</td><td>${c.spell.zone.dur}s</td><td></td></tr><tr><td>Radius</td><td>${c.spell.radius}</td><td></td></tr>`; }
+  else if (c.type === 'spell'){ stats = statRow('Damage', c.spell.dmg) + `<tr><td>Radius</td><td>${c.spell.radius}</td><td></td></tr>` + (c.spell.stun ? `<tr><td>${c.spell.freeze?'Freeze':'Stun'}</td><td>${c.spell.stun}s</td><td></td></tr>` : ''); }
   else {
     const u = c.u;
     stats = statRow('Hitpoints', u.hp) + statRow('Damage', u.dmg) + `<tr><td>Hit speed</td><td>${u.hit}s</td><td></td></tr><tr><td>Range</td><td>${u.range < 1.5 ? 'Melee' : u.range}</td><td></td></tr>`
       + (c.count > 1 ? `<tr><td>Count</td><td>×${c.count}</td><td></td></tr>` : '') + (u.heal ? statRow('Heal / s', u.heal.amt) : '')
-      + `<tr><td>Targets</td><td>${u.targets==='buildings' ? 'Buildings' : u.air ? 'Air & ground' : 'Ground'}</td><td></td></tr>`;
+      + `<tr><td>Targets</td><td>${u.targets==='buildings' ? 'Buildings' : u.air ? 'Air & ground' : 'Ground'}</td><td></td></tr>`
+      + (u.flying ? '<tr><td>Movement</td><td>Flying</td><td></td></tr>' : '')
+      + (u.lifetime ? `<tr><td>Lifetime</td><td>${u.lifetime}s</td><td></td></tr>` : '')
+      + (u.deathDmg ? statRow('Death damage', u.deathDmg.dmg) : '')
+      + (u.spawn ? `<tr><td>Summons</td><td>${u.spawn.n} ${CARDS[u.spawn.key].name} / ${u.spawn.every}s</td><td></td></tr>` : '');
   }
   const unlockAt = Object.entries(LEVEL_UNLOCKS).find(([, ks]) => ks.includes(k));
   const lockMsg = o ? '' : `<p class="lockmsg">🔒 Not found yet. ${unlockAt && +unlockAt[0] > SV.level ? `Unlocks at <b>King Level ${unlockAt[0]}</b>, or` : 'Can be'} found in chests${c.arena > arenaIdx() ? ` from <b>${ARENAS[c.arena].name}</b>` : ''}.</p>`;
@@ -3002,7 +3416,7 @@ function cardModal(k){
   const need = needCopies(k), cost = up ? upgradeCost(k) : 0;
   modal(`<div class="cmod" style="--r:${rar.col}">
     <div class="chead"><div class="bigicon">${o ? c.icon : '🔒'}</div><div><div class="rar">${rar.name}</div><h2>${c.name}</h2>${o ? `<div class="lvl">Level ${lv}${lv>=MAX_LVL?' (max)':''}</div>` : ''}<div class="ds">${c.desc} · ${c.cost} mana</div></div></div>
-    <table class="stt">${stats}</table>${lockMsg}${c.ability ? `<p class="lockmsg">⭐ <b>${c.ability.name}</b> (${c.ability.cost} mana, ${c.ability.cd}s cooldown): ${c.ability.dur}s of invulnerability, heals ${c.ability.heal*100}% HP and nearby allies. Only one champion per deck.</p>` : ''}
+    <table class="stt">${stats}</table>${lockMsg}${c.ability ? `<p class="lockmsg">⭐ <b>${c.ability.name}</b> (${c.ability.cost} mana, ${c.ability.cd}s cooldown): ${c.ability.desc}. Only one champion per deck.</p>` : ''}
     ${o ? masteryHTML(k) : ''}
     ${up ? `<div class="bar big ${canUpgrade(k) ? 'ready' : ''}"><i style="width:${Math.min(100, SV.cards[k].copies/need*100)}%"></i><span>${SV.cards[k].copies}/${need} cards</span></div>` : ''}
     <div class="row mrow">
@@ -3027,6 +3441,8 @@ function lootCardsHTML(L){
 function openChestUI(type, done){
   const L = chestLoot(type); applyLoot(L);
   const steps = [];
+  if (L.stars) steps.push(() => { sfx(L.stars >= 4 ? 'win' : 'crown', 1, 0); return `<div class="ldrop"><h2>Lucky roll!</h2><div class="stars5">${[1,2,3,4,5].map(i => `<span class="${i <= L.stars ? 'on' : ''}" style="animation-delay:${i*0.18}s">★</span>`).join('')}</div>
+      <p>${['Bronze luck','Silver luck','Golden luck','Magical luck','JACKPOT!'][L.stars-1]}</p></div>`; });
   if (L.gold || L.gems) steps.push(() => `<div class="ldrop"><div class="big">${L.gold ? `🪙 +${L.gold}` : ''}${L.gems ? `<br>💎 +${L.gems}` : ''}</div></div>`);
   for (const c of L.cards){
     const k = c.k, card = CARDS[k], rar = RARITY[card.rarity];
@@ -3044,7 +3460,7 @@ function openChestUI(type, done){
     if (i < 0){ ov.innerHTML = `<div class="cwrap">${chestHTML(type, 'big shake')}<h2>${CHESTS[type].name}</h2><p>Tap to open!</p></div>`; return; }
     if (i >= steps.length){ ov.hidden = true; ov.innerHTML = ''; renderHub(); flushPopups(); if (done) done(); return; }
     ov.innerHTML = `<div class="cwrap pop">${steps[i]()}<p class="hint">${i === steps.length-1 ? 'Tap to collect' : `Tap to continue · ${steps.length-1-i} left`}</p></div>`;
-    const c = L.cards[i - ((L.gold || L.gems) ? 1 : 0)];
+    const c = L.cards[i - ((L.gold || L.gems) ? 1 : 0) - (L.stars ? 1 : 0)];
     if (c && i < steps.length-1){ const r = CARDS[c.k].rarity; sfx(r === 'legendary' ? 'win' : r === 'epic' ? 'crown' : 'select', r === 'common' ? 1.4 : 1, 0); }
   };
   ov.onclick = () => { if (i < 0) sfx('towerfall', 0.4, 0); i++; show(); };
@@ -3141,8 +3557,8 @@ $('tab-shop').onclick = ev => {
 $('tab-road').onclick = ev => {
   const b = ev.target.closest('[data-road]'); if (!b) return; audioInit();
   const i = +b.dataset.road, m = ROAD[i];
-  if (SV.road.includes(i) || profile.peak < m.t) return;
-  SV.road.push(i);
+  if (SV.road.includes(m.t) || profile.peak < m.t) return;
+  SV.road.push(m.t);
   if (m.r.chest){ save(); openChestUI(m.r.chest); return; }
   SV.gold += m.r.gold || 0; SV.gems += m.r.gems || 0; save(); sfx('crown');
   toast(m.r.gold ? `+${m.r.gold.toLocaleString()} 🪙` : `+${m.r.gems} 💎`); renderHub();
@@ -3161,10 +3577,23 @@ setInterval(() => {
 // ===== More progression: champions, tower troops, deck slots, mastery, season pass, events, challenges, battle log =====
 RARITY.champion = {name:'Champion', col:'#ffcf4a', mul:8, xp:5, copies:[1,1,2,2,3,3,4,5,6]};
 RARITY_ORDER.push('champion');
-CARDS.paladin.rarity = 'champion'; CARDS.paladin.arena = 3;
-LEVEL_UNLOCKS[9] = ['paladin'];
+for (const [k, a] of [['paladin',3], ['dancer',2], ['matriarch',3]]){ CARDS[k].rarity = 'champion'; CARDS[k].arena = a; }
+LEVEL_UNLOCKS[9] = ['paladin', 'balloon'];
 const _baseLoot = chestLoot;
 chestLoot = function(type){
+  if (type === 'lucky'){
+    const r = Math.random(), stars = r < 0.4 ? 1 : r < 0.7 ? 2 : r < 0.88 ? 3 : r < 0.97 ? 4 : 5;
+    const L = chestLoot(['silver','golden','giant','magical','legendary'][stars-1]);
+    if (stars === 5){ const extra = chestLoot('magical'); L.cards = L.cards.concat(extra.cards); L.gold += extra.gold; }
+    L.gems += [0, 0, 5, 15, 40][stars-1]; L.type = 'lucky'; L.stars = stars;
+    return L;
+  }
+  if (type === 'champion'){
+    if (!pool('champion').length) return chestLoot('legendary');
+    const L = _baseLoot('golden'); L.type = 'champion';
+    L.cards.push({k:pick(pool('champion')), n:1}); L.gems = 25;
+    return L;
+  }
   const L = _baseLoot(type);
   if (type === 'legendary' && pool('champion').length && Math.random() < 0.3) L.cards = [{k:pick(pool('champion')), n:1}];
   return L;
@@ -3198,6 +3627,7 @@ const MASTERY = [
   {text:'Play it 75 times',         stat:'played', goal:75, r:{gems:40, chest:'magical'}},
 ];
 SV.ms = SV.ms || {};
+if (SV.roadV !== 2){ const OLD = [30,80,150,250,350,450,600,700,850,1000,1200,1400,1600,2000]; SV.road = (SV.road || []).map(i => OLD[i]).filter(Boolean); SV.roadV = 2; save(); }
 const ms = k => SV.ms[k] || (SV.ms[k] = {played:0, wins:0, tier:0});
 const masteryProg = (k, m) => m.stat === 'level' ? cardLv(k) : ms(k)[m.stat];
 const masteryReady = k => owned(k) && ms(k).tier < MASTERY.length && masteryProg(k, MASTERY[ms(k).tier]) >= MASTERY[ms(k).tier].goal;
@@ -3231,6 +3661,8 @@ function passReward(i, prem){
     return {cards:'rare', n: 2 + Math.floor(t/10)};
   }
   if (t === 30) return {chest:'legendary'};
+  if (t === 25) return {chest:'epic'};
+  if (t === 15) return {chest:'lucky'};
   if (t % 10 === 0) return {chest:'magical'};
   if (t % 5 === 0) return {gems:30};
   if (t % 2 === 0) return {gold: 150 + t*20};
@@ -3394,6 +3826,7 @@ function updateAbilityBtn(){
   btn.classList.toggle('ready', ready);
   btn.querySelector('.cdov').style.height = (e.abilityCd > 0 ? e.abilityCd/A.cd*100 : 0) + '%';
   btn.querySelector('b').textContent = A.cost;
+  btn.querySelector('.aic').textContent = CARDS[e.key].icon;
 }
 
 // ---- wiring for the new UI ----
