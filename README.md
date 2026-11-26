@@ -35,6 +35,12 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 
 ## Features
 
+- Four themed arenas unlocked by trophies: Greenwood Meadow (0), Sunscorch Dunes (250), Frostpeak Pass (600) and Ember Crater (1000), which has a lava river
+- Game modes: Classic, Mana Rush (double mana all match) and Random Decks
+- Emotes (💬 button); the opponent sometimes replies or gloats
+- End-of-match stats: cards played, mana spent, tower damage and troops defeated
+- An overtime that ends level is decided by whose weakest tower has more health left
+
 - Synthesized sound effects (no audio files), screen shake, particles and death animations
 - 3-2-1 intro countdown, last-10-seconds countdown, and "2× Mana" / overtime banners
 - Trophies, win/loss record and win streaks, saved in the browser
