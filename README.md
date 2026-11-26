@@ -77,7 +77,15 @@ Open `index.html` in any modern browser with WebGL, on desktop or mobile.
 
 ## Features
 
-- Four themed arenas unlocked by trophies: Greenwood Meadow (0), Sunscorch Dunes (250), Frostpeak Pass (600) and Ember Crater (1000), which has a lava river
+- Title screen and a home screen with a live computer-vs-computer battle in the background
+- Procedural background music (menu, battle and overtime tracks), toggled in Settings
+- Six arenas, adding Murkmire Bog (1400 trophies) and Starfall Citadel (1800 trophies)
+- Profile with name, avatar (more unlock with King Level) and lifetime stats
+- 22 achievements with gem rewards
+- Named opponents, and a battle HUD showing both players' names and King Levels
+- A guided first battle for new players
+
+- Themed arenas unlocked by trophies: Greenwood Meadow (0), Sunscorch Dunes (250), Frostpeak Pass (600), Ember Crater (1000, with a lava river), Murkmire Bog (1400) and Starfall Citadel (1800)
 - Game modes: Classic, Mana Rush (double mana all match) and Random Decks
 - Emotes (💬 button); the opponent sometimes replies or gloats
 - End-of-match stats: cards played, mana spent, tower damage and troops defeated

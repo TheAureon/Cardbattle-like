@@ -205,6 +205,89 @@
   #abilityBtn .cdov{position:absolute;left:0;right:0;bottom:0;background:rgba(10,12,20,.65);z-index:1}
   #abilityBtn.ready{border-color:var(--gold);animation:glowp 1s ease-in-out infinite}
   @keyframes glowp{0%,100%{box-shadow:0 0 6px #facc15}50%{box-shadow:0 0 22px #facc15}}
+  /* ---- v3 UI ---- */
+  .btn{transition:transform .08s, filter .15s}
+  .btn:active:not(:disabled){transform:translateY(2px) scale(.97)}
+  .btn:hover:not(:disabled){filter:brightness(1.08)}
+  .btn.danger{background:#7f1d1d;color:#fecaca}
+  body.in-menu #top, body.in-menu #bottom, body.in-menu #pauseBtn, body.in-menu #emoteBtn, body.in-menu #abilityBtn, body.in-menu #emoteBar{display:none !important}
+  #top{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;padding:6px 8px;background:linear-gradient(#262c48,#1b1f2e);border-bottom:2px solid #11131d}
+  .side{display:flex;align-items:center;gap:6px;min-width:0}
+  .side.blue{justify-content:flex-end;text-align:right}
+  .side .av{font-size:20px;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:inset 0 -3px rgba(0,0,0,.3)}
+  .side.red .av{background:linear-gradient(#ef4444,#7f1d1d)} .side.blue .av{background:linear-gradient(#3b82f6,#1e3a8a)}
+  .side .nm{min-width:0;line-height:1.1}
+  .side b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side small{font-size:10px;color:var(--muted);white-space:nowrap}
+  .side .crowns{font-size:14px;padding:3px 8px}
+  #manaNum{border-radius:50% 50% 50% 50%/60% 60% 40% 40%;box-shadow:inset 0 -3px rgba(0,0,0,.25),0 0 10px rgba(217,70,239,.5)}
+  #coach{position:absolute;inset:0;z-index:6;pointer-events:none}
+  #coach .cbub{pointer-events:auto;cursor:pointer}
+  #coach[hidden]{display:none}
+  .cbub{position:absolute;left:50%;transform:translateX(-50%);width:min(86%,380px);background:#fffbeb;color:#1b1f2e;border-radius:14px;padding:12px 14px;font-weight:700;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:popin .35s cubic-bezier(.2,1.6,.4,1)}
+  .cbub small{display:block;font-weight:600;color:#78716c;font-size:11px;margin-top:4px}
+  .cbub.hand{bottom:14px}.cbub.mana{bottom:14px}.cbub.top{top:14px}
+  .cbub::after{content:'';position:absolute;left:50%;margin-left:-9px;border:9px solid transparent}
+  .cbub.hand::after,.cbub.mana::after{bottom:-17px;border-top-color:#fffbeb}.cbub.top::after{top:-17px;border-bottom-color:#fffbeb}
+  #title{z-index:40;flex-direction:column;justify-content:space-between;padding:13vh 20px 5vh;cursor:pointer;
+    background:radial-gradient(ellipse at 50% 35%, rgba(8,12,30,.1), rgba(8,12,30,.78) 75%);transition:opacity .35s}
+  #title.out{opacity:0}
+  .tlogo{text-align:center;animation:tdrop .9s cubic-bezier(.2,1.4,.4,1)}
+  .tcrown{font-size:86px;filter:drop-shadow(0 8px 14px rgba(0,0,0,.55));animation:tfloat 3s ease-in-out infinite}
+  #title h1{font-size:min(64px,15vw);font-weight:900;margin:0;line-height:1;letter-spacing:.01em;text-shadow:0 5px 0 #1e293b,0 10px 30px rgba(0,0,0,.7)}
+  .tlogo p{color:#e2e8f0;font-weight:700;margin:10px 0 0;text-shadow:0 2px 6px rgba(0,0,0,.8)}
+  .tstart{text-align:center;font-size:24px;font-weight:900;color:#fff;text-shadow:0 3px 0 #1e293b,0 0 20px rgba(250,204,21,.6);animation:tpulse 1.3s ease-in-out infinite}
+  .tfoot{text-align:center;font-size:11px;color:rgba(255,255,255,.55)}
+  @keyframes tdrop{from{transform:translateY(-60px) scale(.7);opacity:0}}
+  @keyframes tfloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+  @keyframes tpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.07);opacity:.75}}
+  #settingsOv{z-index:25}
+  #menu{background:none;padding:0}
+  #menu .panel.hub{background:transparent;border-radius:0;max-width:560px;max-height:none;height:100%;box-shadow:none}
+  #hubTop{background:rgba(14,17,28,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  #hubTabs{background:rgba(14,17,28,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  #hubBody{background:transparent;display:flex;flex-direction:column}
+  #hubBody.sheet{background:rgba(27,31,46,.97)}
+  #hubBody > section:not([hidden]){animation:tabin .25s ease-out}
+  #tab-battle:not([hidden]){flex:1;display:flex;flex-direction:column}
+  @keyframes tabin{from{opacity:0;transform:translateY(8px)}}
+  .home{display:flex;flex-direction:column;flex:1;gap:8px}
+  .homeTop{display:flex;gap:8px;align-items:flex-start}
+  .homeMid{flex:1;min-height:90px}
+  .homeBot{display:flex;flex-direction:column;gap:8px;margin:0 -16px -18px;padding:26px 16px 14px;background:linear-gradient(rgba(14,17,28,0), rgba(14,17,28,.88) 22%)}
+  .pcard{flex:1;display:flex;gap:10px;align-items:center;background:rgba(14,17,28,.78);border-radius:14px;padding:8px 12px;cursor:pointer;backdrop-filter:blur(4px)}
+  .pcard small{color:var(--muted);font-size:11px}
+  .pav{font-size:28px;width:46px;height:46px;border-radius:12px;background:linear-gradient(#3b82f6,#1e40af);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:inset 0 -4px rgba(0,0,0,.3)}
+  .pav.big{width:72px;height:72px;font-size:44px;border-radius:18px}
+  .sideBtns{display:flex;flex-direction:column;gap:6px}
+  .sideBtns button{position:relative;width:44px;height:44px;border-radius:12px;border:none;background:rgba(14,17,28,.78);font-size:20px;cursor:pointer;box-shadow:inset 0 -3px rgba(0,0,0,.35)}
+  .sideBtns .dot{top:-3px;right:-3px}
+  .arenaPick{display:flex;align-items:center;gap:8px;background:rgba(14,17,28,.6);border-radius:14px;padding:6px}
+  .arenaPick .aicon{font-size:34px}
+  .arenaPick .ainfo{flex:1;line-height:1.2}.arenaPick small{color:var(--muted);font-size:11px}
+  .arenaPick button{width:34px;height:44px;border:none;border-radius:10px;background:#2d3350;color:#fff;font-size:16px;cursor:pointer}
+  .pills{display:flex;flex-direction:column;gap:5px}
+  .pillrow{display:flex;gap:5px}
+  .pillrow .btn{flex:1;padding:7px 4px;font-size:12px;border-radius:999px;background:rgba(45,51,80,.9)}
+  .pillrow .btn small{display:none}
+  .pillrow .btn.on{background:#4b5585;outline:2px solid var(--gold)}
+  .btn.go.big{font-size:26px;padding:15px;margin:2px 0 4px;letter-spacing:.08em;font-weight:900;border-radius:16px;
+    background:linear-gradient(#fbbf24,#f59e0b 55%,#d97706);box-shadow:0 6px 0 #92400e,0 12px 24px rgba(0,0,0,.45);text-shadow:0 2px 0 rgba(255,255,255,.35)}
+  .btn.go.big:active{transform:translateY(5px);box-shadow:0 1px 0 #92400e,0 6px 14px rgba(0,0,0,.4)}
+  .card{box-shadow:inset 0 -4px rgba(0,0,0,.25)}
+  .achlist{max-height:60vh;overflow:auto;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .achrow{display:flex;align-items:center;gap:10px;background:var(--panel2);border-radius:10px;padding:8px 10px;font-size:13px}
+  .achrow > div{flex:1;display:flex;flex-direction:column;gap:3px}.achrow small{color:var(--muted)}
+  .achrow.got{opacity:.6}.aci{font-size:26px}
+  .prof .phead{display:flex;gap:12px;align-items:center}
+  .prof input{width:100%;font-size:20px;font-weight:800;background:#12151f;border:2px solid #3a4163;border-radius:10px;color:var(--text);padding:6px 10px;margin-bottom:4px}
+  .prof small{color:var(--muted)}
+  .avgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .avb{font-size:24px;aspect-ratio:1;border-radius:10px;border:2px solid transparent;background:var(--panel2);cursor:pointer}
+  .avb.on{border-color:var(--gold)}.avb.locked{opacity:.5}
+  .pstats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .pstats div{background:var(--panel2);border-radius:10px;padding:8px 10px}.pstats b{display:block;font-size:18px}.pstats small{font-size:11px}
+  .fav{margin-top:10px;font-size:13px}
   details.help summary{cursor:pointer;font-weight:700;color:var(--text);margin:14px 0 6px}
   @keyframes enter{from{transform:translateY(40px) scale(.7);opacity:0}}
   #manaBar.full{box-shadow:0 0 0 2px #f0abfc,0 0 14px #e879f9}
@@ -264,12 +347,12 @@
 <body>
 <div id="app">
   <div id="top">
-    <div class="crowns red" id="crR">👑 0</div>
+    <div class="side red"><span class="av" id="avR">😠</span><div class="nm"><b id="nmR">Foe</b><small id="lvR"></small></div><div class="crowns red" id="crR">👑 0</div></div>
     <div id="timerBox"><div id="timer">3:00</div><div id="phase">Battle</div></div>
-    <div class="crowns blue" id="crB">👑 0</div>
+    <div class="side blue"><div class="crowns blue" id="crB">👑 0</div><div class="nm"><b id="nmB">You</b><small id="lvB"></small></div><span class="av" id="avB">🙂</span></div>
   </div>
   <div id="stage"><canvas id="ov"></canvas><div id="banner"></div><div id="toast"></div><button id="pauseBtn" title="Pause">⏸</button>
-    <button id="emoteBtn" title="Emote">💬</button><button id="abilityBtn" hidden><span class="aic">🌟</span><b>2</b><i class="cdov"></i></button><div id="emoteBar" hidden></div></div>
+    <button id="emoteBtn" title="Emote">💬</button><button id="abilityBtn" hidden><span class="aic">🌟</span><b>2</b><i class="cdov"></i></button><div id="emoteBar" hidden></div><div id="coach" hidden></div></div>
   <div id="bottom">
     <div id="hand">
       <div id="nextWrap">Next<div id="next"></div></div>
@@ -282,41 +365,65 @@
   </div>
 </div>
 
-<div id="menu" class="overlay">
+<div id="title" class="overlay">
+  <div class="tlogo"><div class="tcrown">👑</div><h1>Crown <span>Siege</span></h1><p>41 cards · 6 arenas · endless battles</p></div>
+  <div class="tstart">Tap to start</div>
+  <div class="tfoot">v3.0 · made with Three.js</div>
+</div>
+
+<div id="settingsOv" class="overlay" hidden>
+  <div class="panel" style="max-width:380px">
+    <h2 style="margin:0 0 10px">⚙️ Settings</h2>
+    <div class="stack" style="margin-top:0">
+      <button class="btn" id="sndBtn"></button>
+      <button class="btn" id="musBtn"></button>
+      <button class="btn" id="gfxBtn"></button>
+    </div>
+    <details class="help" open><summary>How to play</summary>
+      Drag a card onto your (bottom) half of the arena, or tap a card then tap the arena. Cards cost mana, which refills over time.
+      A side tower is worth 1 crown and the king tower 3. Most crowns wins; a tie goes to overtime, and if it's still tied,
+      the tiebreaker makes every tower crumble until one falls.<br><br>
+      <b>Progression:</b> win battles for gold, XP and chests. Chests hold card copies; collect enough copies and spend gold to
+      upgrade a card. King Levels unlock new cards and make your towers tougher. Higher arenas add new cards to chests.
+    </details>
+    <p class="lockmsg">Crown Siege · an original lane-battle game. 3D by Three.js (MIT).</p>
+    <div class="stack"><button class="btn danger" id="resetBtn">Reset progress</button><button class="btn go" id="setClose" style="margin-top:0">Done</button></div>
+  </div>
+</div>
+
+<div id="menu" class="overlay" hidden>
   <div class="panel hub">
     <div id="hubTop"></div>
     <div id="hubBody">
       <section id="tab-battle">
-        <h1>Crown <span>Siege</span></h1>
-        <div id="profile"></div>
-        <div class="arenaShow" id="arenaShow"></div>
-        <div class="arenas" id="arenaRow"></div>
-        <h3>Mode</h3>
-        <div class="row modes" id="modeRow"></div>
-        <h3>Opponent</h3>
-        <div class="row" id="diffRow">
-          <button class="btn" data-d="0">Easy</button>
-          <button class="btn on" data-d="1">Normal</button>
-          <button class="btn" data-d="2">Hard</button>
+        <div class="home">
+          <div class="homeTop">
+            <div class="pcard" id="pcard"></div>
+            <div class="sideBtns">
+              <button id="setBtn" title="Settings">⚙️</button>
+              <button id="profBtn" title="Profile">👤</button>
+              <button id="achBtn" title="Achievements">🏅</button>
+              <button id="logBtn" title="Battle log">📜</button>
+            </div>
+          </div>
+          <div class="homeMid"></div>
+          <div class="homeBot">
+            <div class="arenaPick" id="arenaShow"></div>
+            <div class="pills"><div class="pillrow" id="modeRow"></div>
+              <div class="pillrow" id="diffRow">
+                <button class="btn" data-d="0">Easy</button>
+                <button class="btn on" data-d="1">Normal</button>
+                <button class="btn" data-d="2">Hard</button>
+              </div></div>
+            <button class="btn go big" id="startBtn">⚔️ BATTLE</button>
+            <div id="chestSlots"></div>
+            <div id="freeRow"></div>
+          </div>
         </div>
-        <button class="btn go" id="startBtn">⚔️ Battle!</button>
-        <h3>Chests</h3>
-        <div id="chestSlots"></div>
-        <div id="freeRow"></div>
-        <h3>Tower troop</h3>
-        <div class="arenas troops" id="troopRow"></div>
-        <h3>Settings</h3>
-        <div class="row"><button class="btn" id="sndBtn"></button><button class="btn" id="gfxBtn"></button><button class="btn" id="logBtn">📜 Battle log</button></div>
-        <details class="help"><summary>How to play</summary>
-          Drag a card onto your (bottom) half of the arena, or tap a card then tap the arena. Cards cost mana, which refills over time.
-          A side tower is worth 1 crown and the king tower 3. Most crowns wins; a tie goes to overtime, and if it's still tied,
-          the tiebreaker makes every tower crumble until one falls.<br><br>
-          <b>Progression:</b> win battles for gold, XP and chests. Chests hold card copies; collect enough copies and spend gold to
-          upgrade a card (stronger stats, plus King XP). King Levels unlock new cards and make your towers tougher. Higher arenas add
-          new cards to chests, and opponents get stronger as your trophies rise.
-        </details>
       </section>
       <section id="tab-cards" hidden>
+        <h3>Tower troop</h3>
+        <div class="arenas troops" id="troopRow"></div>
         <div class="seg" id="deckTabs"></div>
         <h3>Battle deck <small id="deckInfo"></small></h3>
         <div id="swapHint" class="swap" hidden></div>
@@ -501,7 +608,7 @@ function loadJSON(k, def){ try { const v = JSON.parse(localStorage.getItem(k)); 
 function saveJSON(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 const profile = loadJSON('cs_profile', {trophies:0, wins:0, losses:0, draws:0, streak:0, best:0, games:0, peak:0});
 profile.peak = Math.max(profile.peak || 0, profile.trophies);
-const settings = loadJSON('cs_settings', {sound:true, hq:true, arena:'meadow', mode:'classic'});
+const settings = loadJSON('cs_settings', {sound:true, music:true, hq:true, arena:'meadow', mode:'classic'});
 const MODES = {classic:{name:'Classic', icon:'⚔️', desc:'Standard 3-minute battle'}, rush:{name:'Mana Rush', icon:'⚡', desc:'Double mana all match'}, random:{name:'Random Decks', icon:'🎲', desc:'Both sides get 8 random cards'},
   triple:{name:'Triple Mana', icon:'🔥', desc:'Triple mana all match', event:true}, sudden:{name:'Sudden Death', icon:'💀', desc:'First crown wins', event:true}};
 const AUTOPLAY = /autoplay/.test(location.search); // AI vs AI (for testing)
@@ -1006,7 +1113,7 @@ function step(dt){
   processDeaths();
   for (const f of G.fx) f.t += dt;
   G.fx = G.fx.filter(f=>f.t < f.max);
-  for (let t=AUTOPLAY?0:1; t<2; t++){
+  for (let t=(AUTOPLAY || G.demo)?0:1; t<2; t++){
     G.ai[t].timer -= dt;
     if (G.ai[t].timer <= 0){ G.ai[t].timer = aiThink(t); }
   }
@@ -1018,7 +1125,7 @@ function timeLeft(){ return (G.overtime ? MATCH_TIME+OVERTIME : MATCH_TIME) - G.
 // The AI reasons in "own-side-is-top" coordinates; fy() flips for the bottom team.
 function aiThink(team){
   const fy = y => team===1 ? y : H - y;
-  const reaction = AUTOPLAY ? 0.7 : [1.6, 0.9, 0.5][difficulty];
+  const reaction = AUTOPLAY ? 0.7 : G.tut ? 2.4 : [1.6, 0.9, 0.5][difficulty];
   const h = G.hands[team], mana = G.mana[team];
   const afford = h.hand.map((k,i)=>({k,i,c:CARDS[k]})).filter(o=>o.c.cost <= mana);
   const enemies = G.ents.filter(e=>e.team!==team && !e.isTower);
@@ -1506,6 +1613,22 @@ function scenery(t, kind, s, i, trunkM, leafM, rockM){
       part(t, cyl(0.1*s, 0.18*s, 1.6*s, 6), trunkM, 0, 0.8*s, 0);
       for (let k=0;k<3;k++){ const br = part(t, cyl(0.04*s, 0.07*s, 0.8*s, 5), trunkM, 0, (0.9 + k*0.3)*s, 0); br.rotation.set(rnd(-1,1), 0, (k%2?1:-1)*rnd(0.6,1.1)); br.position.x += (k%2?1:-1)*0.25*s; }
       break; }
+    case 'mushroom': {
+      part(t, cyl(0.12*s, 0.18*s, 0.9*s, 8), M(0xe7dcc8), 0, 0.45*s, 0);
+      const cap = part(t, geo('mushcap', ()=>new THREE.SphereGeometry(0.6, 16, 8, 0, Math.PI*2, 0, Math.PI/2)), M([0xb91c1c, 0x7e22ce, 0xc2410c][i%3], {roughness:0.5}), 0, 0.85*s, 0); cap.scale.set(s, 0.7*s, s);
+      for (let k=0;k<5;k++){ const a = k*1.3; part(t, sph(0.06*s, 6, 4), M(0xfef9c3, {emissive:0xfde047, emissiveIntensity:1.2}), Math.cos(a)*0.38*s, 1.05*s, Math.sin(a)*0.38*s); }
+      break; }
+    case 'willow': {
+      part(t, cyl(0.14*s, 0.22*s, 1.6*s, 7), trunkM, 0, 0.8*s, 0);
+      part(t, geo('leafball', ()=>new THREE.IcosahedronGeometry(0.6, 1)), leafM[i%leafM.length], 0, 1.8*s, 0).scale.set(1.6*s, 0.8*s, 1.6*s);
+      for (let k=0;k<7;k++){ const a = k/7*Math.PI*2; const d = part(t, cone(0.16*s, 1.1*s, 5), leafM[(i+k)%leafM.length], Math.cos(a)*0.7*s, 1.3*s, Math.sin(a)*0.7*s); d.rotation.x = Math.PI; }
+      break; }
+    case 'crystal': {
+      for (let k=0;k<4;k++){
+        const c = part(t, geo('octa', ()=>new THREE.OctahedronGeometry(0.3, 0)), M(leafM[k%leafM.length].color.getHex(), {emissive:0x7c3aed, emissiveIntensity:0.9, roughness:0.15, metalness:0.2}), rnd(-0.4,0.4)*s, (0.5 + k*0.25)*s, rnd(-0.4,0.4)*s);
+        c.scale.set(s*rnd(0.6,1), s*rnd(1.6,3), s*rnd(0.6,1)); c.rotation.set(rnd(-0.3,0.3), Math.random()*3, rnd(-0.3,0.3));
+      }
+      break; }
     case 'ember': {
       const m = part(t, rockG(0), rockM, 0, 0.3*s, 0); m.scale.set(s*1.2, s*0.8, s*1.1);
       part(t, sph(0.18*s, 8, 6), emberM, rnd(-0.2,0.2)*s, 0.55*s, rnd(-0.2,0.2)*s);
@@ -1555,6 +1678,22 @@ const ARENAS = [
    tuft:[0.05,0.08,0.2,0.3,0.15,0.25], tufts:400, flowers:[],
    trees:['deadtree','ember','obsidian','rock','deadtree','ember'], leaf:[0x3a2e2a], trunk:0x2d2420, rock:0x4a3f3a,
    hills:[0x3a2e2a,0x4a3a33,0x2f2522], cloud:0x6b5050},
+  {key:'swamp', name:'Murkmire Bog', icon:'🍄', trophies:1400,
+   sky:[0x40566b,0xa9bd9e], fog:0x7f9682, sun:0xe8f0d0, sunI:1.35, hemi:[0xd2e6c8,0x2c3a26], stone:0xa9b49c,
+   ground:'#4b5d34', blot:['92,112,60','38,52,28'], tile:'rgba(200,255,150,.04)', path:'#6b5a3e',
+   strokes:['rgba(30,50,20,.4)','rgba(140,170,90,.35)'], outer:'#3e4f2c', bed:0x1e2a18,
+   water:{shallow:[0.26,0.4,0.18], deep:[0.08,0.17,0.08], foam:[0.62,0.72,0.45]},
+   tuft:[0.2,0.28,0.35,0.5,0.22,0.32], tufts:2600, flowers:[0xa3e635,0xfacc15],
+   trees:['mushroom','willow','mushroom','deadtree','bush','willow'], leaf:[0x3d5a2a,0x4b6b30,0x34502a], trunk:0x3b2f22, rock:0x5b6352,
+   hills:[0x3b4d2c,0x4a5d36,0x33422a], cloud:0x9aa597},
+  {key:'citadel', name:'Starfall Citadel', icon:'🌌', trophies:1800,
+   sky:[0x0b1033,0x5b47a0], fog:0x2e2858, sun:0xc9d4ff, sunI:1.25, hemi:[0xbac6ff,0x2a2050], stone:0xd2ccef,
+   ground:'#7d84b6', blot:['175,180,235','88,92,150'], tile:'rgba(255,255,255,.06)', path:'#cdbb86',
+   strokes:['rgba(255,255,255,.14)','rgba(60,60,120,.2)'], outer:'#3d4070', bed:0x0a0a30,
+   water:{shallow:[0.42,0.34,0.95], deep:[0.12,0.06,0.42], foam:[0.92,0.88,1.0]},
+   tuft:[0.7,0.76,0.3,0.5,0.62,0.76], tufts:1500, flowers:[0xfde68a,0xc4b5fd,0xffffff],
+   trees:['crystal','crystal','round','rock','crystal'], leaf:[0xc4b5fd,0xa78bfa,0xddd6fe], trunk:0xe2e8f0, rock:0x6d6a9c,
+   hills:[0x2e2b5f,0x3b3675,0x262350], cloud:0xa5b4fc},
 ];
 const arenaByKey = k => ARENAS.find(a=>a.key===k) || ARENAS[0];
 const arenaUnlocked = a => (profile.peak || 0) >= a.trophies;
@@ -2528,7 +2667,7 @@ function obar(sx, sy, w, frac, color){
 function drawOverlay(){
   octx.setTransform(ODPR,0,0,ODPR,0,0);
   octx.clearRect(0,0,OW,OH);
-  if (!G) return;
+  if (!G || G.demo) return;
   for (const e of G.ents){
     const v = views.get(e.id); if (!v) continue;
     const ppt = pxPerTile(e.x, 0, e.y);
@@ -2604,7 +2743,10 @@ function render(){
     ghostRange.visible = ranged; if (ranged) ghostRange.scale.setScalar(c.u.range + c.u.radius);
   } else ghost.visible = false;
   updateParticles(dt);
-  if (shake > 0.002){
+  if (G && G.demo && document.body.classList.contains('in-menu')){
+    const ang = now/1000*0.05;
+    camera.position.set(Math.sin(ang)*27, 16 + Math.sin(ang*0.7)*2, Math.cos(ang)*27); camera.lookAt(0, 0, 0);
+  } else if (shake > 0.002){
     camera.position.set(camBase.x + (Math.random()-.5)*shake, camBase.y + (Math.random()-.5)*shake, camBase.z + (Math.random()-.5)*shake);
     shake *= Math.exp(-dt*7);
   } else camera.position.copy(camBase);
@@ -2719,7 +2861,7 @@ const SFX = {
   wake:     ()=>{ tone(98,0.7,{type:'sawtooth',vol:.1,slide:70}); noise(0.5,{freq:400,q:0.8,vol:.08}); },
 };
 function sfx(name, vol=1, gap=0.04){
-  if (!settings.sound || !AU.ctx || AUTOPLAY || !SFX[name]) return;
+  if (!settings.sound || !AU.ctx || AUTOPLAY || AU.mute || !SFX[name]) return;
   const now = AU.ctx.currentTime;
   if (AU.last[name] && now - AU.last[name] < gap) return;
   AU.last[name] = now; AU.v = vol;
@@ -2728,7 +2870,12 @@ function sfx(name, vol=1, gap=0.04){
 
 // ===== Game events → sound, particles, shake, banners =====
 const STONE = [0xb5ada3, 0x8f877d, 0x6b645c];
+let UI_MUTE = false;
 function emit(type, x, y, o){
+  if (G && G.demo){ AU.mute = UI_MUTE = true; try { emitInner(type, x, y, o); } finally { AU.mute = UI_MUTE = false; } }
+  else emitInner(type, x, y, o);
+}
+function emitInner(type, x, y, o){
   const near = o && o.team === 0 ? 1 : 0.7;
   switch (type){
     case 'deploy':
@@ -2790,11 +2937,11 @@ function emit(type, x, y, o){
       burst(x, 1.0, y, 16, {color:[0x9ca3af, 0x78716c, 0xd6d3d1], speed:1.8, up:1.5, gravity:-0.6, life:1.8, size:1.0, grow:true, spread:o.r*2});
       shake = Math.max(shake, o.king ? 1.1 : 0.8);
       sfx('towerfall');
-      setTimeout(()=>sfx(o.team===1 ? 'crown' : 'ouch'), 350);
+      if (!G.demo) setTimeout(()=>sfx(o.team===1 ? 'crown' : 'ouch'), 350);
       if (!G.over || o.king){
         const n = o.king ? 3 : 1;
         if (o.team === 1) banner(`+${n} 👑`, '#93c5fd'); else banner(o.king ? 'King down!' : 'Tower lost!', '#fca5a5');
-        if (!AUTOPLAY && Math.random() < 0.7) setTimeout(()=>emote(1, o.team === 1 ? pick(['😡','😭','🙀']) : pick(['😎','😂','👑'])), 900);
+        if (!AUTOPLAY && !G.demo && Math.random() < 0.7) setTimeout(()=>emote(1, o.team === 1 ? pick(['😡','😭','🙀']) : pick(['😎','😂','👑'])), 900);
       }
       break;
     case 'kingwake':
@@ -2804,7 +2951,7 @@ function emit(type, x, y, o){
     case 'count': banner(o.n > 0 ? String(o.n) : 'Fight!', o.n > 0 ? '#fff' : '#facc15'); sfx(o.n > 0 ? 'count' : 'go'); break;
     case 'tick': banner(String(o.n), '#fff', 'small'); sfx('tick'); break;
     case 'double': banner(`${manaMult()}× Mana!`, '#f0abfc'); sfx('horn'); break;
-    case 'overtime': banner('Overtime!', '#facc15'); toast('Sudden death: next crown wins'); sfx('horn'); break;
+    case 'overtime': if (!G.demo) music('overtime'); banner('Overtime!', '#facc15'); toast('Sudden death: next crown wins'); sfx('horn'); break;
     case 'tiebreaker': banner('Tiebreaker!', '#facc15'); toast('All towers take damage!'); sfx('horn'); shake = Math.max(shake, 0.3); break;
     case 'chain': sfx('zap', 0.6, 0.1); break;
     case 'volley':
@@ -2860,6 +3007,7 @@ function drawEmotes(){
 }
 let bannerT = 0;
 function banner(text, color='#fff', cls=''){
+  if (UI_MUTE) return;
   const b = document.getElementById('banner');
   b.textContent = text; b.style.color = color;
   b.className = ''; void b.offsetWidth; b.className = 'show ' + cls;
@@ -2877,6 +3025,7 @@ function buildHandUI(enterIdx){
     const c = CARDS[k];
     const d = document.createElement('div');
     d.className = 'card' + (G.sel===i ? ' sel' : '') + (enterIdx===i ? ' enter' : '');
+    if (c.rarity && RARITY[c.rarity] && G.sel !== i) d.style.borderColor = RARITY[c.rarity].col;
     d.dataset.i = i;
     d.innerHTML = `<div class="cost">${c.cost}</div>${AUTOPLAY ? '' : `<div class="lvh">Lv${G.lv ? G.lv[0][k] : 1}</div>`}<div class="icon">${c.icon}</div><div class="nm">${c.name}</div><div class="shade"></div>`;
     d.addEventListener('pointerdown', ev=>{ ev.preventDefault(); onCardDown(i, ev); });
@@ -2912,6 +3061,7 @@ function updateHUD(){
 
 let toastT = 0;
 function toast(msg){
+  if (UI_MUTE) return;
   const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
   clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 1300);
 }
@@ -2928,7 +3078,7 @@ function toArena(ev){
 function tryDeployAt(x,y){
   if (!G || G.over || G.sel < 0 || G.tiebreaker) return;
   const res = playCard(0, G.sel, x, y);
-  if (res==='ok'){ G.sel = -1; }
+  if (res==='ok'){ G.sel = -1; tutorialAdvance(); }
   else if (res==='mana'){ toast('Not enough mana'); sfx('error'); }
   else if (res==='zone'){ toast("Can't deploy there"); sfx('error'); }
   else if (res==='champ'){ toast('Your champion is already in play'); sfx('error'); }
@@ -2957,7 +3107,7 @@ window.addEventListener('pointerup', ev=>{
 });
 cv.addEventListener('pointerdown', ev=>{ const a = toArena(ev); pointer.x=a.x; pointer.y=a.y; pointer.over=a.over; });
 window.addEventListener('keydown', ev=>{
-  if (!G) return;
+  if (!G || G.demo) return;
   const n = parseInt(ev.key,10);
   if (n>=1 && n<=4 && !G.over){ G.sel = G.sel===n-1 ? -1 : n-1; sfx('select'); updateHUD(); }
   if (ev.key==='Escape'){ if (G.sel >= 0){ G.sel = -1; updateHUD(); } else if (!G.over) setPaused(!G.paused); }
@@ -2966,12 +3116,15 @@ window.addEventListener('keydown', ev=>{
 
 function endGame(){
   if (G.over) return;
+  if (G.demo){ G.over = true; setTimeout(() => { if (G && G.demo && G.over && document.body.classList.contains('in-menu')) startDemo(); }, 2500); return; }
+  MUS.track = null; hideCoach();
   G.over = true; G.sel = -1;
   const [b, r] = G.crowns;
   const win = b > r ? 0 : b < r ? 1 : -1;
   const title = win === 0 ? 'Victory! 🏆' : win === 1 ? 'Defeat' : 'Draw';
   document.getElementById('endTitle').textContent = title;
-  document.getElementById('endCrowns').innerHTML = `<span style="color:#93c5fd">You ${'👑'.repeat(b)||'—'}</span> &nbsp;vs&nbsp; <span style="color:#fca5a5">${'👑'.repeat(r)||'—'} Foe</span>`;
+  const fn = G.foe ? G.foe.name : 'Foe';
+  document.getElementById('endCrowns').innerHTML = `<span style="color:#93c5fd">${SV.name} ${'👑'.repeat(b)||'—'}</span> &nbsp;vs&nbsp; <span style="color:#fca5a5">${'👑'.repeat(r)||'—'} ${fn}</span>`;
   document.getElementById('endSub').textContent = (G.tiebreaker ? 'Decided by tiebreaker · ' : '') + `Match time ${Math.floor(G.t/60)}:${String(Math.floor(G.t%60)).padStart(2,'0')}`;
   window.__result = {blue:b, red:r, t:G.t, win};
   let delta = 0;
@@ -3146,7 +3299,7 @@ function addXP(n){
 function doUpgrade(k){
   if (!affordUpgrade(k)) return false;
   const c = SV.cards[k], cost = upgradeCost(k), need = needCopies(k);
-  SV.gold -= cost; c.copies -= need; c.lvl++;
+  SV.gold -= cost; c.copies -= need; c.lvl++; if (SV.totals) SV.totals.upgrades++;
   addXP(Math.round(UP_XP[c.lvl-2] * RARITY[CARDS[k].rarity].xp));
   bumpQuest('upgrades', 1);
   save(); sfx('crown');
@@ -3191,7 +3344,7 @@ function applyLoot(L){
     if (c.isNew) SV.cards[c.k] = {lvl:1, copies:c.n};
     else SV.cards[c.k].copies += c.n;
   }
-  SV.totals.chests++;
+  SV.totals.chests = (SV.totals.chests || 0) + 1;
   save();
 }
 function randomChestType(){
@@ -3305,13 +3458,19 @@ function renderHub(){
   $('hubTabs').innerHTML = [['shop','🛒','Shop',shopDot],['cards','🃏','Cards',cardDot],['battle','⚔️','Battle',false],['events','🎪','Events',evDot],['quests','📜','Quests',questDot],['road','🏆','Road',roadDot]]
     .map(([k,i,n,d]) => `<button data-tab="${k}" class="${hubTab===k?'on':''}">${dot(d)}<span>${i}</span>${n}</button>`).join('');
   for (const id of ['battle','cards','events','quests','shop','road']) $('tab-'+id).hidden = hubTab !== id;
+  $('hubBody').classList.toggle('sheet', hubTab !== 'battle');
   ({battle:renderBattleTab, cards:renderCardsTab, events:renderEventsTab, quests:renderQuestsTab, shop:renderShopTab, road:renderRoadTab})[hubTab]();
 }
 function renderBattleTab(){
-  const a = arenaByKey(settings.arena);
-  $('arenaShow').innerHTML = `<div class="aicon">${a.icon}</div><div><b>${a.name}</b><br><small>Opponent cards ~Lv ${battleLevels().lv[1].squire} · King Lv ${battleLevels().kingLv[1]}</small></div>`;
+  const a = arenaByKey(settings.arena), open = ARENAS.filter(arenaUnlocked), nextA = ARENAS.find(x => !arenaUnlocked(x));
+  const L = battleLevels();
+  $('arenaShow').innerHTML = `<button data-adir="-1" ${open.length < 2 ? 'disabled' : ''}>◀</button><div class="aicon">${a.icon}</div>
+    <div class="ainfo"><b>${a.name}</b><br><small>Foe cards ~Lv ${L.lv[1].squire} · King Lv ${L.kingLv[1]}${nextA ? ` · next: ${nextA.icon} at 🏆${nextA.trophies}` : ''}</small></div>
+    <button data-adir="1" ${open.length < 2 ? 'disabled' : ''}>▶</button>`;
   buildArenaMenu();
-  renderChestArea(); renderTroops();
+  renderChestArea();
+  const achDot = ACH.some(achReady);
+  $('achBtn').innerHTML = '🏅' + (achDot ? '<i class="dot"></i>' : '');
   $('startBtn').disabled = playerDeck.length !== 8;
 }
 function renderChestArea(){
@@ -3332,7 +3491,7 @@ function renderChestArea(){
 // only touch the DOM when content changes, so taps aren't lost to a re-render
 function setHTML(id, html){ const el = $(id); if (el._html !== html){ el._html = html; el.innerHTML = html; } }
 function renderCardsTab(){
-  renderDeckTabs();
+  renderDeckTabs(); renderTroops();
   $('deckInfo').textContent = `${playerDeck.length}/8 · avg cost ${(playerDeck.reduce((a,k)=>a+CARDS[k].cost,0)/Math.max(1,playerDeck.length)).toFixed(1)}`;
   $('deckRow').innerHTML = playerDeck.map(k => cardTile(k, {sel: swapFor && true})).join('') + '<div class="ctile ghost"></div>'.repeat(8 - playerDeck.length);
   $('swapHint').hidden = !swapFor;
@@ -3736,6 +3895,10 @@ function startEvent(mode){ matchCfg = {type:'event', mode}; start(); }
 // ---- battle-end hook (called from awardBattle) ----
 function afterBattle(win, b, res){
   const ctx = G.ctx || {type:'ladder'};
+  const T = SV.totals, st = G.stats[0];
+  T.battles++; if (win === 0) T.wins++; if (win === 0 && b === 3) T.three++;
+  T.crowns += b; T.towers += 3 - G.ents.filter(e => e.isTower && e.team === 1).length;
+  T.played += st.played; T.spells += st.spells; T.kills += st.kills;
   for (const k in G.cardUse) if (owned(k)) ms(k).played += G.cardUse[k];
   if (win === 0) for (const k of G.myDeck) if (owned(k)) ms(k).wins++;
   ensureSeason();
@@ -3746,6 +3909,7 @@ function afterBattle(win, b, res){
     if (win === 0) SV.chal.wins++; else SV.chal.losses++;
     SV.chal.done = SV.chal.wins >= 12 || SV.chal.losses >= 3;
     res.chal = {wins:SV.chal.wins, losses:SV.chal.losses, done:SV.chal.done};
+    T.bestChal = Math.max(T.bestChal, SV.chal.wins);
   }
   SV.log = SV.log || [];
   SV.log.unshift({t:Date.now(), win, b, r:G.crowns[1], type:ctx.type, mode:G.mode, deck:G.myDeck.slice(),
@@ -3859,12 +4023,212 @@ $('tab-road').addEventListener('click', ev => {
   }
 });
 
+// ===== Front end: title screen, live menu backdrop, music, profile, achievements, settings, tutorial =====
+
+// ---- procedural music ----
+const MUS = {gain:null, timer:null, track:null, step:0, next:0};
+const midi = n => 440*Math.pow(2, (n-69)/12);
+const PROG = {
+  menu:     {bpm:86,  drums:false, chords:[[57,60,64],[53,57,60],[48,52,55],[55,59,62]]},
+  battle:   {bpm:126, drums:true,  chords:[[57,60,64],[53,57,60],[55,59,62],[52,56,59]]},
+  overtime: {bpm:146, drums:true,  chords:[[58,61,65],[54,58,61],[56,60,63],[53,57,60]]},
+};
+function mnote(t, n, dur, type, vol){
+  const c = AU.ctx, o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.setValueAtTime(midi(n), t);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(MUS.gain); o.start(t); o.stop(t + dur + 0.05);
+}
+function mnoise(t, dur, freq, vol, type='highpass'){
+  const c = AU.ctx, src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+  src.buffer = AU.noise; f.type = type; f.frequency.value = freq;
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  src.connect(f); f.connect(g); g.connect(MUS.gain); src.start(t, Math.random()*0.5); src.stop(t + dur + 0.02);
+}
+function mkick(t, vol){
+  const c = AU.ctx, o = c.createOscillator(), g = c.createGain();
+  o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.14);
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+  o.connect(g); g.connect(MUS.gain); o.start(t); o.stop(t + 0.2);
+}
+function musicStep(T, s, t){
+  const bar = Math.floor(s/16) % 4, st = s % 16, ch = T.chords[bar], spb = 60/T.bpm/4;
+  if (st === 0) for (const n of ch) mnote(t, n, spb*15, 'sine', 0.03);
+  if (T.drums){
+    if (st % 2 === 0) mnote(t, ch[0] - 24 + (st % 8 === 6 ? 7 : 0), spb*1.8, 'triangle', 0.15);
+    const mel = [0,2,1,2,0,1,2,1];
+    if (st % 2 === 0) mnote(t, ch[mel[(st/2) % 8]] + 12 + (bar === 3 && st >= 8 ? 12 : 0), spb*1.6, 'square', 0.03);
+    if (st % 4 === 0) mkick(t, 0.32);
+    if (st === 4 || st === 12) mnoise(t, 0.12, 1800, 0.1, 'bandpass');
+    if (st % 2 === 1) mnoise(t, 0.035, 8000, 0.04);
+  } else {
+    if (st === 0 || st === 8) mnote(t, ch[0] - 24, spb*7, 'sine', 0.16);
+    if (st % 2 === 0) mnote(t, ch[(st/2) % 3] + 12 + (st >= 8 ? 12 : 0), spb*3, 'triangle', 0.045);
+    if (st % 4 === 2) mnoise(t, 0.05, 9000, 0.012);
+  }
+}
+function musicTick(){
+  if (!AU.ctx || !MUS.track || !settings.music) return;
+  const T = PROG[MUS.track], spb = 60/T.bpm/4;
+  if (MUS.next < AU.ctx.currentTime) MUS.next = AU.ctx.currentTime + 0.05;
+  while (MUS.next < AU.ctx.currentTime + 0.25){ musicStep(T, MUS.step, MUS.next); MUS.next += spb; MUS.step++; }
+}
+function music(track){
+  if (AUTOPLAY) return;
+  audioInit(); if (!AU.ctx) return;
+  if (!MUS.gain){ MUS.gain = AU.ctx.createGain(); MUS.gain.gain.value = 0.55; MUS.gain.connect(AU.ctx.destination); }
+  if (MUS.track !== track){ MUS.track = track; MUS.step = 0; MUS.next = 0; }
+  if (!MUS.timer) MUS.timer = setInterval(musicTick, 60);
+}
+
+// ---- identity: name, avatar, opponents ----
+SV.name = SV.name || 'Player'; SV.avatar = SV.avatar || '🙂';
+const AVATARS = [['🙂',1],['😎',1],['🤠',1],['👩',1],['🧔',2],['🧝',2],['🧙',3],['🦊',4],['🤖',5],['🐉',6],['👻',7],['👑',8],['🦁',10],['🐲',12]];
+const FOE_NAMES = ['Sir Grimble','Lady Thorn','Baron Ashby','Old Mossbeard','Countess Vex','Brother Pike','Captain Rook','Duchess Ember',
+  'Lord Halloway','Mira the Bold','Jarl Frostfang','The Pale Count','Goodwife Hettie','Prince Varo','Magus Ilo','Warden Kessa','Squire Tobbin','Queen Marigold'];
+const FOE_AV = ['😠','🧔','👸','🤴','🧛','🧝','🧌','🥷','🦹','🧙','🤺','🐺'];
+const rankOf = t => t >= 1800 ? 'Mythic' : t >= 1400 ? 'Legend' : t >= 1000 ? 'Champion' : t >= 600 ? 'Knight' : t >= 250 ? 'Squire' : 'Recruit';
+function setHudNames(){
+  if (!G.foe) G.foe = G.demo ? {name:'Red Army', av:'⚔️'} : {name:pick(FOE_NAMES), av:pick(FOE_AV)};
+  $('nmR').textContent = G.foe.name; $('avR').textContent = G.foe.av;
+  $('lvR').textContent = `King Lv ${G.kingLv ? G.kingLv[1] : 1}`;
+  $('nmB').textContent = SV.name; $('avB').textContent = SV.avatar;
+  $('lvB').textContent = `King Lv ${G.kingLv ? G.kingLv[0] : 1}`;
+}
+
+// ---- lifetime totals + achievements ----
+SV.totals = Object.assign({battles:0, wins:0, three:0, crowns:0, towers:0, played:0, spells:0, kills:0, chests:0, upgrades:0, bestChal:0}, SV.totals);
+SV.ach = SV.ach || [];
+const ACH = [
+  ['first','First Blood','Win your first battle','⚔️', () => SV.totals.wins, 1, 5],
+  ['wins25','Seasoned','Win 25 battles','🛡️', () => SV.totals.wins, 25, 20],
+  ['wins100','Warlord','Win 100 battles','🏰', () => SV.totals.wins, 100, 60],
+  ['three1','Triple Crown','Win with 3 crowns','👑', () => SV.totals.three, 1, 10],
+  ['crowns100','Crown Collector','Earn 100 crowns','💰', () => SV.totals.crowns, 100, 25],
+  ['towers50','Demolisher','Destroy 50 towers','💥', () => SV.totals.towers, 50, 25],
+  ['played500','Card Shark','Play 500 cards','🃏', () => SV.totals.played, 500, 20],
+  ['spells100','Spellslinger','Cast 100 spells','🔮', () => SV.totals.spells, 100, 15],
+  ['kills1000','Exterminator','Defeat 1,000 troops','☠️', () => SV.totals.kills, 1000, 30],
+  ['found20','Collector','Find 20 different cards','📚', () => Object.keys(SV.cards).length, 20, 15],
+  ['foundAll','Completionist','Find every card','🏆', () => ALL_KEYS.filter(owned).length, ALL_KEYS.length, 100],
+  ['champ','Champion\'s Call','Find a champion','🌟', () => ALL_KEYS.filter(k => owned(k) && CARDS[k].champion).length, 1, 20],
+  ['upg10','Tinkerer','Upgrade cards 10 times','⬆️', () => SV.totals.upgrades, 10, 15],
+  ['max','Maxed Out','Get a card to level 10','💎', () => Math.max(1, ...Object.values(SV.cards).map(c => c.lvl)), 10, 50],
+  ['chests25','Treasure Hunter','Open 25 chests','🎁', () => SV.totals.chests, 25, 20],
+  ['chests100','Chest Master','Open 100 chests','🗝️', () => SV.totals.chests, 100, 50],
+  ['king5','Royal Blood','Reach King Level 5','🤴', () => SV.level, 5, 20],
+  ['king10','King of Kings','Reach King Level 10','👑', () => SV.level, 10, 60],
+  ['tr500','Climber','Reach 500 trophies','🧗', () => profile.peak, 500, 20],
+  ['tr1500','Legend','Reach 1,500 trophies','🌠', () => profile.peak, 1500, 60],
+  ['chal6','Challenger','Get 6 wins in a challenge','🏅', () => SV.totals.bestChal, 6, 25],
+  ['chal12','Grand Challenger','Get 12 wins in a challenge','🎖️', () => SV.totals.bestChal, 12, 100],
+].map(([id, name, desc, icon, fn, goal, gems]) => ({id, name, desc, icon, fn, goal, gems}));
+const achReady = a => !SV.ach.includes(a.id) && a.fn() >= a.goal;
+function achModal(){
+  const rows = ACH.map(a => {
+    const got = SV.ach.includes(a.id), p = Math.min(a.goal, a.fn()), ready = achReady(a);
+    return `<div class="achrow ${got ? 'got' : ''}"><span class="aci">${a.icon}</span><div><b>${a.name}</b><small>${a.desc}</small>
+      ${got ? '' : `<div class="qbar"><i style="width:${p/a.goal*100}%"></i><span>${p.toLocaleString()}/${a.goal.toLocaleString()}</span></div>`}</div>
+      ${got ? '<span class="ok">✔</span>' : `<button class="btn sm ${ready ? 'go' : ''}" data-ach="${a.id}" ${ready ? '' : 'disabled'}>💎 ${a.gems}</button>`}</div>`;
+  }).join('');
+  modal(`<h2 style="margin:0 0 4px">🏅 Achievements</h2><p class="lockmsg">${SV.ach.length}/${ACH.length} complete</p><div class="achlist">${rows}</div><button class="btn" data-close style="width:100%;margin-top:10px">Close</button>`, () => {
+    $('modalBody').querySelectorAll('[data-ach]').forEach(b => b.onclick = () => {
+      const a = ACH.find(x => x.id === b.dataset.ach); if (!achReady(a)) return;
+      SV.ach.push(a.id); SV.gems += a.gems; save(); sfx('win'); toast(`🏅 ${a.name}! +${a.gems} 💎`); achModal();
+    });
+  });
+}
+
+// ---- profile ----
+function profileModal(){
+  const S = SV.totals, wr = S.battles ? Math.round(S.wins/S.battles*100) : 0;
+  const fav = Object.entries(SV.ms || {}).sort((a, b) => b[1].played - a[1].played)[0];
+  const avs = AVATARS.map(([e, lv]) => `<button class="avb ${SV.avatar === e ? 'on' : ''} ${SV.level < lv ? 'locked' : ''}" data-av="${e}" data-lv="${lv}">${SV.level < lv ? '🔒' : e}</button>`).join('');
+  modal(`<div class="prof"><div class="phead"><div class="pav big">${SV.avatar}</div><div style="flex:1">
+      <input id="nameIn" maxlength="14" value="${SV.name.replace(/"/g, '&quot;')}" aria-label="Player name">
+      <small>👑 King Level ${SV.level} · ${rankOf(profile.trophies)}</small></div></div>
+    <h3>Avatar</h3><div class="avgrid">${avs}</div>
+    <h3>Stats</h3>
+    <div class="pstats">
+      <div><b>${profile.trophies}</b><small>Trophies</small></div><div><b>${profile.peak}</b><small>Best trophies</small></div>
+      <div><b>${S.battles}</b><small>Battles</small></div><div><b>${wr}%</b><small>Win rate</small></div>
+      <div><b>${S.three}</b><small>3-crown wins</small></div><div><b>${S.towers}</b><small>Towers destroyed</small></div>
+      <div><b>${ALL_KEYS.filter(owned).length}/${ALL_KEYS.length}</b><small>Cards found</small></div><div><b>${SV.ach.length}/${ACH.length}</b><small>Achievements</small></div>
+      <div><b>${profile.best}</b><small>Best win streak</small></div><div><b>${S.bestChal}</b><small>Best challenge</small></div>
+    </div>
+    ${fav && CARDS[fav[0]] ? `<div class="fav">Favourite card: <b>${CARDS[fav[0]].icon} ${CARDS[fav[0]].name}</b> <small>(played ${fav[1].played}×)</small></div>` : ''}
+    <button class="btn" data-close style="width:100%;margin-top:12px">Close</button></div>`, close => {
+    const ni = $('nameIn');
+    ni.onchange = ni.onblur = () => { const v = ni.value.trim().slice(0, 14); if (v){ SV.name = v; save(); renderHub(); } };
+    $('modalBody').querySelectorAll('[data-av]').forEach(b => b.onclick = () => {
+      if (SV.level < +b.dataset.lv){ sfx('error'); toast(`Unlocks at King Level ${b.dataset.lv}`); return; }
+      SV.avatar = b.dataset.av; save(); sfx('select'); profileModal();
+    });
+  });
+}
+
+// ---- first-battle tutorial ----
+function coach(text, at){ const c = $('coach'); c.innerHTML = `<div class="cbub ${at}">${text}<small>tap to dismiss</small></div>`; c.hidden = false; }
+function hideCoach(){ $('coach').hidden = true; }
+$('coach').onclick = hideCoach;
+function tutorialStart(){
+  if (profile.games !== 0 || !G || G.ctx.type !== 'ladder') return;
+  G.tut = 1;
+  setTimeout(() => { if (G && G.tut === 1) coach('👇 Drag a card from your hand onto your side of the arena (the bottom half).', 'hand'); }, 3500);
+}
+function tutorialAdvance(){
+  if (!G || !G.tut) return;
+  if (G.tut === 1){
+    G.tut = 2; coach('💧 Cards cost mana. It refills over time — watch the purple bar.', 'mana');
+    setTimeout(() => { if (G && G.tut === 2){ G.tut = 3; coach('🏰 Send troops over the bridges and knock down the red towers. Each side tower is a crown!', 'top'); setTimeout(() => { if (G && G.tut === 3){ G.tut = 4; hideCoach(); } }, 7000); } }, 5500);
+  }
+}
+
+// ---- live backdrop battle behind the title and menus ----
+function startDemo(){
+  matchCfg = {type:'demo', deck:shuffle(ALL_KEYS.slice()).slice(0,8), aiDeck:shuffle(ALL_KEYS.slice()).slice(0,8), levels:{lv:[{}, {}], kingLv:[1, 1]}};
+  if (builtArena !== settings.arena) buildArena(arenaByKey(settings.arena));
+  newGame(); G.demo = true; G.intro = 0; matchCfg = null;
+  document.body.classList.add('in-menu'); resize();
+}
+function showMenu(tab){
+  $('end').hidden = true; $('menu').hidden = false; hubTab = tab || 'battle';
+  startDemo(); buildMenu(); music('menu'); flushPopups();
+}
+function cycleArena(dir){
+  const open = ARENAS.filter(arenaUnlocked);
+  const i = open.findIndex(a => a.key === settings.arena);
+  const n = open[(i + dir + open.length) % open.length];
+  if (!n || n.key === settings.arena) return;
+  settings.arena = n.key; saveJSON('cs_settings', settings); sfx('select');
+  startDemo(); renderHub();
+}
+
+// ---- wiring ----
+$('title').onclick = () => {
+  audioInit(); sfx('go'); music('menu');
+  $('title').classList.add('out');
+  setTimeout(() => { $('title').hidden = true; $('menu').hidden = false; buildMenu(); flushPopups(); }, 350);
+};
+$('setBtn').onclick = () => { audioInit(); sfx('select'); refreshSettings(); $('settingsOv').hidden = false; };
+$('setClose').onclick = () => { $('settingsOv').hidden = true; sfx('select'); };
+$('profBtn').onclick = () => { audioInit(); sfx('select'); profileModal(); };
+$('achBtn').onclick = () => { audioInit(); sfx('select'); achModal(); };
+$('musBtn').onclick = () => { settings.music = !settings.music; saveJSON('cs_settings', settings); if (settings.music) music(MUS.track || 'menu'); refreshSettings(); sfx('select'); };
+$('resetBtn').onclick = () => {
+  if (!confirm('Reset ALL progress? Cards, trophies, gold and gems will be lost.')) return;
+  for (const k of ['cs_save2','cs_profile','cs_deck']) try { localStorage.removeItem(k); } catch(e){}
+  location.reload();
+};
+$('arenaShow').onclick = ev => { const b = ev.target.closest('[data-adir]'); if (b){ audioInit(); cycleArena(+b.dataset.adir); } };
+$('pcard').onclick = () => { audioInit(); sfx('select'); profileModal(); };
+
 // ===== Menu =====
 function buildMenu(){
   fixDeck();
-  const rank = profile.trophies >= 1500 ? 'Legend' : profile.trophies >= 900 ? 'Champion' : profile.trophies >= 500 ? 'Knight' : profile.trophies >= 200 ? 'Squire' : 'Recruit';
-  $('profile').innerHTML = `<span class="tr">🏆 ${profile.trophies} <span style="font-size:12px;color:var(--muted);font-weight:600">${rank}</span></span>`
-    + `<span><b>${profile.wins}</b> W</span><span><b>${profile.losses}</b> L</span><span>🔥 best <b>${profile.best}</b></span>`;
+  const rank = rankOf(profile.trophies), next = KING_XP[SV.level], prev = KING_XP[SV.level-1];
+  $('pcard').innerHTML = `<div class="pav">${SV.avatar}</div><div style="flex:1;min-width:0"><b style="font-size:16px">${SV.name}</b><br>
+    <small>👑 King Lv ${SV.level} · ${rank} · ${profile.wins}W ${profile.losses}L</small></div>`;
   refreshSettings(); renderHub();
 }
 document.querySelectorAll('#diffRow .btn').forEach(b=>b.onclick=()=>{
@@ -3875,6 +4239,7 @@ document.querySelectorAll('#diffRow .btn').forEach(b=>b.onclick=()=>{
 function refreshSettings(){
   for (const id of ['sndBtn','sndBtn2']) document.getElementById(id).textContent = settings.sound ? '🔊 Sound: On' : '🔇 Sound: Off';
   for (const id of ['gfxBtn','gfxBtn2']) document.getElementById(id).textContent = settings.hq ? '✨ Graphics: High' : '⚡ Graphics: Fast';
+  document.getElementById('musBtn').textContent = settings.music ? '🎵 Music: On' : '🎵 Music: Off';
 }
 function applyGraphics(){
   renderer.setPixelRatio(settings.hq ? Math.min(2, window.devicePixelRatio || 1) : 1);
@@ -3897,8 +4262,8 @@ document.getElementById('emoteBtn').onclick = ()=>{ audioInit(); emoteBar.hidden
 emoteBar.onclick = ev=>{ const b = ev.target.closest('button'); if (!b || !G || G.over) return; emote(0, b.textContent); emoteBar.hidden = true; };
 function buildArenaMenu(){
   const row = document.getElementById('arenaRow');
-  row.innerHTML = '';
-  for (const a of ARENAS){
+  if (row) row.innerHTML = '';
+  for (const a of (row ? ARENAS : [])){
     const d = document.createElement('div'), ok = arenaUnlocked(a);
     d.className = 'arena' + (settings.arena === a.key ? ' on' : '') + (ok ? '' : ' locked');
     d.innerHTML = `<div class="ai">${ok ? a.icon : '🔒'}</div>${a.name}${ok ? '' : `<br><span style="color:var(--gold)">🏆 ${a.trophies}</span>`}`;
@@ -3916,7 +4281,7 @@ function buildArenaMenu(){
 }
 document.getElementById('resumeBtn').onclick = ()=>setPaused(false);
 document.getElementById('quitBtn').onclick = ()=>{ document.getElementById('pause').hidden = true; G.paused = false; G.crowns[1] = 3; endGame(); };
-document.addEventListener('visibilitychange', ()=>{ if (document.hidden && G && !G.over && !AUTOPLAY) setPaused(true); });
+document.addEventListener('visibilitychange', ()=>{ if (document.hidden && G && !G.over && !G.demo && !AUTOPLAY) setPaused(true); });
 function start(){
   audioInit();
   fixDeck(); syncDeck(); if (playerDeck.length !== 8){ toast('Your deck needs 8 cards'); return; }
@@ -3924,12 +4289,12 @@ function start(){
   document.getElementById('menu').hidden = true;
   document.getElementById('end').hidden = true;
   if (builtArena !== settings.arena) buildArena(arenaByKey(settings.arena));
-  emoteBar.hidden = true;
-  newGame(); resize();
-  if (profile.games === 0) setTimeout(()=>toast('Drag a card onto your side of the arena!'), 3400);
+  emoteBar.hidden = true; $('title').hidden = true;
+  document.body.classList.remove('in-menu');
+  newGame(); resize(); setHudNames(); music('battle'); tutorialStart();
 }
 document.getElementById('startBtn').onclick = ()=>{ matchCfg = null; start(); };
-document.getElementById('againBtn').onclick = ()=>{ document.getElementById('end').hidden = true; document.getElementById('menu').hidden = false; hubTab = (G && G.ctx && (G.ctx.type === 'challenge' || G.ctx.type === 'event')) ? 'events' : 'battle'; buildMenu(); flushPopups(); };
+document.getElementById('againBtn').onclick = ()=>{ showMenu((G && G.ctx && (G.ctx.type === 'challenge' || G.ctx.type === 'event')) ? 'events' : 'battle'); };
 
 // ===== Main loop =====
 let last = performance.now(), acc = 0, hudT = 0;
@@ -3946,8 +4311,8 @@ function frame(now){
   render();
   requestAnimationFrame(frame);
 }
-buildMenu(); applyGraphics();
-if (AUTOPLAY){ start(); }
+applyGraphics();
+if (AUTOPLAY){ $('title').hidden = true; start(); } else startDemo();
 // expose for headless testing
 window.__sim = (seconds)=>{ if(!G) newGame(); const n = Math.round(seconds/DT); for (let i=0;i<n && !G.over;i++) step(DT); return {t:G.t, crowns:G.crowns, over:G.over, ents:G.ents.length}; };
 requestAnimationFrame(frame);
