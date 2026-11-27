@@ -341,6 +341,42 @@
   body.desk #hubTabs button span{font-size:24px}
   body.desk #title h1{font-size:96px}
   body.desk .tcrown{font-size:120px}
+  /* ---- juice ---- */
+  #fx2d{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+  #flash{position:absolute;inset:0;opacity:0}
+  #danger{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(239,68,68,.55) 100%)}
+  #danger.on{animation:dangerp .55s ease-out}
+  @keyframes dangerp{0%{opacity:1}100%{opacity:0}}
+  .flycrown{position:absolute;font-size:56px;transition:transform .85s cubic-bezier(.5,-0.3,.6,1), opacity .85s;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));animation:crownpop .38s cubic-bezier(.2,1.8,.4,1)}
+  @keyframes crownpop{from{transform:scale(0) rotate(-40deg)}}
+  .crowns.bump{animation:bumpk .4s cubic-bezier(.2,1.8,.4,1)}
+  @keyframes bumpk{0%{transform:scale(1.7)}100%{transform:scale(1)}}
+  .flycard{position:absolute;border-radius:10px;background:linear-gradient(#3a4163,#2a3050);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;
+    transition:transform .32s cubic-bezier(.4,0,.8,.6), opacity .32s ease-in;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .flycard .icon{font-size:36px}
+  .conf{position:absolute;top:-20px;border-radius:2px;animation:conffall linear forwards}
+  @keyframes conffall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(var(--dx), 110vh) rotate(var(--rot))}}
+  .card.glint::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.65) 50%, transparent 70%);
+    animation:glint .55s ease-out forwards;pointer-events:none;z-index:3}
+  @keyframes glint{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
+  .card.glint{animation:cardpop .35s cubic-bezier(.2,1.8,.4,1)}
+  @keyframes cardpop{50%{transform:scale(1.07)}}
+  .card.nope{animation:nope .35s ease-in-out}
+  @keyframes nope{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+  #manaNum.bump{animation:bumpk .3s cubic-bezier(.2,1.8,.4,1)}
+  #timer.urgent{color:#f87171;animation:tpulse .5s ease-in-out infinite}
+  #stage.ot::after{background:radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(250,120,30,.4) 100%);animation:otglow 1.2s ease-in-out infinite}
+  @keyframes otglow{50%{opacity:.55}}
+  .cur.bump{animation:bumpk .4s cubic-bezier(.2,1.8,.4,1)}
+  .btn.go.big{position:relative;overflow:hidden}
+  .btn.go.big::after{content:'';position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);animation:shine 3.2s ease-in-out infinite}
+  @keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+  .rays{position:absolute;left:50%;top:50%;width:620px;height:620px;margin:-310px 0 0 -310px;pointer-events:none;z-index:-1;border-radius:50%;
+    background:repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--rc, #facc15) 55%, transparent) 0deg 10deg, transparent 10deg 24deg);
+    -webkit-mask:radial-gradient(circle, #000 18%, transparent 68%);mask:radial-gradient(circle, #000 18%, transparent 68%);animation:spin 9s linear infinite;opacity:.8}
+  .cwrap{position:relative;isolation:isolate}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .slot.ready .chest{filter:drop-shadow(0 0 8px var(--gold))}
   details.help summary{cursor:pointer;font-weight:700;color:var(--text);margin:14px 0 6px}
   @keyframes enter{from{transform:translateY(40px) scale(.7);opacity:0}}
   #manaBar.full{box-shadow:0 0 0 2px #f0abfc,0 0 14px #e879f9}
@@ -420,6 +456,7 @@
   </div>
 </div>
 
+<div id="fx2d"><div id="flash"></div><div id="danger"></div></div>
 <div id="title" class="overlay">
   <div class="tlogo"><div class="tcrown">👑</div><h1>Crown <span>Siege</span></h1><p>41 cards · 6 arenas · endless battles</p></div>
   <div class="tstart">Tap to start</div>
@@ -883,7 +920,8 @@ function hurt(o, dmg){
   if (o.isTower && G.stats) G.stats[1-o.team].towerDmg += Math.min(dmg, Math.max(0, o.hp));
   o.hp -= dmg; o.flash = 0.12;
   if (o.isTower && o.kind==='king') wakeKing(o);
-  if (dmg >= 1) G.fx.push({type:'num', x:o.x + (Math.random()-.5)*1.2, y:o.y - (o.radius||0.5) + (Math.random()-.5)*0.8, t:0, max:0.7, text:String(Math.round(dmg)), color:'#fff'});
+  if (dmg >= 1) G.fx.push({type:'num', x:o.x + (Math.random()-.5)*1.2, y:o.y - (o.radius||0.5) + (Math.random()-.5)*0.8, t:0, max:dmg >= 300 ? 0.95 : 0.75, text:String(Math.round(dmg)), mag:dmg, dx:(Math.random()-.5)*0.9});
+  if (o.isTower && o.team === 0 && dmg >= 50 && !G.demo && typeof dangerPulse === 'function') dangerPulse();
 }
 function wakeKing(k){
   if (!k || k.active) return;
@@ -2526,6 +2564,13 @@ function sync3D(dt){
       tr.head.rotation.y = Math.sin(now*0.7 + e.id)*0.15;
       if (!e.active && e.kind==='king'){ tr.arms[0].rotation.x = 0; tr.arms[1].rotation.x = -0.3; tr.head.rotation.x = 0.25 + Math.sin(now*1.5)*0.05; }
       else tr.head.rotation.x = 0;
+      if (v.lastHp != null && e.hp < v.lastHp - 1) v.tshake = Math.min(1, (v.tshake||0) + 0.6);
+      v.lastHp = e.hp; v.tshake = (v.tshake || 0) * Math.exp(-dt*9);
+      v.tower.position.set((Math.random()-.5)*0.1*v.tshake, 0, (Math.random()-.5)*0.1*v.tshake);
+      v.tower.scale.set(1 + 0.03*v.tshake, 1 - 0.02*v.tshake, 1 + 0.03*v.tshake);
+      const hf = e.hp/e.maxHp, topH = v.tower.userData.top + 0.4;
+      if (hf < 0.55 && Math.random() < (0.55 - hf)*0.25) burst(e.x + (Math.random()-.5)*e.radius, topH, e.y + (Math.random()-.5)*e.radius, 1, {color:[0x57534e, 0x78716c, 0x44403c], speed:0.3, up:1.4, gravity:-0.4, life:1.6, size:0.5, grow:true});
+      if (hf < 0.28 && Math.random() < 0.22) burst(e.x + (Math.random()-.5)*e.radius, topH - 0.3, e.y + (Math.random()-.5)*e.radius, 1, {color:[0xff8a1f, 0xffc93f, 0xff5a1f], glow:true, speed:0.3, up:1.6, gravity:-0.6, life:0.6, size:0.22, grow:true});
       v.tower.userData.flag.rotation.y = Math.sin(now*3 + e.id)*0.3; v.tower.userData.flag.rotation.x = Math.sin(now*5 + e.id)*0.08;
       continue;
     }
@@ -2548,6 +2593,15 @@ function sync3D(dt){
     let lift = e.flying ? 1.7 + Math.sin(now*3 + e.id)*0.12 : v.anim.float ? 0.12 + Math.sin(now*2.5 + e.id)*0.05 : Math.abs(Math.cos(v.phase))*0.05*v.sw;
     if (e.deploy > 0) lift += e.deploy * 5;
     v.holder.position.y = lift;
+    if (v.wasDeploy && e.deploy <= 0) v.squash = 1;
+    v.wasDeploy = e.deploy > 0;
+    if (v.lastHp != null && e.hp < v.lastHp - 1) v.flinch = 1;
+    v.lastHp = e.hp;
+    v.squash = (v.squash || 0) * Math.exp(-dt*6); v.flinch = (v.flinch || 0) * Math.exp(-dt*11);
+    { const sq = Math.sin((1 - v.squash)*Math.PI*2.5) * v.squash, base = unitScale(e);
+      const sy = 1 - 0.32*sq - 0.07*v.flinch, sxz = 1 + 0.22*sq + 0.09*v.flinch;
+      v.holder.scale.set(base*sxz, base*sy, base*sxz); v.body.rotation.x = -v.flinch*0.28; }
+    if (walking && !e.flying && Math.random() < 0.035*e.speed) burst(e.x, 0.05, e.y, 1, {color:[0xd6c7a1, 0xc2b280], speed:0.6, up:0.6, gravity:2, life:0.45, size:0.1 + e.radius*0.1, grow:true});
     if (e.isBuilding){
       if (v.anim.turret && want !== null && e.target) v.anim.turret.rotation.y = want;
       v.holder.rotation.y = e.team===0 ? Math.PI : 0;
@@ -2630,6 +2684,7 @@ function sync3D(dt){
     if ((p.kind === 'fire' || p.kind === 'spellball') && Math.random() < (p.kind==='spellball' ? 0.9 : 0.5))
       burst(p.x, y, p.y, p.kind==='spellball' ? 2 : 1, {color:[0xff9a2e, 0xffd34d, 0xff5a1f], glow:true, speed:0.3, up:0.4, gravity:-0.5, life:0.35, size:p.kind==='spellball' ? 0.3 : 0.12, spread:0.15, grow:true});
     if (p.kind === 'ice' && Math.random() < 0.5) burst(p.x, y, p.y, 1, {color:[0xe0f7ff, 0xffffff], glow:true, speed:0.3, up:0.2, gravity:0, life:0.25, size:0.07});
+    if (p.kind === 'arrow' && Math.random() < 0.55) burst(p.x, y, p.y, 1, {color:[0xffffff], glow:true, speed:0, up:0, gravity:0, life:0.12, size:0.05});
     if (p.kind === 'bolt') burst(p.x, y, p.y, 1, {color:[0x9be7ff, 0xffffff], glow:true, speed:0.6, up:0.3, gravity:0, life:0.18, size:0.08});
     if (p.kind === 'bomb' && Math.random() < 0.4) burst(p.x, y+0.15, p.y, 1, {color:[0xfff3a0], glow:true, speed:0.2, up:0.3, gravity:0, life:0.2, size:0.06});
     if (p.kind === 'arrow'){
@@ -2730,31 +2785,43 @@ function otext(str, sx, sy, size, color='#fff', weight='800'){
   octx.lineWidth = Math.max(2, size/5); octx.strokeStyle = 'rgba(0,0,0,.6)'; octx.strokeText(str, sx, sy);
   octx.fillStyle = color; octx.fillText(str, sx, sy);
 }
-function obar(sx, sy, w, frac, color){
+function obar(sx, sy, w, frac, color, trail){
   const h = Math.max(4, w/9);
   octx.fillStyle = 'rgba(0,0,0,.6)'; octx.fillRect(sx-w/2-1, sy-1, w+2, h+2);
+  if (trail > frac){ octx.fillStyle = '#fff1b8'; octx.fillRect(sx-w/2 + w*clamp(frac,0,1), sy, w*(clamp(trail,0,1) - clamp(frac,0,1)), h); }
   octx.fillStyle = color; octx.fillRect(sx-w/2, sy, w*clamp(frac,0,1), h);
+  octx.fillStyle = 'rgba(255,255,255,.25)'; octx.fillRect(sx-w/2, sy, w*clamp(frac,0,1), Math.max(1, h*0.35));
+}
+let _trailT = performance.now();
+function trailOf(v, frac, dt){
+  if (v.trail == null || frac > v.trail){ v.trail = frac; v.trailWait = 0; return frac; }
+  if (frac < (v.lastFrac ?? frac) - 0.0001) v.trailWait = 0.4;
+  v.lastFrac = frac;
+  if (v.trailWait > 0) v.trailWait -= dt; else v.trail = Math.max(frac, v.trail - dt*0.7);
+  return v.trail;
 }
 function drawOverlay(){
   octx.setTransform(ODPR,0,0,ODPR,0,0);
   octx.clearRect(0,0,OW,OH);
   if (!G || G.demo) return;
+  const tnow = performance.now(), tdt = Math.min(0.1, (tnow - _trailT)/1000); _trailT = tnow;
   for (const e of G.ents){
     const v = views.get(e.id); if (!v) continue;
+    const tr = trailOf(v, e.hp/e.maxHp, tdt);
     const ppt = pxPerTile(e.x, 0, e.y);
     const col = e.team===0 ? '#60a5fa' : '#f87171';
     if (e.isTower){
       const top = v.tower.userData.top + (e.kind==='king'?1.9:1.5);
       const [sx, sy] = project(e.x, top, e.y);
       const w = e.radius*2*ppt;
-      obar(sx, sy, w, e.hp/e.maxHp, col);
+      obar(sx, sy, w, e.hp/e.maxHp, col, tr);
       otext(String(Math.ceil(e.hp)), sx, sy + Math.max(4,w/9) + ppt*0.32, Math.max(10, ppt*0.42));
       if (e.kind==='king' && !e.active) otext('💤', sx + w*0.55, sy - ppt*0.3, Math.max(12, ppt*0.6));
       if (e.stun > 0 && e.ice) otext('❄️', sx - w*0.55, sy - ppt*0.3, Math.max(12, ppt*0.6));
     } else {
       const h = v.holder.position.y + v.topY + 0.35;
       const [sx, sy] = project(e.x, h, e.y);
-      if (e.hp < e.maxHp || e.isBuilding) obar(sx, sy, Math.max(16, e.radius*2*ppt*0.9), e.hp/e.maxHp, col);
+      if (e.hp < e.maxHp || e.isBuilding) obar(sx, sy, Math.max(16, e.radius*2*ppt*0.9), e.hp/e.maxHp, col, tr);
       if (e.stun > 0) otext(e.ice ? '❄️' : '⚡', sx + ppt*0.4, sy - ppt*0.3, Math.max(10, ppt*0.45));
       else if (e.slow > 0) otext('🐌', sx + ppt*0.4, sy - ppt*0.3, Math.max(10, ppt*0.42));
       if (e.hatch) otext('🥚 ' + Math.ceil(e.hatch.after - e.hatchT), sx, sy - ppt*0.45, Math.max(10, ppt*0.4));
@@ -2788,8 +2855,13 @@ function drawOverlay(){
   }
   for (const f of G.fx){
     if (f.type !== 'num') continue;
-    const k = f.t/f.max, [sx, sy] = project(f.x, 1.6 + k*1.2, f.y);
-    octx.globalAlpha = 1-k; otext(f.text, sx, sy, Math.max(10, pxPerTile(f.x,0,f.y)*0.42), f.color || '#fff'); octx.globalAlpha = 1;
+    const k = f.t/f.max, mag = f.mag || 0, big = mag >= 300;
+    const pop = k < 0.14 ? 1.75 - (k/0.14)*0.75 : 1;
+    const [sx, sy] = project(f.x + (f.dx||0)*k, 1.6 + k*1.5 - k*k*0.5, f.y);
+    const size = Math.max(10, pxPerTile(f.x,0,f.y)*(0.36 + Math.min(0.42, mag/1100))) * pop;
+    octx.globalAlpha = k > 0.6 ? (1-k)/0.4 : 1;
+    otext(f.text + (big ? '!' : ''), sx, sy, size, f.color || (big ? '#ffd23f' : mag >= 150 ? '#fff3c4' : '#fff'), '900');
+    octx.globalAlpha = 1;
   }
 }
 
@@ -2821,6 +2893,8 @@ function render(){
     camera.position.set(camBase.x + (Math.random()-.5)*shake, camBase.y + (Math.random()-.5)*shake, camBase.z + (Math.random()-.5)*shake);
     shake *= Math.exp(-dt*7);
   } else camera.position.copy(camBase);
+  if (J.fov > 0.02){ camera.fov = 40 - J.fov; camera.updateProjectionMatrix(); J.fov *= Math.exp(-dt*5); }
+  else if (camera.fov !== 40){ camera.fov = 40; camera.updateProjectionMatrix(); J.fov = 0; }
   renderer.render(scene, camera);
   drawOverlay(); drawEmotes();
 }
@@ -2958,6 +3032,7 @@ function emitInner(type, x, y, o){
       if (o.r >= 0.8){ shake = Math.max(shake, 0.25); sfx('thud'); } else sfx('land', 0.6);
       break;
     case 'shoot':
+      if (o.kind === 'ball' || o.kind === 'bomb'){ burst(x, o.tower ? 3.2 : 0.9, y, 4, {color:[0xffc93f, 0xff8a1f], glow:true, speed:1.5, up:1.2, gravity:0, life:0.18, size:0.12}); burst(x, o.tower ? 3.2 : 0.9, y, 3, {color:[0x9ca3af, 0xd6d3d1], speed:0.6, up:0.8, gravity:-0.3, life:0.7, size:0.3, grow:true}); }
       if (o.kind==='arrow') sfx('arrow', o.tower ? 0.6 : 0.8, 0.06);
       else if (o.kind==='fire') sfx('fire', 0.7, 0.08);
       else if (o.kind==='ball') sfx('cannon', 0.8);
@@ -2966,7 +3041,7 @@ function emitInner(type, x, y, o){
     case 'hit':
       burst(x, o.flying ? 1.9 : 0.7, y, o.big ? 7 : 4, {color:[0xffffff, 0xfde68a], glow:true, speed:2.5, up:2, gravity:8, life:0.25, size:0.07});
       sfx(o.big ? 'bighit' : 'hit', 1, 0.05);
-      if (o.big) shake = Math.max(shake, 0.06);
+      if (o.big){ shake = Math.max(shake, 0.08); hitStop(0.03); }
       break;
     case 'phit':
       burst(x, o.h, y, 3, {color:o.kind==='fire' ? [0xfb923c, 0xfde047] : [0xffffff, 0xd6d3d1], glow:true, speed:1.8, up:1.5, gravity:6, life:0.22, size:0.06});
@@ -2980,7 +3055,7 @@ function emitInner(type, x, y, o){
     case 'fireball':
       burst(x, 0.4, y, 34, {color:[0xf97316, 0xfde047, 0xef4444, 0xfb923c], glow:true, speed:7, up:6, gravity:12, life:0.7, size:0.18, spread:1});
       burst(x, 0.6, y, 12, {color:[0x6b7280, 0x4b5563, 0x9ca3af], speed:1.5, up:1.5, gravity:-1, life:1.3, size:0.6, grow:true, spread:1.5});
-      shake = Math.max(shake, 0.45); sfx('explosion');
+      shake = Math.max(shake, 0.45); sfx('explosion'); hitStop(0.06); fovKick(2.2); screenFlash('#ffb347', 0.18);
       break;
     case 'shock':
       burst(x, 0.5, y, 22, {color:[0x7dd3fc, 0xffffff, 0x38bdf8], glow:true, speed:6, up:3, gravity:4, life:0.35, size:0.08, spread:2});
@@ -3007,7 +3082,9 @@ function emitInner(type, x, y, o){
       burst(x, 1.5, y, 60, {color:STONE.concat([TEAM_HEX[o.team]]), speed:6, up:8, gravity:14, life:1.4, size:0.32, spread:o.r*1.6, spreadY:2});
       burst(x, 1.0, y, 16, {color:[0x9ca3af, 0x78716c, 0xd6d3d1], speed:1.8, up:1.5, gravity:-0.6, life:1.8, size:1.0, grow:true, spread:o.r*2});
       shake = Math.max(shake, o.king ? 1.1 : 0.8);
-      sfx('towerfall');
+      sfx('towerfall'); hitStop(o.king ? 0.14 : 0.1); fovKick(o.king ? 7 : 4.5); screenFlash('#fff', o.king ? 0.75 : 0.5);
+      if (o.king) slowMo(1.3);
+      crownFly(x, y, 1 - o.team, o.king ? 3 : 1);
       if (!G.demo) setTimeout(()=>sfx(o.team===1 ? 'crown' : 'ouch'), 350);
       if (!G.over || o.king){
         const n = o.king ? 3 : 1;
@@ -3016,7 +3093,7 @@ function emitInner(type, x, y, o){
       }
       break;
     case 'kingwake':
-      sfx('wake', near);
+      sfx('wake', near); shake = Math.max(shake, 0.25);
       if (o.team === 1) toast('Enemy king awakened! 👑');
       break;
     case 'count': banner(o.n > 0 ? String(o.n) : 'Fight!', o.n > 0 ? '#fff' : '#facc15'); sfx(o.n > 0 ? 'count' : 'go'); break;
@@ -3032,16 +3109,16 @@ function emitInner(type, x, y, o){
     case 'spring': burst(x, 0.2, y, 26, {color:[0x4ade80, 0x86efac, 0x7dd3fc], glow:true, speed:1.5, up:3.5, gravity:2, life:1, size:0.12, spread:o.r}); sfx('heal', 1, 0); break;
     case 'quicksand': burst(x, 0.2, y, 30, {color:[0xd6b46a, 0xb98a52, 0xe7d3a1], speed:2.5, up:1, gravity:3, life:0.9, size:0.14, spread:o.r*1.2}); sfx('impact', 0.5); break;
     case 'poison': burst(x, 0.4, y, 20, {color:[0x84cc16, 0x4d7c0f], glow:true, speed:1.5, up:1.5, gravity:-0.5, life:1.2, size:0.35, grow:true, spread:o.r}); sfx('fire', 0.6); break;
-    case 'nova': burst(x, 0.6, y, 40, {color:[0xe0f2fe, 0xbae6fd, 0xffffff], glow:true, speed:6, up:2, gravity:3, life:0.8, size:0.14, spread:0.5}); sfx('freeze'); shake = Math.max(shake, 0.2); if (o.team === 1) toast('Enemy champion used Glacial Nova!'); break;
-    case 'dash': burst(x, 0.8, y, 18, {color:[0xfde047, 0xffffff], glow:true, speed:4, up:2, gravity:4, life:0.4, size:0.1}); sfx('bighit'); sfx('zap', 0.5); if (o.team === 1) toast('Enemy champion used Whirling Dash!'); break;
+    case 'nova': hitStop(0.06); fovKick(2); screenFlash('#e0f2fe', 0.3); burst(x, 0.6, y, 40, {color:[0xe0f2fe, 0xbae6fd, 0xffffff], glow:true, speed:6, up:2, gravity:3, life:0.8, size:0.14, spread:0.5}); sfx('freeze'); shake = Math.max(shake, 0.2); if (o.team === 1) toast('Enemy champion used Glacial Nova!'); break;
+    case 'dash': hitStop(0.05); fovKick(1.5); burst(x, 0.8, y, 18, {color:[0xfde047, 0xffffff], glow:true, speed:4, up:2, gravity:4, life:0.4, size:0.1}); sfx('bighit'); sfx('zap', 0.5); if (o.team === 1) toast('Enemy champion used Whirling Dash!'); break;
     case 'hatch': burst(x, 0.5, y, 24, {color:[0xff9a2e, 0xffd34d, 0xffffff], glow:true, speed:3, up:4, gravity:5, life:0.7, size:0.14}); sfx('crown', 0.7); break;
     case 'summon': burst(x, 0.3, y, 12, {color:[0x86efac, 0x22c55e], glow:true, speed:1.2, up:2, gravity:-0.5, life:0.7, size:0.12, spread:0.8}); sfx('wake', 0.4, 0.5); break;
     case 'charge': sfx('horn', 0.5, 0.5); break;
-    case 'chargehit': burst(x, 0.6, y, 14, {color:[0xffffff, 0xfde68a], glow:true, speed:3.5, up:2.5, gravity:8, life:0.35, size:0.09}); sfx('bighit'); shake = Math.max(shake, 0.12); break;
+    case 'chargehit': burst(x, 0.6, y, 14, {color:[0xffffff, 0xfde68a], glow:true, speed:3.5, up:2.5, gravity:8, life:0.35, size:0.09}); sfx('bighit'); shake = Math.max(shake, 0.12); hitStop(0.045); fovKick(1); break;
     case 'spin': burst(x, 0.6, y, 10, {color:[0xe5e7eb, 0xffffff], glow:true, speed:4, up:0.6, gravity:2, life:0.25, size:0.06, spread:o.r}); sfx('hit', 1, 0.08); break;
     case 'aegis':
       burst(x, 1, y, 26, {color:[0xfde047, 0xffffff, 0xfbbf24], glow:true, speed:3.5, up:3, gravity:2, life:0.7, size:0.12, spread:1});
-      sfx('freeze', 0.8); sfx('win', 0.5);
+      sfx('freeze', 0.8); sfx('win', 0.5); screenFlash('#fde047', 0.22);
       if (o.team === 1) toast('Enemy champion used Radiant Aegis!');
       break;
   }
@@ -3084,6 +3161,73 @@ function banner(text, color='#fff', cls=''){
   b.className = ''; void b.offsetWidth; b.className = 'show ' + cls;
 }
 
+// ===== Juice: hit-stop, slow-mo, camera punch, screen flashes, flying crowns/cards, confetti, number tickers =====
+const J = {hitStop:0, slowT:0, fov:0, dangerT:0};
+const juiceOn = () => !AUTOPLAY && G && !G.demo;
+function hitStop(t){ if (juiceOn()) J.hitStop = Math.max(J.hitStop, t); }
+function slowMo(t){ if (juiceOn()) J.slowT = Math.max(J.slowT, t); }
+function fovKick(f){ if (juiceOn()) J.fov = Math.max(J.fov, f); }
+function screenFlash(color='#fff', a=0.55){
+  if (!juiceOn()) return;
+  const el = document.getElementById('flash');
+  el.style.transition = 'none'; el.style.background = color; el.style.opacity = a;
+  requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transition = 'opacity .45s ease-out'; el.style.opacity = 0; }));
+}
+function dangerPulse(){
+  if (!juiceOn() || performance.now() - J.dangerT < 450) return;
+  J.dangerT = performance.now();
+  const el = document.getElementById('danger');
+  el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+}
+function crownFly(x, y, toTeam, n=1){
+  if (!juiceOn()) return;
+  const r = cv.getBoundingClientRect(), [sx, sy] = project(x, 3, y);
+  const target = document.getElementById(toTeam === 0 ? 'crB' : 'crR'), tr = target.getBoundingClientRect();
+  for (let i=0;i<n;i++){
+    const c = document.createElement('div'); c.className = 'flycrown'; c.textContent = '👑';
+    c.style.left = (r.left + sx - 28) + 'px'; c.style.top = (r.top + sy - 28) + 'px';
+    document.getElementById('fx2d').appendChild(c);
+    setTimeout(() => {
+      c.style.transform = `translate(${tr.left + tr.width/2 - (r.left + sx)}px, ${tr.top + tr.height/2 - (r.top + sy)}px) scale(.35) rotate(${360 + i*40}deg)`;
+      c.style.opacity = '0.9';
+    }, 380 + i*120);
+    setTimeout(() => { c.remove(); target.classList.remove('bump'); void target.offsetWidth; target.classList.add('bump'); sfx('crown', 0.6, 0); }, 1250 + i*120);
+  }
+}
+function flyCard(rect, html, x, y){
+  if (!rect || !juiceOn()) return;
+  const r = cv.getBoundingClientRect(), [sx, sy] = project(x, 0.5, y);
+  const d = document.createElement('div'); d.className = 'flycard'; d.innerHTML = html;
+  Object.assign(d.style, {left:rect.left + 'px', top:rect.top + 'px', width:rect.width + 'px', height:rect.height + 'px'});
+  document.getElementById('fx2d').appendChild(d);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    d.style.transform = `translate(${r.left + sx - rect.left - rect.width/2}px, ${r.top + sy - rect.top - rect.height/2}px) scale(.2) rotate(-12deg)`;
+    d.style.opacity = '0';
+  }));
+  setTimeout(() => d.remove(), 360);
+}
+function confetti(n=70){
+  if (AUTOPLAY) return;
+  const box = document.getElementById('fx2d'), cols = ['#facc15','#f472b6','#60a5fa','#4ade80','#fb923c','#c084fc','#ffffff'];
+  for (let i=0;i<n;i++){
+    const c = document.createElement('i'); c.className = 'conf';
+    const dur = 1.8 + Math.random()*1.6;
+    Object.assign(c.style, {left:(Math.random()*100) + 'vw', background:cols[i % cols.length], width:(6 + Math.random()*6) + 'px', height:(8 + Math.random()*10) + 'px',
+      animationDuration:dur + 's', animationDelay:(Math.random()*0.5) + 's', '--dx':((Math.random()-.5)*200) + 'px', '--rot':((Math.random()-.5)*1440) + 'deg'});
+    box.appendChild(c); setTimeout(() => c.remove(), (dur + 0.6)*1000);
+  }
+}
+function tickNum(el, from, to){
+  if (!el) return;
+  if (from === to || from == null){ el.textContent = to.toLocaleString(); return; }
+  const t0 = performance.now(), D = 700;
+  el.parentElement.classList.remove('bump'); void el.parentElement.offsetWidth; el.parentElement.classList.add('bump');
+  const stepN = () => { const k = Math.min(1, (performance.now() - t0)/D), e = 1 - Math.pow(1-k, 3);
+    el.textContent = Math.round(from + (to - from)*e).toLocaleString(); if (k < 1) requestAnimationFrame(stepN); };
+  requestAnimationFrame(stepN);
+}
+let shownGold = null, shownGems = null;
+
 // ===== UI =====
 const cardsEl = document.getElementById('cards'), nextEl = document.getElementById('next');
 const manaFill = document.getElementById('manaFill'), manaNum = document.getElementById('manaNum');
@@ -3110,15 +3254,22 @@ function updateHUD(){
   if (!G) return;
   const m = G.mana[0];
   manaFill.style.width = (m/MAX_MANA*100)+'%';
+  if (Math.floor(m) > (updateHUD.lastPip ?? 99) && !G.demo){ manaNum.classList.remove('bump'); void manaNum.offsetWidth; manaNum.classList.add('bump'); }
+  updateHUD.lastPip = Math.floor(m);
   manaNum.textContent = Math.floor(m);
   document.getElementById('manaBar').classList.toggle('full', m >= MAX_MANA - 0.01);
   [...cardsEl.children].forEach((d,i)=>{
     const c = CARDS[G.hands[0].hand[i]];
     d.querySelector('.shade').style.height = (m >= c.cost ? 0 : (1 - m/c.cost)*100) + '%';
+    const aff = m >= c.cost ? '1' : '0';
+    if (d.dataset.aff === '0' && aff === '1'){ d.classList.remove('glint'); void d.offsetWidth; d.classList.add('glint'); }
+    d.dataset.aff = aff;
     d.classList.toggle('sel', G.sel===i);
   });
   const tl = Math.max(0, timeLeft());
   document.getElementById('timer').textContent = `${Math.floor(tl/60)}:${String(Math.floor(tl%60)).padStart(2,'0')}`;
+  document.getElementById('timer').classList.toggle('urgent', !G.demo && !G.over && tl <= 10);
+  document.getElementById('stage').classList.toggle('ot', !G.demo && !G.over && !!G.overtime);
   const ph = document.getElementById('phase');
   const mm = manaMult();
   if (G.tiebreaker){ ph.textContent = 'Tiebreaker!'; ph.className='hot'; }
@@ -3148,7 +3299,10 @@ function toArena(ev){
 }
 function tryDeployAt(x,y){
   if (!G || G.over || G.sel < 0 || G.tiebreaker) return;
+  const cel = cardsEl.children[G.sel], crect = cel && cel.getBoundingClientRect(), cicon = cel && cel.querySelector('.icon') ? cel.querySelector('.icon').outerHTML : '';
   const res = playCard(0, G.sel, x, y);
+  if (res === 'ok') flyCard(crect, cicon, x, y);
+  else if (cel){ cel.classList.remove('nope'); void cel.offsetWidth; cel.classList.add('nope'); }
   if (res==='ok'){ G.sel = -1; tutorialAdvance(); }
   else if (res==='mana'){ toast('Not enough mana'); sfx('error'); }
   else if (res==='zone'){ toast("Can't deploy there"); sfx('error'); }
@@ -3235,6 +3389,7 @@ function endGame(){
   document.getElementById('endStats').innerHTML = '<span class="h">Stats</span><span class="h b">You</span><span class="h r">Foe</span>'
     + row('Cards played', 'played') + row('Mana spent', 'mana') + row('Tower damage', 'towerDmg') + row('Troops defeated', 'kills');
   setTimeout(()=>sfx(win===0 ? 'win' : win===1 ? 'lose' : 'horn'), 500);
+  if (win === 0) setTimeout(() => confetti(90), 700);
   banner(win===0 ? 'Victory!' : win===1 ? 'Defeat' : 'Draw', win===0 ? '#facc15' : win===1 ? '#fca5a5' : '#fff');
   setTimeout(()=>{ document.getElementById('end').hidden = false; }, 1600);
 }
@@ -3519,7 +3674,8 @@ function renderHub(){
   $('hubTop').innerHTML = `
     <div class="king"><div class="kbadge">👑<b>${SV.level}</b></div>
       <div class="xp"><div class="xpbar"><i style="width:${next ? (SV.xp-prev)/(next-prev)*100 : 100}%"></i></div><span>${next ? `${SV.xp-prev}/${next-prev} XP` : 'MAX'}</span></div></div>
-    <div class="cur">🪙 <b>${SV.gold.toLocaleString()}</b></div><div class="cur">💎 <b>${SV.gems}</b></div><div class="cur tr">🏆 <b>${profile.trophies}</b></div>`;
+    <div class="cur">🪙 <b id="hubGold">${(shownGold ?? SV.gold).toLocaleString()}</b></div><div class="cur">💎 <b id="hubGems">${(shownGems ?? SV.gems).toLocaleString()}</b></div><div class="cur tr">🏆 <b>${profile.trophies}</b></div>`;
+  tickNum($('hubGold'), shownGold, SV.gold); tickNum($('hubGems'), shownGems, SV.gems); shownGold = SV.gold; shownGems = SV.gems;
   const questDot = SV.quests.some(q => !q.claimed && q.prog >= questDef(q).goal) || giftReady() || (SV.quests.every(q=>q.claimed) && !SV.questBonus);
   const cardDot = Object.keys(SV.cards).some(k => affordUpgrade(k) || masteryReady(k));
   ensureSeason();
@@ -3688,10 +3844,15 @@ function openChestUI(type, done){
   const ov = $('chestOpen'); ov.hidden = false;
   let i = -1;
   const show = () => {
-    if (i < 0){ ov.innerHTML = `<div class="cwrap">${chestHTML(type, 'big shake')}<h2>${CHESTS[type].name}</h2><p>Tap to open!</p></div>`; return; }
+    if (i < 0){ ov.innerHTML = `<div class="cwrap"><div class="rays" style="--rc:${CHESTS[type].col}"></div>${chestHTML(type, 'big shake')}<h2>${CHESTS[type].name}</h2><p>Tap to open!</p></div>`; return; }
     if (i >= steps.length){ ov.hidden = true; ov.innerHTML = ''; renderHub(); flushPopups(); if (done) done(); return; }
     ov.innerHTML = `<div class="cwrap pop">${steps[i]()}<p class="hint">${i === steps.length-1 ? 'Tap to collect' : `Tap to continue · ${steps.length-1-i} left`}</p></div>`;
     const c = L.cards[i - ((L.gold || L.gems) ? 1 : 0) - (L.stars ? 1 : 0)];
+    if (i === 0){ const fl = document.getElementById('flash'); fl.style.transition = 'none'; fl.style.background = '#fff'; fl.style.opacity = .7; requestAnimationFrame(() => requestAnimationFrame(() => { fl.style.transition = 'opacity .5s'; fl.style.opacity = 0; })); }
+    if (c && i < steps.length-1 && (c.isNew || ['epic','legendary','champion'].includes(CARDS[c.k].rarity))){
+      const cw = ov.querySelector('.cwrap'); const ry = document.createElement('div'); ry.className = 'rays'; ry.style.setProperty('--rc', RARITY[CARDS[c.k].rarity].col); cw.prepend(ry);
+      if (CARDS[c.k].rarity !== 'common' && CARDS[c.k].rarity !== 'rare') confetti(45);
+    }
     if (c && i < steps.length-1){ const r = CARDS[c.k].rarity; sfx(r === 'legendary' ? 'win' : r === 'epic' ? 'crown' : 'select', r === 'common' ? 1.4 : 1, 0); }
   };
   ov.onclick = () => { if (i < 0) sfx('towerfall', 0.4, 0); i++; show(); };
@@ -3702,13 +3863,13 @@ function flushPopups(){
   const p = popups.shift(); if (!p) return;
   if (p.kind === 'level'){
     const cards = p.r.cards.map(k => `<div class="lc" style="--r:${RARITY[CARDS[k].rarity].col}"><i class="new">NEW</i><div class="icon">${CARDS[k].icon}</div><b>${CARDS[k].name}</b></div>`).join('');
-    sfx('win');
+    sfx('win'); confetti(80);
     modal(`<div class="lvup"><div class="kbadge huge">👑<b>${p.level}</b></div><h2>King Level ${p.level}!</h2>
       <p>Your towers are stronger, and you earned:</p><div class="big">🪙 +${p.r.gold} · 💎 +${p.r.gems}</div>
       ${cards ? `<h3>Cards unlocked</h3><div class="lgrid">${cards}</div>` : ''}<button class="btn go" data-close>Awesome!</button></div>`,
       close => { $('modalBody').querySelector('[data-close]').onclick = () => { close(); flushPopups(); }; });
   } else if (p.kind === 'arena'){
-    sfx('crown');
+    sfx('crown'); confetti(60);
     modal(`<div class="lvup"><div class="huge">${p.a.icon}</div><h2>New arena unlocked!</h2><p><b>${p.a.name}</b> — new cards can now drop from chests.</p><button class="btn go" data-close>Let's go!</button></div>`,
       close => { $('modalBody').querySelector('[data-close]').onclick = () => { close(); flushPopups(); }; });
   }
@@ -4206,7 +4367,7 @@ function achModal(){
   modal(`<h2 style="margin:0 0 4px">🏅 Achievements</h2><p class="lockmsg">${SV.ach.length}/${ACH.length} complete</p><div class="achlist">${rows}</div><button class="btn" data-close style="width:100%;margin-top:10px">Close</button>`, () => {
     $('modalBody').querySelectorAll('[data-ach]').forEach(b => b.onclick = () => {
       const a = ACH.find(x => x.id === b.dataset.ach); if (!achReady(a)) return;
-      SV.ach.push(a.id); SV.gems += a.gems; save(); sfx('win'); toast(`🏅 ${a.name}! +${a.gems} 💎`); achModal();
+      SV.ach.push(a.id); SV.gems += a.gems; save(); sfx('win'); confetti(50); toast(`🏅 ${a.name}! +${a.gems} 💎`); achModal();
     });
   });
 }
@@ -4379,7 +4540,11 @@ let last = performance.now(), acc = 0, hudT = 0;
 const DT = 1/60;
 function frame(now){
   const speed = AUTOPLAY ? (+new URLSearchParams(location.search).get('speed') || 1) : 1;
-  acc += Math.min(0.1, (now-last)/1000) * speed; last = now;
+  const raw = Math.min(0.1, (now-last)/1000); last = now;
+  let gdt = raw;
+  if (J.hitStop > 0){ J.hitStop -= raw; gdt = 0; }
+  else if (J.slowT > 0){ J.slowT -= raw; gdt *= 0.3; }
+  acc += gdt * speed;
   if (G && G.paused) acc = 0;
   if (G){
     let n = 0;

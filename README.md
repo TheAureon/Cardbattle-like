@@ -91,6 +91,7 @@ Open `index.html` in any modern browser with WebGL. On a laptop or desktop it sw
 - End-of-match stats: cards played, mana spent, tower damage and troops defeated
 
 - Synthesized sound effects (no audio files), screen shake, particles and death animations
+- Game feel: hit-stop on big impacts, slow motion when a king tower falls, camera zoom punches, screen flashes, crowns that fly into the score, squash and stretch on landing, hit flinches, damage trails on health bars, big golden damage numbers, smoking and burning towers, footstep dust, cards that fly from your hand, affordable-card glints, an urgent timer, an overtime glow, confetti, chest light rays and rolling currency counters
 - 3-2-1 intro countdown, last-10-seconds countdown, and "2× Mana" / overtime banners
 - Trophies, win/loss record and win streaks, saved in the browser
 - Pause menu (button, `Esc` or `P`; the game also pauses automatically when the tab is hidden) with a surrender option
